@@ -32,11 +32,6 @@ return array (
       'file' => 'C:\\xampp\\htdocs\\dp-testing\\app\\presenters\\HomepagePresenter.php',
       'time' => 1520541641,
     ),
-    'App\\Presenters\\SignPresenter' => 
-    array (
-      'file' => 'C:\\xampp\\htdocs\\dp-testing\\app\\presenters\\SignPresenter.php',
-      'time' => 1520541641,
-    ),
     'App\\RouterFactory' => 
     array (
       'file' => 'C:\\xampp\\htdocs\\dp-testing\\app\\router\\RouterFactory.php',
@@ -56,6 +51,11 @@ return array (
     array (
       'file' => 'C:\\xampp\\htdocs\\dp-testing\\app\\model\\UserManager.php',
       'time' => 1520544132,
+    ),
+    'App\\Presenters\\SignPresenter' => 
+    array (
+      'file' => 'C:\\xampp\\htdocs\\dp-testing\\app\\presenters\\SignPresenter.php',
+      'time' => 1520958127,
     ),
   ),
   1 => 
