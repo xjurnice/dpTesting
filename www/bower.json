@@ -1,0 +1,15 @@
+{
+  "name": "dp-testing",
+  "version": "1.0.0",
+  "homepage": "",
+  "description": "Diplomova prace / Tomas Jurnicek 2018",
+  "authors": [
+    "Tomas Jurnicek"
+  ],
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+
+
+  }
+}
