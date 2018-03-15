@@ -14,7 +14,12 @@ application:
 session:
 	expiration: 14 days
 
+extensions:
+	events: Kdyby\Events\DI\EventsExtension
 
+#logger:
+		#class: App\Model\EventListener\UserListener
+	#	tags: [kdyby.subscriber]
 database:
 	dsn: 'mysql:host=127.0.0.1;dbname=main'
 	user: 'root'
@@ -29,3 +34,6 @@ services:
 	- App\Forms\SignInFormFactory
 	- App\Forms\SignUpFormFactory
 	router: App\RouterFactory::createRouter
+
+
+	- App\Model\UserModel

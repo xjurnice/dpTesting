@@ -7,7 +7,7 @@
 <head>
     <meta charset="utf-8">
 
-    <title>{ifset title}{include title|stripHtml} | {/ifset}Nette Sandbox</title>
+    <title>{ifset title}{include title|stripHtml} | {/ifset}TestTool</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -18,10 +18,13 @@
 </head>
 
 <body>
+{if $user->loggedIn}
 <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
     <a class="navbar-brand col-sm-3 col-md-2 mr-0" n:href="Homepage:default">TestTool - tool for testers</a>
     <input class="form-control form-control-dark w-50" type="text" placeholder="Search" aria-label="Search"> <mark>
         Loged as {$user->getIdentity()->username}</mark>
+    </mark>
+    <a n:href="User:edit">Editace profilu</a>
     </mark>
     <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
@@ -29,11 +32,11 @@
         </li>
            </ul>
 </nav>
-
+{/if}
+<div class="container">
 <div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
-<center>
     {include content}
-</center>
+
 {block scripts}
     <script src="{$basePath}/bower_components/jquery/dist/jquery.min.js"></script>
     <script src="{$basePath}/bower_components/bootstrap/assets/js/vendor/popper.min.js"></script>

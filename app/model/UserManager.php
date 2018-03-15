@@ -46,9 +46,7 @@ class UserManager implements Nette\Security\IAuthenticator
 			->where(self::COLUMN_NAME, $username)
 			->fetch();
 
-        $row->update([
-            self::COLUMN_LAST_LOGIN_TIME =>new Nette\Utils\DateTime,
-        ]);
+
 
 
 		if (!$row) {
@@ -61,7 +59,13 @@ class UserManager implements Nette\Security\IAuthenticator
 			$row->update([
 				self::COLUMN_PASSWORD_HASH => Passwords::hash($password),
         			]);
-		}
+
+       		}else{
+            $row->update([
+                self::COLUMN_LAST_LOGIN_TIME =>new Nette\Utils\DateTime,
+            ]);
+
+        }
 
 		$arr = $row->toArray();
 		unset($arr[self::COLUMN_PASSWORD_HASH]);

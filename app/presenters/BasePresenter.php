@@ -10,4 +10,15 @@ use Nette;
  */
 abstract class BasePresenter extends Nette\Application\UI\Presenter
 {
+
+    private $acl = null;
+
+
+
+
+
+    protected function beforeRender() {
+
+    }
+
 }
