@@ -19,7 +19,8 @@ class UserManager implements Nette\Security\IAuthenticator
 		COLUMN_NAME = 'username',
 		COLUMN_PASSWORD_HASH = 'password',
 		COLUMN_EMAIL = 'email',
-		COLUMN_ROLE = 'role';
+		COLUMN_ROLE_ID = 'role_id',
+	    COLUMN_LAST_LOGIN_TIME = 'last_login_time';
 
 
 	/** @var Nette\Database\Context */
@@ -45,6 +46,11 @@ class UserManager implements Nette\Security\IAuthenticator
 			->where(self::COLUMN_NAME, $username)
 			->fetch();
 
+        $row->update([
+            self::COLUMN_LAST_LOGIN_TIME =>new Nette\Utils\DateTime,
+        ]);
+
+
 		if (!$row) {
 			throw new Nette\Security\AuthenticationException('The username is incorrect.', self::IDENTITY_NOT_FOUND);
 
@@ -54,12 +60,12 @@ class UserManager implements Nette\Security\IAuthenticator
 		} elseif (Passwords::needsRehash($row[self::COLUMN_PASSWORD_HASH])) {
 			$row->update([
 				self::COLUMN_PASSWORD_HASH => Passwords::hash($password),
-			]);
+        			]);
 		}
 
 		$arr = $row->toArray();
 		unset($arr[self::COLUMN_PASSWORD_HASH]);
-		return new Nette\Security\Identity($row[self::COLUMN_ID], $row[self::COLUMN_ROLE], $arr);
+		return new Nette\Security\Identity($row[self::COLUMN_ID], $row[self::COLUMN_ROLE_ID], $arr);
 	}
 
 
@@ -78,6 +84,7 @@ class UserManager implements Nette\Security\IAuthenticator
 				self::COLUMN_NAME => $username,
 				self::COLUMN_PASSWORD_HASH => Passwords::hash($password),
 				self::COLUMN_EMAIL => $email,
+                self::COLUMN_ROLE_ID => "1",
 			]);
 		} catch (Nette\Database\UniqueConstraintViolationException $e) {
 			throw new DuplicateNameException;

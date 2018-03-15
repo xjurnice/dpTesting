@@ -10,21 +10,48 @@
     <title>{ifset title}{include title|stripHtml} | {/ifset}Nette Sandbox</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="{$basePath}/bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="{$basePath}/css/style.css">
-    <link rel="stylesheet" href="{$basePath}/bower_components/bootstrap/dist/css/bootstrap.css">
+
     {block head}{/block}
 </head>
 
 <body>
+<nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
+    <a class="navbar-brand col-sm-3 col-md-2 mr-0" n:href="Homepage:default">TestTool - tool for testers</a>
+    <input class="form-control form-control-dark w-50" type="text" placeholder="Search" aria-label="Search"> <mark>
+        Loged as {$user->getIdentity()->username}</mark>
+    </mark>
+    <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+            <a class="nav-link" n:href="Sign:out">Odhlásit se</a>
+        </li>
+           </ul>
+</nav>
+
 <div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
 <center>
     {include content}
 </center>
 {block scripts}
     <script src="{$basePath}/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="{$basePath}/bower_components/bootstrap/assets/js/vendor/popper.min.js"></script>
     <script src="{$basePath}/bower_components/bootstrap/dist//js/bootstrap.min.js"></script>
     <script src="https://nette.github.io/resources/js/netteForms.min.js"></script>
     <script src="{$basePath}/js/main.js"></script>
+
+
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+    <script>
+        feather.replace()
+    </script>
+
+    <!-- Graphs -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+
 {/block}
 </body>
 </html>
