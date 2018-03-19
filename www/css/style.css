@@ -11,6 +11,7 @@ body {
 /*
  * Sidebar
  */
+.hidden {  display: none !important; }
 
 .sidebar {
 	position: fixed;
@@ -131,3 +132,5 @@ form .error {
 	color: #D00;
 	font-weight: bold;
 }
+
+

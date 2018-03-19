@@ -29,7 +29,7 @@ class UserPresenter extends BasePresenter
     function makeBootstrap4(Form $form)
     {
         $renderer = $form->getRenderer();
-        $renderer->wrappers['controls']['container'] = null;
+        $renderer->wrappers['controls']['container'] = 'container';
         $renderer->wrappers['pair']['container'] = 'div class="form-group row"';
         $renderer->wrappers['pair']['.error'] = 'has-danger';
         $renderer->wrappers['control']['container'] = 'div class=col-sm-9';

@@ -25,6 +25,7 @@
 
 				<h2>Section title</h2>
 
+				{control categoriesGrid}
 			</main>
 		</div>
 	</div>
@@ -35,7 +36,9 @@
 {block scripts}
 {include parent}
 <script src="https://files.nette.org/sandbox/jush.js"></script>
-
+	<script>
+        $.nette.init();
+	</script>
 {/block}
 
 
