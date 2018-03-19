@@ -11,6 +11,9 @@ body {
 /*
  * Sidebar
  */
+
+
+/* this fix problem with treeview chevron missing in bootstrap 4*/
 .hidden {  display: none !important; }
 
 .sidebar {
