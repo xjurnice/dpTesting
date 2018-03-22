@@ -32,8 +32,8 @@ class UserPresenter extends BasePresenter
         $renderer->wrappers['controls']['container'] = 'container';
         $renderer->wrappers['pair']['container'] = 'div class="form-group row"';
         $renderer->wrappers['pair']['.error'] = 'has-danger';
-        $renderer->wrappers['control']['container'] = 'div class=col-sm-9';
-        $renderer->wrappers['label']['container'] = 'div class="col-sm-3 col-form-label"';
+        $renderer->wrappers['control']['container'] = 'div class=col-sm-6';
+        $renderer->wrappers['label']['container'] = 'div class="col-sm-2 col-form-label"';
         $renderer->wrappers['control']['description'] = 'span class=form-text';
         $renderer->wrappers['control']['errorcontainer'] = 'span class=form-control-feedback';
         foreach ($form->getControls() as $control) {

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "9ce47184d8abb56a88788e9917034342",
+    "content-hash": "093c4962bca5e3dd95f6ce2aa57c7b7b",
     "packages": [
         {
             "name": "dg/adminer-custom",
@@ -1770,6 +1770,47 @@
                 "responses"
             ],
             "time": "2018-01-09T23:01:42+00:00"
+        },
+        {
+            "name": "webchemistry/forms-multiplier",
+            "version": "2.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/WebChemistry/forms-multiplier.git",
+                "reference": "2f9e903aa03c3b91234b78653dc60479bf8f184b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/WebChemistry/forms-multiplier/zipball/2f9e903aa03c3b91234b78653dc60479bf8f184b",
+                "reference": "2f9e903aa03c3b91234b78653dc60479bf8f184b",
+                "shasum": ""
+            },
+            "require": {
+                "nette/forms": "^2.4",
+                "php": ">= 5.6"
+            },
+            "require-dev": {
+                "codeception/codeception": "^2.1",
+                "latte/latte": "^2.3",
+                "nette/application": "^2.3",
+                "nette/di": "^2.3",
+                "webchemistry/testing-helpers": "dev-master"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "Multiplier for nette forms",
+            "keywords": [
+                "Forms",
+                "multiplier",
+                "nette",
+                "webchemistry"
+            ],
+            "time": "2017-07-29T18:16:58+00:00"
         }
     ],
     "packages-dev": [

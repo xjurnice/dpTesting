@@ -52,4 +52,6 @@ class SignPresenter extends BasePresenter
         $this->flashMessage('Byl jsi odhlášen');
 
 	}
+
+
 }

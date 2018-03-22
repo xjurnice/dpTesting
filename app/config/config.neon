@@ -15,7 +15,9 @@ session:
 	expiration: 14 days
 
 extensions:
-	events: Kdyby\Events\DI\EventsExtension
+    - WebChemistry\Forms\Controls\DI\MultiplierExtension
+    events: Kdyby\Events\DI\EventsExtension
+
 
 #logger:
 		#class: App\Model\EventListener\UserListener

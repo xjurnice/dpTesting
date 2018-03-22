@@ -380,4 +380,8 @@ return array(
     'Tracy\\Logger' => $vendorDir . '/tracy/tracy/src/Tracy/Logger.php',
     'Tracy\\OutputDebugger' => $vendorDir . '/tracy/tracy/src/Tracy/OutputDebugger.php',
     'TypeError' => $vendorDir . '/symfony/polyfill-php70/Resources/stubs/TypeError.php',
+    'WebChemistry\\Forms\\Controls\\DI\\MultiplierExtension' => $vendorDir . '/webchemistry/forms-multiplier/src/DI/MultiplierExtension.php',
+    'WebChemistry\\Forms\\Controls\\ISubmitter' => $vendorDir . '/webchemistry/forms-multiplier/src/ISubmitter.php',
+    'WebChemistry\\Forms\\Controls\\Multiplier' => $vendorDir . '/webchemistry/forms-multiplier/src/Multiplier.php',
+    'WebChemistry\\Forms\\Controls\\Submitter' => $vendorDir . '/webchemistry/forms-multiplier/src/Submitter.php',
 );

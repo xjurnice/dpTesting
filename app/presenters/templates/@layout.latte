@@ -7,86 +7,138 @@
 <head>
     <meta charset="utf-8">
 
-    <title>{ifset title}{include title|stripHtml} | {/ifset}TestTool</title>
+    <title>{ifset title}{include title|stripHtml} | {/ifset}TestLemon - testovací nástroj</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <link rel="shortcut icon" href="{$basePath}/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="{$basePath}/images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="{$basePath}/bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="{$basePath}/css/style.css">
+    <!-- Fontawseome -->
+    <link href="{$basePath}/fonts/fontawesome/fontawesome-all.css" rel="stylesheet">
+
 
     <!-- Use this css for that pretty checkboxes (https://github.com/paveljanda/happy) -->
     <link rel="stylesheet" type="text/css" href="{$basePath}/bower_components/happy/dist/happy.css">
-    <link rel="stylesheet" type="text/css" href="{$basePath}/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css">
-    <link rel="stylesheet" type="text/css" href="{$basePath}/bower_components/ublaboo-datagrid/assets/dist/datagrid.css">
+    <link rel="stylesheet" type="text/css"
+          href="{$basePath}/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css">
+    <link rel="stylesheet" type="text/css"
+          href="{$basePath}/bower_components/ublaboo-datagrid/assets/dist/datagrid.css">
 
     <!-- Use this css for ajax spinners -->
-    <link rel="stylesheet" type="text/css" href="{$basePath}/bower_components/ublaboo-datagrid/assets/dist/datagrid-spinners.css">
+    <link rel="stylesheet" type="text/css"
+          href="{$basePath}/bower_components/ublaboo-datagrid/assets/dist/datagrid-spinners.css">
 
     <!-- Include this css when using FilterMultiSelect (silviomoreto.github.io/bootstrap-select) -->
-    <link rel="stylesheet" type="text/css" href="{$basePath}/bower_components/bootstrap-select/dist/css/bootstrap-select.css">
+    <link rel="stylesheet" type="text/css"
+          href="{$basePath}/bower_components/bootstrap-select/dist/css/bootstrap-select.css">
 
     {block head}{/block}
 </head>
 
 <body>
+<div class="se-pre-con"></div>
+
 {if $user->loggedIn}
-<nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
-    <a class="navbar-brand col-sm-3 col-md-2 mr-0" n:href="Homepage:default">TestTool - tool for testers</a>
-    <input class="form-control form-control-dark w-50" type="text" placeholder="Search" aria-label="Search"> <mark>
-        Loged as {$user->getIdentity()->username}</mark>
-    </mark>
-    <a n:href="User:edit">Editace profilu</a>
-    </mark>
-    <ul class="navbar-nav px-3">
-        <li class="nav-item text-nowrap">
-            <a class="nav-link" n:href="Sign:out">Odhlásit se</a>
-        </li>
-           </ul>
-</nav>
-{/if}
-<div class="container">
-<div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2 d-none d-md-block bg-light">
+    <div id="sidebar">        <a n:href="Homepage:default"> <h1 class="display-4 sign-logo"> TestLem<i class="fas fa-lemon fa-1x"></i>n</h1></a>
+    </div>
+            <div class="list-group">
+            {include components/menu.latte}
+
+            </div>
+
+        </div>
+        <div class="col-md-9 ml-sm-auto col-lg-10 px-3">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+
+                    </ul>
+
+                    <li class="nav-item dropdown form-inline my-2 my-lg-0">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+                            <span class="fa fa-user-circle"></span> Přihlášen jako {$user->getIdentity()->username}
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" n:href="User:edit">Editace profilu</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" n:href="Sign:out"><i class="fas fa-sign-out-alt"></i> Odhlásit se</a>
+                        </div>
+                    </li>
+
+                </div>
+            </nav><div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
+            <div class="col pt-3 px-3">
+            {include content}
+            </div>
+        </div> </div>
+
+{else}
+
+
+
     {include content}
 
-{block scripts}
-    <script src="{$basePath}/bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="{$basePath}/bower_components/bootstrap/assets/js/vendor/popper.min.js"></script>
-    <script src="{$basePath}/bower_components/bootstrap/dist//js/bootstrap.min.js"></script>
-    <script src="https://nette.github.io/resources/js/netteForms.min.js"></script>
-    <script src="{$basePath}/js/main.js"></script>
+    {/if}
+    {block scripts}
 
 
-    <script src="{$basePath}/bower_components/jquery/dist/jquery.js"></script>
-    <script src="{$basePath}/bower_components/nette-forms/src/assets/netteForms.js"></script>
-    <script src="{$basePath}/bower_components/nette.ajax.js/nette.ajax.js"></script>
 
-    <!-- Use this tiny js for that pretty checkboxes (https://github.com/paveljanda/happy) -->
-    <script src="{$basePath}/bower_components/happy/dist/happy.js"></script>
-    <script src="{$basePath}/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
-    <script src="{$basePath}/bower_components/jquery-ui-sortable/jquery-ui-sortable.js"></script>
-    <script src="{$basePath}/bower_components/ublaboo-datagrid/assets/dist/datagrid.js"></script>
 
-    <!-- It is recommended to include this JS file with just a few bits. It refreshes URL on non ajax request -->
-    <script src="{$basePath}/bower_components/ublaboo-datagrid/assets/dist/datagrid-instant-url-refresh.js"></script>
 
-    <!-- Use this little extension for ajax spinners -->
-    <script src="{$basePath}/bower_components/ublaboo-datagrid/assets/dist/datagrid-spinners.js"></script>
+        <script src="{$basePath}/bower_components/jquery/dist/jquery.min.js"></script>
+        <script src="{$basePath}/bower_components/bootstrap/assets/js/vendor/popper.min.js"></script>
+        <script src="{$basePath}/bower_components/bootstrap/dist//js/bootstrap.min.js"></script>
 
-    <!-- Include bootstrap.js for proper behaviour of ColumnStatus -->
-    <script src="{$basePath}/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="{$basePath}/js/main.js"></script>
+        <script src="{$basePath}/bower_components/nette-forms/src/assets/netteForms.js"></script>
+        <script src="{$basePath}/bower_components/nette.ajax.js/nette.ajax.js"></script>
 
-    <!-- Include bootstrap-select.js when using FilterMultiSelect (silviomoreto.github.io/bootstrap-select) -->
-    <script src="{$basePath}/bower_components/bootstrap-select/dist/js/bootstrap-select.js"></script>
-    <!-- Icons -->
-    <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
-    <script>
-        feather.replace()
-    </script>
-    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js" integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l" crossorigin="anonymous"></script>
-    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js" integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c" crossorigin="anonymous"></script>
-    <!-- Graphs -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+        <!-- Use this tiny js for that pretty checkboxes (https://github.com/paveljanda/happy) -->
+        <script src="{$basePath}/bower_components/happy/dist/happy.js"></script>
+        <script src="{$basePath}/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
+        <script src="{$basePath}/bower_components/jquery-ui-sortable/jquery-ui-sortable.js"></script>
+        <script src="{$basePath}/bower_components/ublaboo-datagrid/assets/dist/datagrid.js"></script>
 
-{/block}
+        <!-- It is recommended to include this JS file with just a few bits. It refreshes URL on non ajax request -->
+        <script src="{$basePath}/bower_components/ublaboo-datagrid/assets/dist/datagrid-instant-url-refresh.js"></script>
+
+        <!-- Use this little extension for ajax spinners -->
+        <script src="{$basePath}/bower_components/ublaboo-datagrid/assets/dist/datagrid-spinners.js"></script>
+
+        <!-- Include bootstrap.js for proper behaviour of ColumnStatus -->
+        <script src="{$basePath}/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+
+        <!-- Include bootstrap-select.js when using FilterMultiSelect (silviomoreto.github.io/bootstrap-select) -->
+        <script src="{$basePath}/bower_components/bootstrap-select/dist/js/bootstrap-select.js"></script>
+
+
+
+        <script>
+            //paste this code under the head tag or in a separate js file.
+            // Wait for window load
+            $(window).load(function () {
+                // Animate loader off screen
+                $(".se-pre-con").fadeOut("slow");
+                ;
+            });</script>
+
+
+
+
+    {/block}
 </body>
 </html>
