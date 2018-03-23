@@ -1,0 +1,37 @@
+
+
+{block content}
+
+
+
+				<h2>{$case->name}</h2>
+    {$case->description}
+
+    {$case->id}
+
+{foreach $steps as $step}
+
+    <div class="row align-content-center btn-light" >   <div class="col-sm-1">{$step->sequence}. krok</div>
+
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-body">
+                    <p class="card-title">Action</p>
+                    <p class="card-text">    {$step->action}</p>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-body">
+                    <p class="card-title">Result</p>
+                    <p class="card-text">    {$step->result}</p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+{/foreach}
+{/block}

@@ -41,7 +41,7 @@ class CaseModel
 
     public function add($values)
     {
-        return $this->database->table('set')->where('id',$id);
+        return $this->database->table('set');
     }
 
     public function updateSet($values)
@@ -79,7 +79,20 @@ class CaseModel
     }
     public function getCase($id)
     {
-        return $this->database->table('case')->where('set_id',$id);
+        return $this->database->table('case')->where('id',$id)->fetch();
+
     }
 
+    public function getAllSteps($id)
+    {
+        return $this->database->table('step')->where('case_id',$id)->order('sequence')->fetchAll();
+
+    }
+
+
+    public function deleteCase($id)
+    {
+        $this->database->table('step')->where('case_id',$id)->delete();
+     $this->database->table('case')->where('id',$id)->delete();
+    }
 }

@@ -11,6 +11,7 @@ use Nette,
 use Ublaboo\DataGrid\DataGrid;
 use Ublaboo\DataGrid\Exception\DataGridException;
 use Nette\Utils\Html;
+use WebChemistry\Forms;
 
 
 
@@ -23,10 +24,21 @@ class CasePresenter extends BasePresenter
     public $id;
 
     private $data = null;
+    public $case;
 
     public function __construct(CaseModel $caseModel)
     {
         $this->caseModel = $caseModel;
+
+    }
+
+
+    public function renderDetail($id)
+    {
+
+        $this->template->case= $this->caseModel->getCase($id);
+        $this->template->steps= $this->caseModel->getAllSteps($id);
+
     }
 
 
@@ -39,6 +51,7 @@ class CasePresenter extends BasePresenter
     {
         $this->data = $this->caseModel->findById($id);
     }
+
 
 
     protected function createComponentInsertForm()
@@ -54,39 +67,32 @@ class CasePresenter extends BasePresenter
 
         $form->addText('name', 'Název:')->setRequired('Je nutné uvést název');
         $form->addTextArea('description', 'Popis:')->setRequired('Uveďte cenu!');
-        $form->addText('phone', 'Číslo:')
-            ->setOption('description', Html::el('p')
-                ->setHtml('Nejaky komentar. <hr>')
-            );
+
         $form->addSelect('priority', 'Priorita', $priority)->setRequired('Uvedte datum pořízení!');
         $form->addSelect('category_id', 'Case category', $this->caseModel->getCaseCategory()->fetchPairs('id', 'name'))
             ->setPrompt('Zvolte', null);
         $form->addSelect('project_id', 'Projekt', $this->caseModel->getProject()->fetchPairs('id', 'name'))
             ->setPrompt('Zvolte', null);
 
-
         $copies = 0;
         $maxCopies = 10;
-        $var = array(
-            '1' => '1',
-            '5' => '5',
-            '10' => '10',
-        );
-        $form->addSelect('num', 'Vzbw', $var);
+
         $multiplier = $form->addMultiplier('multiplier', function (Nette\Forms\Container $container, Nette\Forms\Form $form) {
 
-            $container->addTextArea("action", '#'.$container->getName().' krok')
+            $container->addTextArea("action", '#'.((int)$container->getName()+1).' krok')
                 ->setDefaultValue('My value'); $container->addTextArea("result", 'Očekávaný výstup')
                 ->setDefaultValue('My value') ->setOption('description', Html::el('p')
                     ->setHtml('Nejaky komentar. <hr>')
                 );
         }, $copies, $maxCopies);
-      //  $a =3;
-        //dump($form['name']->getValue());
+
         $multiplier->addCreateButton('Přidat 1 krok',1);
         $multiplier->addCreateButton('Přidat 3 kroky',3);
+        $multiplier->addCreateButton('Přidat 5 kroků',5);
 
         $multiplier->addRemoveButton('Odebrat krok');
+
+
         $form->addSubmit('add', 'Vložit')->getControlPrototype()->setClass('btn btn-primary btn-lg btn-block');
         $form->onSuccess[] = array($this, 'insertFormSucceeded');
         return $form;
@@ -150,11 +156,31 @@ class CasePresenter extends BasePresenter
 
         $grid->addAction('edit', '', 'edit')
             ->setIcon('edit');
+        $grid->addAction('detail', '', 'detail')
+            ->setIcon('lemon');
+
+        $grid->addAction('delete', '', 'delete!')
+            ->setIcon('trash')->setConfirm('Opravdu chcete smazat test case %s?', 'name');;
 
 
     }
+    public function actionDelete($id) {
+        $this->caseModel->deleteCase($id);
+
+        $this->flashMessage("Najemník byl smazán");
+        $this->redirect("Case:prehled");
+    }
 
 
+    public function handleDelete($id) {
+        $this->flashMessage('Nájemník smazán.');
+        $todo = $this->caseModel;
+        if ($todo) {
+            $todo->deleteCase($id);
+        }
+
+        $this->redirect('this'); // this vyjadřuje aktuální presenter i view, ale bez signálu
+    }
     function makeBootstrap4(Form $form)
     {
         $renderer = $form->getRenderer();
@@ -208,6 +234,7 @@ class CasePresenter extends BasePresenter
 
         return $form;
     }
+
 
 
     public function editSetSuccess(Form $form, $values)
