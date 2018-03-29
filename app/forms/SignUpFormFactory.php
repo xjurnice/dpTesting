@@ -5,6 +5,7 @@ namespace App\Forms;
 use App\Model;
 use Nette;
 use Nette\Application\UI\Form;
+use AlesWita;
 
 
 class SignUpFormFactory
@@ -33,7 +34,9 @@ class SignUpFormFactory
 	public function create(callable $onSuccess)
 	{
 		$form = $this->factory->create();
-		$form->addText('username', 'Pick a username:')
+        $form->setRenderer(new AlesWita\FormRenderer\BootstrapV4Renderer);
+
+        $form->addText('username', 'Pick a username:')
 			->setRequired('Please pick a username.');
 
 		$form->addEmail('email', 'Your e-mail:')

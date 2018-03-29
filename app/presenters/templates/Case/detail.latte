@@ -5,9 +5,54 @@
 
 
 				<h2>{$case->name}</h2>
-    {$case->description}
+    <a n:href="Execution:run $case->id" class="btn btn-xs btn-primary">Spustit test</a>
+    <table class="table">
 
-    {$case->id}
+        <tbody>
+        <tr>
+            <th scope="row">ID</th>
+            <td>  {$case->id}
+            </td>
+
+        </tr>
+        <tr>
+            <th scope="row">Popis</th>
+            <td>  {$case->description}
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">Datum vytvoření</th>
+            <td>  {$case->create_time|date:'d.m.Y H:i:s'}
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">Kategorie</th>
+            <td>  {$category->name}
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">Vytvořeno uživatelem</th>
+            {var $id = $author->id}
+            <td> <a n:href="User:profile $id">{$author->username}</a>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">Status</th>
+            <td>  {switch $case->status}
+                    {case 1}
+                    Navžený
+                    {case 2}
+                    Schválený
+                    {case 3}
+                    Archivovaný
+                    {default}
+                    Neznámý
+                {/switch}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
 
 {foreach $steps as $step}
 
@@ -34,4 +79,12 @@
     </div>
     <hr>
 {/foreach}
+
+
+    <h2>Záznamy spuštění testu</h2>
+
+    {control exeGrid}
+
 {/block}
+
+

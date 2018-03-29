@@ -2,6 +2,7 @@
 
                 <h1 n:block=title class="display-4">Editace profilu</h1>
 
+Poslední přihlášení:             {$userdata->last_login_time|date:'d.m.Y H:i:s'}
 
-               {control editMemberForm}
+    {control editMemberForm}
 {/block}

@@ -41,3 +41,4 @@ services:
 
 	- App\Model\UserModel
 	- App\Model\CaseModel
+	- App\Model\ExecutionModel

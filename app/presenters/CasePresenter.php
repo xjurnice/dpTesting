@@ -12,6 +12,7 @@ use Ublaboo\DataGrid\DataGrid;
 use Ublaboo\DataGrid\Exception\DataGridException;
 use Nette\Utils\Html;
 use WebChemistry\Forms;
+use AlesWita;
 
 
 
@@ -21,6 +22,8 @@ class CasePresenter extends BasePresenter
 
     /** @var CaseModel */
     private $caseModel;
+
+    /** @persistent */
     public $id;
 
     private $data = null;
@@ -35,9 +38,12 @@ class CasePresenter extends BasePresenter
 
     public function renderDetail($id)
     {
-
-        $this->template->case= $this->caseModel->getCase($id);
-        $this->template->steps= $this->caseModel->getAllSteps($id);
+        $this->id =$id;
+        $this->template->author = $this->caseModel->getCurrentAuthor($id);
+             $this->template->category = $this->caseModel->getCurrentCaseCategory($id);
+            $this->template->case = $this->caseModel->getCase($id);
+            $this->template->steps = $this->caseModel->getAllSteps($id);
+            $this->template->exe = $this->caseModel->getAllExecutions($id);
 
     }
 
@@ -52,13 +58,22 @@ class CasePresenter extends BasePresenter
         $this->data = $this->caseModel->findById($id);
     }
 
+    public function actionDetail($id)
+    {
+        $this->id = $id;
+    }
 
 
     protected function createComponentInsertForm()
     {
         $form = new Form;
-        $form->onRender[] = [$this, 'makeBootstrap4'];
+        $form->setRenderer(new AlesWita\FormRenderer\BootstrapV4Renderer);
         $form->addProtection();
+        $status = array(
+            '1' => 'Navržený',
+
+        );
+
         $priority = array(
             '1' => 'Vysoka',
             '2' => 'Stredni',
@@ -66,23 +81,26 @@ class CasePresenter extends BasePresenter
         );
 
         $form->addText('name', 'Název:')->setRequired('Je nutné uvést název');
-        $form->addTextArea('description', 'Popis:')->setRequired('Uveďte cenu!');
+        $form->addSelect('status', 'Status', $status)->setRequired('Uvedte prioritu')
 
-        $form->addSelect('priority', 'Priorita', $priority)->setRequired('Uvedte datum pořízení!');
+            ->setOption('left-addon', 'addon text');
+        $form->addTextArea('description', 'Popis (předpoklady, uživ. role):');
+
+        $form->addSelect('priority', 'Priorita', $priority)->setRequired('Uvedte prioritu');
         $form->addSelect('category_id', 'Case category', $this->caseModel->getCaseCategory()->fetchPairs('id', 'name'))
             ->setPrompt('Zvolte', null);
         $form->addSelect('project_id', 'Projekt', $this->caseModel->getProject()->fetchPairs('id', 'name'))
-            ->setPrompt('Zvolte', null);
+            ->setPrompt('Zvolte', null)->setRequired('Je nutné zvolit projekt');
 
         $copies = 0;
-        $maxCopies = 10;
+        $maxCopies = 100;
 
         $multiplier = $form->addMultiplier('multiplier', function (Nette\Forms\Container $container, Nette\Forms\Form $form) {
 
-            $container->addTextArea("action", '#'.((int)$container->getName()+1).' krok')
+           $container->addTextArea("action", '#'.((int)$container->getName()+1).' krok'.' Akce')
                 ->setDefaultValue('My value'); $container->addTextArea("result", 'Očekávaný výstup')
                 ->setDefaultValue('My value') ->setOption('description', Html::el('p')
-                    ->setHtml('Nejaky komentar. <hr>')
+                    ->setHtml(' <hr>')
                 );
         }, $copies, $maxCopies);
 
@@ -164,6 +182,38 @@ class CasePresenter extends BasePresenter
 
 
     }
+
+
+    public function createComponentExeGrid($name)
+    {
+
+        $grid = new DataGrid($this, $name);
+
+
+
+
+        $fluent = $this->caseModel->getAllExecutions($this->id);
+
+
+        $grid->setDataSource($fluent);
+
+        $grid->addColumnDateTime('start_time', 'Cas spusteni')
+            ->setFormat('d.m.Y H:i:s')->setSortable();
+        $grid->addColumnDateTime('end_time', 'Cas ukonceni')
+            ->setFormat('d.m.Y H:i:s')->setSortable();
+
+
+        $grid->addColumnText('spend_time', 'Cas spotrebovany')->setSortable();
+
+
+        $grid->addColumnLink('link', 'Uživatel', 'User:profile', 'username', ['ide'])->setSortable();
+
+
+
+
+
+
+    }
     public function actionDelete($id) {
         $this->caseModel->deleteCase($id);
 
@@ -181,44 +231,15 @@ class CasePresenter extends BasePresenter
 
         $this->redirect('this'); // this vyjadřuje aktuální presenter i view, ale bez signálu
     }
-    function makeBootstrap4(Form $form)
-    {
-        $renderer = $form->getRenderer();
-        $renderer->wrappers['controls']['container'] = 'container';
-        $renderer->wrappers['pair']['container'] = 'div class="form-group row"';
-        $renderer->wrappers['pair']['.error'] = 'has-danger';
-        $renderer->wrappers['control']['container'] = 'div class=col-sm-7';
-        $renderer->wrappers['label']['container'] = 'div class="col-sm-1 col-form-label"';
-        $renderer->wrappers['control']['description'] = 'span class=form-text';
-        $renderer->wrappers['control']['errorcontainer'] = 'span class=form-control-feedback';
-        foreach ($form->getControls() as $control) {
-            $type = $control->getOption('type');
-            if ($type === 'button') {
-                $control->getControlPrototype()->addClass(empty($usedPrimary) ? 'btn btn-primary' : 'btn btn-secondary');
-                $usedPrimary = false;
-            } elseif (in_array($type, ['text', 'textarea', 'select'], true)) {
-                $control->getControlPrototype()->addClass('form-control');
-            } elseif ($type === 'file') {
-                $control->getControlPrototype()->addClass('form-control-file');
-            } elseif (in_array($type, ['checkbox', 'radio'], true)) {
-                if ($control instanceof Nette\Forms\Controls\Checkbox) {
-                    $control->getLabelPrototype()->addClass('form-check-label');
-                } else {
-                    $control->getItemLabelPrototype()->addClass('form-check-label');
-                }
-                $control->getControlPrototype()->addClass('form-check-input');
-                $control->getSeparatorPrototype()->setName('div')->addClass('form-check');
-            }
-        }
-    }
+
 
 
     protected function createComponentEditSetForm()
     {
 
         $form = new Form;
-        $form->onRender[] = [$this, 'makeBootstrap4'];
 
+        $form->setRenderer(new AlesWita\FormRenderer\BootstrapV4Renderer);
         $form->addText('name', 'Název sady')->setDefaultValue($this->data['name'])->setRequired('Prosím zadejte název sady');
 
 
@@ -264,23 +285,6 @@ class CasePresenter extends BasePresenter
 
 
 
-    public function handleSetCategoryStatus($id, $status)
-    {
-        $this->categoryRepository->changeStatus($id, $status);
-
-        $this->flashMessage("Status of category [$id] was updated to [$status].", 'success');
-
-        $fluent = $this->caseModel->getSets()->where('set.parent_id', null);
-
-        if ($this->isAjax()) {
-            $this->redrawControl('flashes');
-
-            $this['categoriesGrid']->setDataSource($fluent);
-            $this['categoriesGrid']->redrawItem($id, 'c.id');
-        } else {
-            $this->redirect('this');
-        }
-    }
 
 
 }

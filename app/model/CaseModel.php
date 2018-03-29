@@ -53,7 +53,7 @@ class CaseModel
         unset($values['multiplier']);
 
         $this->database->table('case')->insert($values);
-      $lastId = $this->database->table('case')->count();
+      $lastId = $this->database->table('case')->select('id')->order('id DESC')->limit(1)->fetch();
 
         if(sizeof($steps)>0)
         {
@@ -89,10 +89,30 @@ class CaseModel
 
     }
 
+    public function getAllExecutions($id)
+    {
+        return $this->database->query("SELECT execution.*,user.username,user.id AS ide FROM `execution` JOIN `user` on execution.run_by=user.id WHERE case_id=?",$id)->fetchAll();
+
+    }
+
+    public function getCurrentCaseCategory($id)
+    {
+        return $this->database->query("SELECT case_category.name FROM `case` JOIN `case_category` on case.category_id=case_category.id WHERE case.id=?",$id)->fetch();
+
+    }
+
+    public function getCurrentAuthor($id)
+    {
+        return $this->database->query("SELECT user.username, user.id FROM `user` JOIN `case` on user.id=case.author_id WHERE case.id=?",$id)->fetch();
+
+    }
 
     public function deleteCase($id)
     {
         $this->database->table('step')->where('case_id',$id)->delete();
      $this->database->table('case')->where('id',$id)->delete();
     }
+
+
+
 }

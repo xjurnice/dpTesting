@@ -1,6 +1,21 @@
 {block content}
-<h1 n:block=title>Sign Up</h1>
 
-{control signUpForm}
 
-<p><a n:href="in">Already have an account? Log in.</a></p>
+
+<div class="empty-block"></div>
+<div class="container">
+
+    <div class="row">
+        <div class="form-signin">
+            <h1 n:block=title class="display-2 sign-logo"> Test<i class="fas fa-lemon fa-1x"></i>ne</h1>
+            <p><a n:href="up">Testovací nástroj</a></p>
+            {control signUpForm}
+            {* OR
+            {import '../components/form.latte'}
+            {include form signInForm}
+            *}
+
+
+            <p><a n:href="in">Already have an account? Log in.</a></p>
+        </div>
+

@@ -6,6 +6,8 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'AlesWita\\FormRenderer\\BootstrapV4Renderer' => $vendorDir . '/aleswita/formrenderer/src/BootstrapV4Renderer.php',
+    'AlesWita\\FormRenderer\\Factory' => $vendorDir . '/aleswita/formrenderer/src/Factory.php',
     'ArithmeticError' => $vendorDir . '/symfony/polyfill-php70/Resources/stubs/ArithmeticError.php',
     'AssertionError' => $vendorDir . '/symfony/polyfill-php70/Resources/stubs/AssertionError.php',
     'DivisionByZeroError' => $vendorDir . '/symfony/polyfill-php70/Resources/stubs/DivisionByZeroError.php',

@@ -1,0 +1,14 @@
+{block content}
+
+    <h1 n:block=title class="display-4">Profil - {$userdata->username}</h1>
+
+    Poslední přihlášení:             {$userdata->last_login_time|date:'d.m.Y H:i:s'}
+
+    <hr>
+    Účet vytvořen:             {$userdata->create_time|date:'d.m.Y H:i:s'}
+    <hr>
+    Jméno:             {$userdata->name}
+    <hr>
+    Příjmení:             {$userdata->surname}
+    <hr>
+{/block}

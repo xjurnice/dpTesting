@@ -1,0 +1,273 @@
+{block content}
+
+    <div class="row justify-content-end">
+        <div class="col-7 col-sm-4  col-md-5 col-xl-7 align-content-md-start">
+
+            <p>
+                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample"
+                        aria-expanded="false" aria-controls="collapseExample">
+                    Nápověda
+                </button>
+            </p>
+            <div class="collapse" id="collapseExample">
+                <div class="card card-body">
+                    To switch directories, type <kbd>ss</kbd> followed by the name of the directory.<br>
+                </div>
+            </div>
+        </div>
+        <div class="col-2 col-sm-2 col-md-3 col-xl-2" style="text-align: right">
+            <hr>
+            <button id="start" class="btn btn-success"><i class="fa fa-play"></i></button>
+            <button id="stop" class="btn btn-danger"><i class="fa fa-pause"></i></button>
+
+
+        </div>
+        <div class="col-3 col-sm-6 col-md-4 col-xl-3" >
+            <div class="clock"></div>
+
+
+        </div>
+
+        <hr>
+
+    </div>
+
+
+    <button id="next" class="btn btn-success">Pass step <i class="fa fa-arrow-down"></i></button>
+    <button id="previous" class="btn btn-light">Previous step <i class="fa fa-arrow-up"></i></button>
+    <button id="fail" class="btn btn-danger">Fail step<i class="fa fa-arrow-right"></i></button>
+    <button id="skip" class="btn btn-warning">Skip step<i class="fa fa-arrow-left"></i></button>
+    <button id="start_again" class="btn btn-dark">Start by first again<i> press [S]</i></button>
+    <hr>
+    <table class="table">
+        <thead>
+        </thead>
+        <tbody>
+        <tr>
+
+            <div class="row border-dark">
+                <div class="col-1">
+                    Krok
+                </div>
+                <div class="col-5">
+
+
+                    <p class="card-title">Action</p>
+
+
+                </div>
+                <div class="col-5">
+
+                    <p class="card-title">Result</p>
+
+
+                </div>
+            </div>
+
+
+        </tr>
+        {foreach $steps as $step}
+
+            <tr>
+                <td class="td_steps"><a class="steps">
+                        <div class="row">
+                            <div class="col-1">
+                                <dt class="step_id">{$step->sequence}. krok</dt>
+                            </div>
+                            <div class="col-5">
+                                <div class="card">
+                                    <div class="card-body">
+
+                                        <p class="card-text">    {$step->action}</p>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-5">
+                                <div class="card">
+                                    <div class="card-body">
+
+                                        <p class="card-text">    {$step->result}</p>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
+                </td>
+            </tr>
+        {/foreach}
+        <td class="td_steps"><a class="steps"></a></td>
+        </tbody>
+    </table>
+
+
+<div class="row">    <div class="col-2">{control runExecutionForm}
+
+    </div>
+
+    <div class="col-2"> <button id="reset" class="btn btn-warning btn-lg" onClick="window.location.reload()">Reset</button></div>
+   </div>
+
+
+
+
+{/block}
+
+
+{block scripts}
+    {include parent}
+    <script type="text/javascript">
+        var clock;
+
+        $(document).ready(function () {
+
+
+            clock = $('.clock').FlipClock(0, {
+                clockFace: 'MinuteCounter',
+                countdown: false,
+                autoStart: true,
+                minimumDigits: 2,
+                language: "Czech",
+                callbacks: {
+                    start: function () {
+                        $('#message').html('Test byl spuštěn');
+
+
+                    }
+                }
+            });
+
+            $('#start').click(function (e) {
+
+                clock.start();
+                $('#spend_time').val(clock.getTime());
+            });
+
+            $('#stop').click(function (e) {
+
+                clock.stop();
+
+            });
+
+            $('#pass').click(function (e) {
+
+                clock.start();
+
+                $('#spend_time').val(clock.getTime());
+            });
+
+            // Function for reset test progress - default on first step
+            function startAgain() {
+                $('.td_steps').removeClass('active').removeClass('fail').removeClass('step').removeClass('skip');
+                $(".td_steps:first").addClass("active");
+            }
+
+            // Function for current fail step
+            function failStep() {
+                $('.steps').parents('td.active').removeClass('active').removeClass('fail').removeClass('skip').addClass('fail').closest('tr').next().find('td').addClass('active');
+
+            }
+
+            // Function for pass step
+            function passStep() {
+                if($('.steps'))
+                $('.steps').parents('td.active').removeClass('active').removeClass('fail').removeClass('skip').addClass('step').closest('tr').next().find('td').addClass('active');
+
+            }
+
+            // Function for back previous
+            function previousStep() {
+                $('.steps').parents('td.active').removeClass('active').removeClass('step').removeClass('fail').removeClass('skip').closest('tr').prev().find('td').addClass('active');
+
+            }
+
+            // Function for skip step
+            function skipStep() {
+                $('.steps').parents('td.active').removeClass('active').removeClass('fail').addClass('skip').closest('tr').next().find('td').addClass('active');
+
+            }
+
+
+            $(".td_steps:first").addClass("active");
+            $(".steps").click(function () {
+                $('.steps:first').parents('td').removeClass('active');
+                $('.steps').parents('td').removeClass('active');
+                $(this).parents('td').addClass('active');
+            });
+
+            // Keyboard control
+
+            $(document).keydown(function (e) {
+
+                switch (e.keyCode) {
+                    //Move up
+                    case 38:
+                        previousStep();
+                        return false;
+                        break;
+                    //Move down
+                    case 40:
+                        passStep();
+                        return false;
+                        break;
+                    //Fail
+                    case 39:
+                        failStep();
+                        return false;
+                        break;
+                    //Start again
+                    case 83:
+                        startAgain();
+                        return false;
+                        break;
+
+                    //Start again
+                    case 37:
+                        skipStep();
+                        return false;
+                        break;
+
+                    //Pause
+                    case 80:
+                        clock.stop();
+                        return false;
+                        break;
+
+                    //Run
+                    case 82:
+                        clock.start();
+                        return false;
+                        break;
+
+
+                }
+            });
+
+            // Button control
+            $('#next').click(function next() {
+                passStep();
+            });
+
+
+            $('#previous').click(function () {
+                previousStep();
+            });
+
+            $('#fail').click(function () {
+                failStep();
+            });
+
+            $('#start_again').click(function () {
+                startAgain();
+
+            });
+            $('#skip').click(function () {
+                skipStep();
+
+            });
+
+        });
+    </script>
+{/block}

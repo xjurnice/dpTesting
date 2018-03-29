@@ -14,6 +14,7 @@ class UserPresenter extends BasePresenter
     /** @var UserModel */
     private $userModel;
     private $data = null;
+    public $id;
 
     public function __construct(UserModel $userModel)
     {
@@ -22,7 +23,14 @@ class UserPresenter extends BasePresenter
 
     public function renderEdit()
     {
-        $this -> data = $this->userModel->getUserInfo($this->getUser()->getIdentity()->id);
+        $this -> template-> userdata= $this->userModel->getUserInfo($this->getUser()->getIdentity()->id);
+        $this -> data= $this->userModel->getUserInfo($this->getUser()->getIdentity()->id);
+    }
+    public function renderProfile($id)
+    {
+        $this->id =$id;
+        $this->template->userdata= $this->userModel->getUserInfo($id);
+
     }
 
 
