@@ -1,7 +1,10 @@
 
-    <a n:class="$presenter->isLinkCurrent('Homepage:*') ? 'list-group-item list-group-item-action active' : 'list-group-item list-group-item-action'"
-            href="{plink Homepage:default}">
-        Dashboard</a>
-    <a n:class="$presenter->isLinkCurrent('Case:*') ? 'list-group-item list-group-item-action active' : 'list-group-item list-group-item-action'"
-            href="{plink Case:default}">
-        Testovací případy</a>
+<a n:class="$presenter->isLinkCurrent('Homepage:*') ? 'list-group-item list-group-item-action active' : 'list-group-item list-group-item-action'"
+        href="{plink Homepage:default}">
+    Dashboard</a>
+<a n:class="$presenter->isLinkCurrent('Case:*') ? 'list-group-item list-group-item-action active' : 'list-group-item list-group-item-action'"
+        href="{plink Case:default}">
+    Testovací případy</a>
+<a n:class="$presenter->isLinkCurrent('Set:*') ? 'list-group-item list-group-item-action active' : 'list-group-item list-group-item-action'"
+        href="{plink Set:default}">
+    Testovací sady</a>

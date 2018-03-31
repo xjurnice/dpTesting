@@ -9,7 +9,6 @@ use Nette,
     Nette\Application\UI\Form;
 
 use Ublaboo\DataGrid\DataGrid;
-use Ublaboo\DataGrid\Exception\DataGridException;
 use Nette\Utils\Html;
 use WebChemistry\Forms;
 use AlesWita;
@@ -40,23 +39,16 @@ class CasePresenter extends BasePresenter
     {
         $this->id =$id;
         $this->template->author = $this->caseModel->getCurrentAuthor($id);
-             $this->template->category = $this->caseModel->getCurrentCaseCategory($id);
-            $this->template->case = $this->caseModel->getCase($id);
-            $this->template->steps = $this->caseModel->getAllSteps($id);
-            $this->template->exe = $this->caseModel->getAllExecutions($id);
+        $this->template->category = $this->caseModel->getCurrentCaseCategory($id);
+        $this->template->case = $this->caseModel->getCase($id);
+        $this->template->steps = $this->caseModel->getAllSteps($id);
+        $this->template->exe = $this->caseModel->getAllExecutions($id);
 
     }
 
 
-    public function renderDefault()
-    {
-        $this->data = $this->caseModel->getSets();
-    }
 
-    public function actionEdit($id)
-    {
-        $this->data = $this->caseModel->findById($id);
-    }
+
 
     public function actionDetail($id)
     {
@@ -97,7 +89,7 @@ class CasePresenter extends BasePresenter
 
         $multiplier = $form->addMultiplier('multiplier', function (Nette\Forms\Container $container, Nette\Forms\Form $form) {
 
-           $container->addTextArea("action", '#'.((int)$container->getName()+1).' krok'.' Akce')
+            $container->addTextArea("action", '#'.((int)$container->getName()+1).' krok'.' Akce')
                 ->setDefaultValue('My value'); $container->addTextArea("result", 'Očekávaný výstup')
                 ->setDefaultValue('My value') ->setOption('description', Html::el('p')
                     ->setHtml(' <hr>')
@@ -127,33 +119,6 @@ class CasePresenter extends BasePresenter
 
     }
 
-    public function createComponentCategoriesGrid($name)
-    {
-
-        $grid = new DataGrid($this, $name);
-
-
-        $fluent = $this->caseModel->getSets()->where('set.parent_id', null);
-
-
-        $grid->setDataSource($fluent);
-        try {
-            $grid->setTreeView([$this, 'getChildren'], [$this, 'hasChildren']);
-
-        } catch (DataGridException $e) {
-        }
-
-
-        $grid->addColumnText('name', 'Name');
-        $grid->addColumnText('name2', 'Name2', 'name');
-        $grid->addColumnText('id', 'Id');
-
-
-        $grid->addAction('edit', '', 'edit')
-            ->setIcon('edit');
-
-
-    }
 
     public function createComponentCaseGrid($name)
     {
@@ -270,18 +235,6 @@ class CasePresenter extends BasePresenter
 
     }
 
-
-    public function getChildren($parentId)
-    {
-        return $this->caseModel->getSets()->where('parent_id', $parentId);
-    }
-
-
-
-    public function hasChildren($parentId)
-    {
-        return $this->caseModel->getSets()->where('parent_id', $parentId)->count() > 0 ? true : false;
-    }
 
 
 

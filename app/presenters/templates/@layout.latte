@@ -13,7 +13,7 @@
     <link rel="shortcut icon" href="{$basePath}/images/favicon.ico" type="image/x-icon">
     <link rel="icon" href="{$basePath}/images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="{$basePath}/bower_components/bootstrap/dist/css/bootstrap.min.css">
-     <link rel="stylesheet" href="{$basePath}/bower_components/flipclock/compiled/flipclock.css">
+    <link rel="stylesheet" href="{$basePath}/bower_components/flipclock/compiled/flipclock.css">
     <link rel="stylesheet" href="{$basePath}/css/style.css">
     <!-- Fontawseome -->
     <link href="{$basePath}/fonts/fontawesome/fontawesome-all.css" rel="stylesheet">
@@ -46,10 +46,10 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-2 d-none d-md-block bg-light">
-    <div id="sidebar">        <a n:href="Homepage:default"> <h1 class="sign-logo "> Test<i class="fas fa-lemon fa-1x"></i>ne</h1></a>
-    </div>
+            <div id="sidebar">        <a n:href="Homepage:default"> <h1 class="sign-logo "> Test<i class="fas fa-lemon fa-1x"></i>ne</h1></a>
+            </div>
             <div class="list-group">
-            {include components/menu.latte}
+                {include components/menu.latte}
 
             </div>
 
@@ -84,11 +84,11 @@
                 </div>
             </nav><div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
             <div class="col pt-3 px-3">
-            {include content}
+                {include content}
             </div>
         </div> </div>
 
-{else}
+    {else}
 
 
 

@@ -18,25 +18,12 @@ class CaseModel
         $this->database = $database;
     }
 
-    public function getSets()
-    {
-        return $this->database->table('set');
-    }
+
 
     public function getCases()
     {
         return $this->database->table('case');
     }
-    public function findById($id)
-    {
-        return $this->database->table('set')->where('id',$id)->fetch();
-    }
-
-    public function notThisId($id)
-    {
-        return $this->database->table('set')->where('id <> ? ',$id);
-    }
-
 
 
     public function add($values)
@@ -44,26 +31,22 @@ class CaseModel
         return $this->database->table('set');
     }
 
-    public function updateSet($values)
-    {
-        return $this->database->table('set')->where('id',$values['id'])->update($values);
-    }
     public function addCase($values, $steps)
     {
         unset($values['multiplier']);
 
         $this->database->table('case')->insert($values);
-      $lastId = $this->database->table('case')->select('id')->order('id DESC')->limit(1)->fetch();
+        $lastId = $this->database->table('case')->select('id')->order('id DESC')->limit(1)->fetch();
 
         if(sizeof($steps)>0)
         {
-        $iterator =1;
-        foreach ($steps as $step){
-            $step['case_id'] = $lastId;
-            $step['sequence'] = $iterator++;
+            $iterator =1;
+            foreach ($steps as $step){
+                $step['case_id'] = $lastId;
+                $step['sequence'] = $iterator++;
 
-            $this->database->table('step')->insert($step);
-        }
+                $this->database->table('step')->insert($step);
+            }
 
         }
 
@@ -110,7 +93,7 @@ class CaseModel
     public function deleteCase($id)
     {
         $this->database->table('step')->where('case_id',$id)->delete();
-     $this->database->table('case')->where('id',$id)->delete();
+        $this->database->table('case')->where('id',$id)->delete();
     }
 
 

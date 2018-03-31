@@ -68,7 +68,7 @@ class ExecutionPresenter extends BasePresenter
         $form->addHidden('run_by')->setDefaultValue($this->getUser()->getIdentity()->id);
         $form->addHidden('case_id')->setDefaultValue($this->case_id);
         $form->addHidden('status')->setDefaultValue('1');
-        $form->addSubmit('run', 'Dokončit test')->setHtmlAttribute("id",'pass')->getControlPrototype()->setClass('btn btn-primary btn-lg btn-block');
+        $form->addSubmit('run', 'Dokončit test')->setHtmlAttribute("id",'pass')->getControlPrototype()->setClass('btn btn-primary btn-lg btn-block hidden');
         $form->onSuccess[] = [$this, 'RunExecution'];
 
         return $form;
