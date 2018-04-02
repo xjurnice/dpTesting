@@ -80,7 +80,7 @@ class SetPresenter extends BasePresenter
         $grid = new DataGrid($this, $name);
 
 
-        $fluent = $this->setModel->getSets()->where('set.parent_id', null);
+        $fluent = $this->setModel->getSets($this->getSession('sekcePromenna')->project)->where('set.parent_id', null);
 
 
         $grid->setDataSource($fluent);
@@ -103,14 +103,14 @@ class SetPresenter extends BasePresenter
 
     public function getChildren($parentId)
     {
-        return $this->setModel->getSets()->where('parent_id', $parentId);
+        return $this->setModel->getSets($this->getSession('sekcePromenna')->project)->where('parent_id', $parentId);
     }
 
 
 
     public function hasChildren($parentId)
     {
-        return $this->setModel->getSets()->where('parent_id', $parentId)->count() > 0 ? true : false;
+        return $this->setModel->getSets($this->getSession('sekcePromenna')->project)->where('parent_id', $parentId)->count() > 0 ? true : false;
     }
 
 

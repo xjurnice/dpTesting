@@ -81,7 +81,7 @@ class CasePresenter extends BasePresenter
         $form->addSelect('category_id', 'Case category', $this->caseModel->getCaseCategory()->fetchPairs('id', 'name'))
             ->setPrompt('Zvolte', null);
         $form->addSelect('project_id', 'Projekt', $this->caseModel->getProject()->fetchPairs('id', 'name'))
-            ->setPrompt('Zvolte', null)->setRequired('Je nutné zvolit projekt');
+            ->setDefaultValue($this->getSession('sekcePromenna')->project)->setDisabled(false);
 
         $copies = 0;
         $maxCopies = 100;
@@ -115,7 +115,7 @@ class CasePresenter extends BasePresenter
         $this->caseModel->addCase($values, $steps);
         $this->flashMessage('Záznam byl úspěšně vložen.');
 
-
+        $this->redirect('Case:default');
     }
 
 
@@ -125,7 +125,7 @@ class CasePresenter extends BasePresenter
         $grid = new DataGrid($this, $name);
 
 
-        $fluent = $this->caseModel->getCases();
+        $fluent = $this->caseModel->getCases($this->getSession('sekcePromenna')->project);
 
 
         $grid->setDataSource($fluent);
@@ -173,11 +173,8 @@ class CasePresenter extends BasePresenter
         $grid->addColumnLink('link', 'Uživatel', 'User:profile', 'username', ['ide'])->setSortable();
 
 
-
-
-
-
     }
+
     public function actionDelete($id) {
         $this->caseModel->deleteCase($id);
 

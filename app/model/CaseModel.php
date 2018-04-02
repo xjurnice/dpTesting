@@ -20,9 +20,9 @@ class CaseModel
 
 
 
-    public function getCases()
+    public function getCases($id)
     {
-        return $this->database->table('case');
+        return $this->database->table('case')->where('project_id',$id);
     }
 
 

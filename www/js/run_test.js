@@ -163,7 +163,7 @@ $(document).ready(function () {
                 return false;
                 break;
             //Start again
-            case 83:
+            case 112:
                 startAgain();
                 scrollToactive('.active-step');
                 return false;
@@ -177,13 +177,13 @@ $(document).ready(function () {
                 break;
 
             //Pause
-            case 80:
+            case 113:
                 clock.stop();
                 return false;
                 break;
 
             //Run
-            case 82:
+            case 114:
                 clock.start();
                 return false;
                 break;

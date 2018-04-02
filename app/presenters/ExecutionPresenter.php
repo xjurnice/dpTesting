@@ -8,6 +8,7 @@ use Nette,
 use App\Model\CaseModel;
 use App\Model\ExecutionModel;
 use AlesWita;
+use Ublaboo\DataGrid\DataGrid;
 
 
 class ExecutionPresenter extends BasePresenter
@@ -29,6 +30,9 @@ class ExecutionPresenter extends BasePresenter
     private $sessionSection;
 
     private $start_time;
+
+    /** @persistent */
+    public $id;
 
 
     public function __construct(CaseModel $caseModel, ExecutionModel $executionModel, Nette\Http\Session $session)
@@ -54,6 +58,13 @@ class ExecutionPresenter extends BasePresenter
         $this->case_id =$case_id;
         $this->template->case= $this->caseModel->getCase($case_id);
         $this->template->steps= $this->caseModel->getAllSteps($case_id);
+    }
+
+    public function renderDefault($id)
+    {
+
+        $this->id =$id;
+
     }
 
 
@@ -96,4 +107,32 @@ class ExecutionPresenter extends BasePresenter
 
 
     }
+
+    public function createComponentExecutionGrid($name)
+    {
+
+        $grid = new DataGrid($this, $name);
+
+
+
+
+        $fluent = $this->executionModel->getAllExecutions($this->getSession('sekcePromenna')->project);
+
+
+        $grid->setDataSource($fluent);
+
+        $grid->addColumnDateTime('start_time', 'Cas spusteni')
+            ->setFormat('d.m.Y H:i:s')->setSortable();
+        $grid->addColumnDateTime('end_time', 'Cas ukonceni')
+            ->setFormat('d.m.Y H:i:s')->setSortable();
+
+
+        $grid->addColumnText('spend_time', 'Cas spotrebovany')->setSortable();
+
+
+        $grid->addColumnLink('link', 'Uživatel', 'User:profile', 'username', ['ide'])->setSortable();
+
+
+    }
+
 }

@@ -24,9 +24,9 @@ class SetModel
         $this->database = $database;
     }
 
-    public function getSets()
+    public function getSets($id)
     {
-        return $this->database->table('set');
+        return $this->database->table('set')->where('project_id',$id);
     }
     public function findById($id)
     {

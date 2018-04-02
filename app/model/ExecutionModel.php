@@ -29,6 +29,10 @@ class ExecutionModel
         return $this->database->table('execution')->insert($values);
     }
 
+    public function getAllExecutions($id)
+    {
+        return $this->database->query("SELECT execution.*,user.username,user.id AS ide FROM `execution` JOIN `user` on execution.run_by=user.id JOIN `project` WHERE project.id=?",$id)->fetchAll();
 
+    }
 
 }
