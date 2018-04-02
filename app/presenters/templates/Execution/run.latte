@@ -76,13 +76,13 @@
                 </td>
             </tr>
         {/foreach}
-        <tr style="display: none;"> <td class="td_steps"><a class="steps"></a></td></tr>
+        <tr> <td class="td_steps" style="height: 1px; padding:0;"><a class="steps"></a></td></tr>
         </tbody>
     </table>
 
 
-    <div class="row">    <div class="col-2">{control runExecutionForm}
-
+       {control runExecutionForm}
+        <div class="row">
         </div>
 
         <div class="col-2"> <button id="reset" class="btn btn-warning btn-lg" onClick="window.location.reload()">Reset</button></div>

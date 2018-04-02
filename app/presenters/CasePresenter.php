@@ -74,7 +74,6 @@ class CasePresenter extends BasePresenter
 
         $form->addText('name', 'Název:')->setRequired('Je nutné uvést název');
         $form->addSelect('status', 'Status', $status)->setRequired('Uvedte prioritu')
-
             ->setOption('left-addon', 'addon text');
         $form->addTextArea('description', 'Popis (předpoklady, uživ. role):');
 
