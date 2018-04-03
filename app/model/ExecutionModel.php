@@ -29,9 +29,13 @@ class ExecutionModel
         return $this->database->table('execution')->insert($values);
     }
 
+    public function getExecution()
+    {
+        return $this->database->table('execution');
+    }
     public function getAllExecutions($id)
     {
-        return $this->database->query("SELECT execution.*,user.username,user.id AS ide FROM `execution` JOIN `user` on execution.run_by=user.id JOIN `project` WHERE project.id=?",$id)->fetchAll();
+        return $this->database->query("SELECT execution.*, case.name FROM `execution` JOIN `case` on execution.case_id=case.id WHERE case.project_id=?",$id)->fetchAll();
 
     }
 

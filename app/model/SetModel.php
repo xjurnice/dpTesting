@@ -33,13 +33,18 @@ class SetModel
         return $this->database->table('set')->where('id',$id)->fetch();
     }
 
-    public function notThisId($id)
+    public function notThisId($id,$project)
     {
-        return $this->database->table('set')->where('id <> ? ',$id);
+        return $this->database->table('set')->where('id <> ? ',$id)->where('project_id',$project);
     }
     public function updateSet($values)
     {
         return $this->database->table('set')->where('id',$values['id'])->update($values);
+    }
+
+    public function addSet($values)
+    {
+        return $this->database->table('set')->insert($values);
     }
 
 }

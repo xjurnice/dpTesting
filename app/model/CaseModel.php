@@ -77,6 +77,10 @@ class CaseModel
         return $this->database->query("SELECT execution.*,user.username,user.id AS ide FROM `execution` JOIN `user` on execution.run_by=user.id WHERE case_id=?",$id)->fetchAll();
 
     }
+    public function getExecutions($id)
+    {
+        return $this->database->table('execution')->where('case_id',$id);
+    }
 
     public function getCurrentCaseCategory($id)
     {
@@ -89,6 +93,11 @@ class CaseModel
         return $this->database->query("SELECT user.username, user.id FROM `user` JOIN `case` on user.id=case.author_id WHERE case.id=?",$id)->fetch();
 
     }
+    public function getCurrentSet($id)
+    {
+        return $this->database->query("SELECT set.name FROM `set` JOIN `case` on set.id=case.set_id WHERE case.id=?",$id)->fetch();
+
+    }
 
     public function deleteCase($id)
     {
@@ -96,6 +105,10 @@ class CaseModel
         $this->database->table('case')->where('id',$id)->delete();
     }
 
+    public function getSets($id)
+    {
+        return $this->database->table('set')->where('project_id',$id);
+    }
 
 
 }

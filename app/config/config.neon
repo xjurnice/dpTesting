@@ -38,7 +38,7 @@ services:
 	router: App\RouterFactory::createRouter
 
 
-
+	- App\Model\ProjectModel
 	- App\Model\UserModel
 	- App\Model\CaseModel
 	- App\Model\ExecutionModel

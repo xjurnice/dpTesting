@@ -6,7 +6,8 @@
 
 				<h2>{$case->name}</h2>
     <a n:href="Execution:run $case->id" class="btn btn-xs btn-primary">Spustit test</a>
-    <table class="table">
+<div></div>
+    <table class="table w-75">
 
         <tbody>
         <tr>
@@ -27,7 +28,20 @@
         </tr>
         <tr>
             <th scope="row">Kategorie</th>
-            <td>  {$category->name}
+            <td>  {ifset $category->name}
+                {$category->name}
+                {else}
+                Není zadána
+                {/ifset}
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">Sada</th>
+            <td>  {ifset $setName->name}
+                    {$setName->name}
+                {else}
+                    Není zadána
+                {/ifset}
             </td>
         </tr>
         <tr>
@@ -50,39 +64,108 @@
                 {/switch}
             </td>
         </tr>
+        {if $exeCount>=1}
+            <tr>
+                <th scope="row">Počet spuštění testu</th>
+                <td>
+                    {$exeCount}
+                </td>
+            </tr>
+        <tr>
+            <th scope="row">Poměr výsledků</th>
+            <td>
+
+            {var podilFail = ($exeFailCount/$exeCount)*100}
+            {var podilPass = ($exePassCount/$exeCount)*100}
+            {var podilSkip = ($exeSkipCount/$exeCount)*100}
+            <div class="progress">
+                <div class="progress-bar progress-bar-striped bg-danger"  role="progressbar"   style="width: {$podilFail|number:0:',':' '}%" aria-valuenow="{$exeFailCount}" aria-valuemin="0"
+                     aria-valuemax="{$exeCount}" title="{$exeFailCount} neúspěšné výsledkz">{$exeFailCount}</div>
+                <div class="progress-bar progress-bar-striped bg-success" role="progressbar"   style="width: {$podilPass|number:0:',':' '}%" aria-valuenow="{$exePassCount}" aria-valuemin="0"
+                     title="{$exePassCount} úspěšné výsledky" aria-valuemax="{$exeCount}">{$exePassCount}</div>
+                <div class="progress-bar progress-bar-striped bg-warning"  role="progressbar"   style="width: {$podilSkip|number:0:',':' '}%" aria-valuenow="{$exeSkipCount}" aria-valuemin="0"
+                     title="{$exeSkipCount} vynechané výsledky" aria-valuemax="{$exeCount}">{$exeSkipCount}</div>
+            </div>
+            </td>
+        </tr>
+            <tr>
+                <th scope="row">Průměrný čas spuštění testu</th>
+                <td>
+
+                    {var prumerCas = ($exeSumTime/$exeCount)/60}
+         {$prumerCas|number:3:',':' '} minut
+
+                </td>
+            </tr>
+        {/if}
         </tbody>
     </table>
 
-    <div class="progress">
-        <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: 15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100">50%</div>
-        <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
-        <div class="progress-bar progress-bar-striped bg-warning" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-    </div>
-{foreach $steps as $step}
 
-    <div class="row align-content-center btn-light" >   <div class="col-sm-1">{$step->sequence}. krok</div>
 
-        <div class="col-sm-4">
-            <div class="card">
-                <div class="card-body">
-                    <p class="card-title">Action</p>
-                    <p class="card-text">    {$step->action}</p>
+        <table class="table noBorder">
+            <thead>
+            </thead>
+            <tbody>
+            <tr>
 
+                <div class="row border-dark">
+                    <div class="col-1">
+                        Krok
+                    </div>
+                    <div class="col-5">
+
+
+                        <p class="card-title">Action</p>
+
+
+                    </div>
+                    <div class="col-5">
+
+                        <p class="card-title">Result</p>
+
+
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="card">
-                <div class="card-body">
-                    <p class="card-title">Result</p>
-                    <p class="card-text">    {$step->result}</p>
 
-                </div>
-            </div>
-        </div>
-    </div>
-    <hr>
-{/foreach}
+
+            </tr>
+            {foreach $steps as $step}
+
+                <tr>
+                    <td class="td_steps"><a class="steps">
+                            <div class="row">
+                                <div class="col-1">
+                                    <dt class="step_id">{$step->sequence}. krok</dt>
+                                </div>
+                                <div class="col-5">
+                                    <div class="card">
+                                        <div class="card-body">
+
+                                            <p class="card-text">    {$step->action}</p>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-5">
+                                    <div class="card">
+                                        <div class="card-body">
+
+                                            <p class="card-text">    {$step->result}</p>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+
+                    </td>
+                </tr>
+
+            {/foreach}
+            </tbody>
+        </table>
+
 
 
     <h2>Záznamy spuštění testu</h2>

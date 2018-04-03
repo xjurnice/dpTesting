@@ -10,6 +10,7 @@ use Nette,
 
 use Ublaboo\DataGrid\DataGrid;
 use Nette\Utils\Html;
+use Ublaboo\DataGrid\Exception\DataGridException;
 use WebChemistry\Forms;
 use AlesWita;
 
@@ -43,6 +44,12 @@ class CasePresenter extends BasePresenter
         $this->template->case = $this->caseModel->getCase($id);
         $this->template->steps = $this->caseModel->getAllSteps($id);
         $this->template->exe = $this->caseModel->getAllExecutions($id);
+        $this->template->exeCount = $this->caseModel->getExecutions($id)->count();
+        $this->template->exePassCount = $this->caseModel->getExecutions($id)->where('status',1)->count();
+        $this->template->exeFailCount = $this->caseModel->getExecutions($id)->where('status',2)->count();
+        $this->template->exeSkipCount = $this->caseModel->getExecutions($id)->where('status',3)->count();
+        $this->template->exeSumTime = $this->caseModel->getExecutions($id)->sum('spend_time');
+        $this->template->setName = $this->caseModel->getCurrentSet($id);
 
     }
 
@@ -82,6 +89,7 @@ class CasePresenter extends BasePresenter
             ->setPrompt('Zvolte', null);
         $form->addSelect('project_id', 'Projekt', $this->caseModel->getProject()->fetchPairs('id', 'name'))
             ->setDefaultValue($this->getSession('sekcePromenna')->project)->setDisabled(false);
+        $form->addSelect('set_id', 'Testovací sada', $this->caseModel->getSets($this->getSession('sekcePromenna')->project)->fetchPairs('id', 'name'))->setPrompt('Zvolte', null)->setRequired('Testovací sada musí být zvolena');
 
         $copies = 0;
         $maxCopies = 100;
@@ -136,8 +144,7 @@ class CasePresenter extends BasePresenter
         $grid->addColumnText('id', 'Id');
 
 
-        $grid->addAction('edit', '', 'edit')
-            ->setIcon('edit');
+        //$grid->addAction('edit', '', 'edit')->setIcon('edit');
         $grid->addAction('detail', '', 'detail')
             ->setIcon('lemon');
 
@@ -163,14 +170,24 @@ class CasePresenter extends BasePresenter
 
         $grid->addColumnDateTime('start_time', 'Cas spusteni')
             ->setFormat('d.m.Y H:i:s')->setSortable();
-        $grid->addColumnDateTime('end_time', 'Cas ukonceni')
-            ->setFormat('d.m.Y H:i:s')->setSortable();
 
 
-        $grid->addColumnText('spend_time', 'Cas spotrebovany')->setSortable();
 
+        try {
+            $grid->addColumnText('spend_time', 'Cas')
+                ->setSortable()->setRenderer(function ($item) {
+                    if ($item->spend_time < 60) {
+                        return ($item->spend_time) . ' sekund';
+                    } else {
 
-        $grid->addColumnLink('link', 'Uživatel', 'User:profile', 'username', ['ide'])->setSortable();
+                        return (round($item->spend_time / 60, 2)) . ' minut';
+                    }
+                })->setSortable();
+        } catch (DataGridException $e) {
+        };
+
+        $grid->addColumnLink('link', 'Uživatel', 'User:profile', 'username',  ['id' => 'ide'])->setSortable();
+
 
 
     }
@@ -195,41 +212,7 @@ class CasePresenter extends BasePresenter
 
 
 
-    protected function createComponentEditSetForm()
-    {
 
-        $form = new Form;
-
-        $form->setRenderer(new AlesWita\FormRenderer\BootstrapV4Renderer);
-        $form->addText('name', 'Název sady')->setDefaultValue($this->data['name'])->setRequired('Prosím zadejte název sady');
-
-
-        $form->addSelect('parent_id', 'Nadrazena sada', $this->caseModel->notThisId($this->data['id'])->fetchPairs('id', 'name'))
-            ->setPrompt('Zadna', null)->setDefaultValue($this->data['parent_id']);
-
-
-        $form->addText('project_id', 'Projekt')->setDefaultValue($this->data['project_id']);
-        $form->addHidden('id')->setDefaultValue($this->data['id']);
-
-        $form->addSubmit('edit', 'Editovat')->getControlPrototype()->setClass('btn btn-primary btn-lg btn-block');
-        $form->onSuccess[] = [$this, 'editSetSuccess'];
-
-        return $form;
-    }
-
-
-
-    public function editSetSuccess(Form $form, $values)
-    {
-        $values = $form->getValues();
-
-
-        $this->caseModel->updateSet($values);
-
-        $this->flashMessage('Úspěšně změněny údaje.');
-        $this->redirect('Case:default');
-
-    }
 
 
 

@@ -35,7 +35,39 @@ class SetPresenter extends BasePresenter
     }
 
 
+    protected function createComponentAddSetForm()
+    {
 
+        $form = new Form;
+
+        $form->setRenderer(new AlesWita\FormRenderer\BootstrapV4Renderer);
+        $form->addText('name', 'Název sady')->setRequired('Prosím zadejte název sady');
+
+
+        $form->addSelect('parent_id', 'Nadrazena sada', $this->setModel->getSets($this->getSession('sekcePromenna')->project)->fetchPairs('id', 'name'))
+            ->setPrompt('Zadna', null);
+
+        $form->addHidden('id')->setDefaultValue($this->data['id']);
+
+        $form->addSubmit('edit', 'Přidat')->getControlPrototype()->setClass('btn btn-primary btn-lg btn-block');
+        $form->onSuccess[] = [$this, 'addSetSuccess'];
+
+        return $form;
+    }
+
+
+
+    public function addSetSuccess(Form $form, $values)
+    {
+        $values = $form->getValues();
+
+        $values['project_id']=$this->getSession('sekcePromenna')->project;
+        $this->setModel->addSet($values);
+
+        $this->flashMessage('Úspěšně přidána sada');
+        $this->redirect('Set:default');
+
+    }
 
 
     protected function createComponentEditSetForm()
@@ -47,11 +79,11 @@ class SetPresenter extends BasePresenter
         $form->addText('name', 'Název sady')->setDefaultValue($this->data['name'])->setRequired('Prosím zadejte název sady');
 
 
-        $form->addSelect('parent_id', 'Nadrazena sada', $this->setModel->notThisId($this->data['id'])->fetchPairs('id', 'name'))
+        $form->addSelect('parent_id', 'Nadrazena sada', $this->setModel->notThisId($this->data['id'],$this->getSession('sekcePromenna')->project)->fetchPairs('id', 'name'))
             ->setPrompt('Zadna', null)->setDefaultValue($this->data['parent_id']);
 
 
-        $form->addText('project_id', 'Projekt')->setDefaultValue($this->data['project_id']);
+        $form->addText('project_id', 'Projekt')->setDefaultValue($this->getSession('sekcePromenna')->project);
         $form->addHidden('id')->setDefaultValue($this->data['id']);
 
         $form->addSubmit('edit', 'Editovat')->getControlPrototype()->setClass('btn btn-primary btn-lg btn-block');
@@ -92,7 +124,7 @@ class SetPresenter extends BasePresenter
 
 
         $grid->addColumnText('name', 'Name');
-        $grid->addColumnText('id', 'Id');
+
 
 
         $grid->addAction('edit', '', 'edit')

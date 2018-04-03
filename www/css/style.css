@@ -244,3 +244,36 @@ a, a:hover, a:active, a:visited {
 
 
 }
+.dropdown-menu {
+    position: absolute;
+    text-align: center;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    display: none;
+    float: left;
+    min-width: 10rem;
+    padding: .5rem 0;
+    margin: .125rem 0 0;
+    font-size: 1rem;
+    color: #212529;
+    list-style: none;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0,0,0,.15);
+    border-radius: .25rem;
+}
+.dropdown-menu li {
+border-bottom: 1px solid #fdfeff;
+    background-color: #e9e9e9;
+    padding: 0.3rem;
+}
+.dropdown-menu li:hover {
+    border-bottom: 1px solid #fdfeff;
+    background-color: #9e9e9f;
+    padding: 0.3rem;
+}
+.dropdown-menu a {
+
+    color: black;
+}

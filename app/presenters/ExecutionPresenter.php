@@ -101,7 +101,7 @@ class ExecutionPresenter extends BasePresenter
     {
         $id = $values["case_id"];
         $this->executionModel->addExecution($values);
-        $this->flashMessage('Test byl dokončen jako úspěšný');
+        $this->flashMessage('Test byl dokončen');
         $this->redirect("Case:detail",$id);
 
 
@@ -113,12 +113,7 @@ class ExecutionPresenter extends BasePresenter
 
         $grid = new DataGrid($this, $name);
 
-
-
-
         $fluent = $this->executionModel->getAllExecutions($this->getSession('sekcePromenna')->project);
-
-
         $grid->setDataSource($fluent);
 
         $grid->addColumnDateTime('start_time', 'Cas spusteni')
@@ -127,12 +122,47 @@ class ExecutionPresenter extends BasePresenter
             ->setFormat('d.m.Y H:i:s')->setSortable();
 
 
-        $grid->addColumnText('spend_time', 'Cas spotrebovany')->setSortable();
+        try {
+            $grid->addColumnText('spend_time', 'Cas')
+                ->setSortable()->setRenderer(function ($item) {
+                    if ($item->spend_time < 60) {
+                        return ($item->spend_time) . ' sekund';
+                    } else {
 
-
-        $grid->addColumnLink('link', 'Uživatel', 'User:profile', 'username', ['ide'])->setSortable();
-
+                        return (round($item->spend_time / 60, 2)) . ' minut';
+                    }
+                })->setSortable();
+        } catch (DataGridException $e) {
+        };
+        $grid->addColumnStatus('status', 'Status')
+            ->setCaret(false)
+            ->addOption(1, 'Úspěšný')
+            ->setIcon('check')
+            ->setClass('btn-success')
+            ->endOption()
+            ->addOption(2, 'Neúspěšný')
+            ->setIcon('times')
+            ->setClass('btn-danger')
+            ->endOption()
+            ->addOption(3, 'Vynechaný')
+            ->setIcon('dot-circle')
+            ->setClass('btn-warning')
+            ->endOption()->onChange[] = [$this, 'statusChange'];
+        $grid->addColumnLink('link', 'Testovací případ', 'Case:detail', 'name',  ['id' => 'case_id'])->setFilterText(['name', 'id']);
 
     }
 
+
+    public function statusChange($id, $new_status)
+    {
+        if (in_array($new_status, [1, 2, 3])) {
+            $this->executionModel->getExecution()->where('id = ?', $id)
+                ->update(['status' => $new_status]);
+        }
+
+
+        $this->flashMessage("Status of category [$id] was updated.");
+        $this->redirect("this");
+
+    }
 }
