@@ -38,6 +38,31 @@
 </head>
 
 <body>
+<div class="modal fade" id="modal">
+    <div class="modal-dialog">
+        <div class="modal-content" n:snippet="modal">
+            {ifset $modal}
+                <div class="modal-header">
+
+                    <h4 class="modal-title">
+                        {ifset #modal-$modal-title}{include #"modal-$modal-title"}{/ifset}
+                    </h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {ifset #modal-$modal-body}{include #"modal-$modal-body"}{/ifset}
+                </div>
+                {ifset #modal-$modal-footer}
+                    <div class="modal-footer">
+                        {include #"modal-$modal-footer"}
+                    </div>
+                {/ifset}
+            {/ifset}
+        </div>
+    </div>
+</div>
 <div class="se-pre-con"></div>
 
 {if $user->loggedIn}
@@ -56,7 +81,7 @@
         </div>
         <div class="col-md-9 ml-sm-auto col-lg-10 px-3">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <a class="btn" href="javascript:history.back()"><i class="fa fa-backward"></i>  ZPĚT</a>
+                <a href="javascript:history.back()"><i class="fa fa-backward"></i>  ZPĚT</a>
 
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -105,9 +130,10 @@
         <script src="{$basePath}/bower_components/bootstrap/assets/js/vendor/popper.min.js"></script>
         <script src="{$basePath}/bower_components/bootstrap/dist//js/bootstrap.min.js"></script>
 
-        <script src="{$basePath}/js/main.js"></script>
+
         <script src="{$basePath}/bower_components/nette-forms/src/assets/netteForms.js"></script>
         <script src="{$basePath}/bower_components/nette.ajax.js/nette.ajax.js"></script>
+        <script src="{$basePath}/js/main.js"></script>
 
         <!-- Use this tiny js for that pretty checkboxes (https://github.com/paveljanda/happy) -->
         <script src="{$basePath}/bower_components/happy/dist/happy.js"></script>

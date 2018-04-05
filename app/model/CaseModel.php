@@ -51,7 +51,12 @@ class CaseModel
         }
 
     }
+    public function updateCase($values)
+    {
+        $this->database->table('case')->where('id',$values['id'])->update($values);
 
+
+    }
     public function getCaseCategory()
     {
         return $this->database->table('case_category');
@@ -66,12 +71,38 @@ class CaseModel
 
     }
 
+
     public function getAllSteps($id)
     {
         return $this->database->table('step')->where('case_id',$id)->order('sequence')->fetchAll();
 
     }
 
+    public function getStep($id)
+    {
+        return $this->database->table('step')->where('id',$id)->fetch();
+
+    }
+
+    public function addStep($values)
+    {
+        $lastId = $this->database->table('step')->where('case_id',$values['case_id'])->count();
+        $values['sequence']= $lastId+1;
+
+       $this->database->table('step')->insert($values);
+
+    }
+    public function updateStep($values)
+    {
+        return $this->database->table('step')->where('id',$values['id'])->update($values);
+
+    }
+
+    public function deleteStep($id)
+    {
+        return $this->database->table('step')->where('id',$id)->delete();
+
+    }
     public function getAllExecutions($id)
     {
         return $this->database->query("SELECT execution.*,user.username,user.id AS ide FROM `execution` JOIN `user` on execution.run_by=user.id WHERE case_id=?",$id)->fetchAll();
@@ -95,7 +126,7 @@ class CaseModel
     }
     public function getCurrentSet($id)
     {
-        return $this->database->query("SELECT set.name FROM `set` JOIN `case` on set.id=case.set_id WHERE case.id=?",$id)->fetch();
+        return $this->database->query("SELECT set.name, set.id, set.parent_id FROM `set` JOIN `case` on set.id=case.set_id WHERE case.id=?",$id)->fetch();
 
     }
 

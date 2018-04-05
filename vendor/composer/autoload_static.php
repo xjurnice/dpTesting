@@ -198,6 +198,7 @@ class ComposerStaticInit4e76a5ed7d99f3187ed4a44de0aa3cbc
         'Nette\\Caching\\Storages\\NewMemcachedStorage' => __DIR__ . '/..' . '/nette/caching/src/Caching/Storages/NewMemcachedStorage.php',
         'Nette\\Caching\\Storages\\SQLiteJournal' => __DIR__ . '/..' . '/nette/caching/src/Caching/Storages/SQLiteJournal.php',
         'Nette\\Caching\\Storages\\SQLiteStorage' => __DIR__ . '/..' . '/nette/caching/src/Caching/Storages/SQLiteStorage.php',
+        'Nette\\ComponentModel\\ArrayAccess' => __DIR__ . '/..' . '/nette/component-model/src/ComponentModel/ArrayAccess.php',
         'Nette\\ComponentModel\\Component' => __DIR__ . '/..' . '/nette/component-model/src/ComponentModel/Component.php',
         'Nette\\ComponentModel\\Container' => __DIR__ . '/..' . '/nette/component-model/src/ComponentModel/Container.php',
         'Nette\\ComponentModel\\IComponent' => __DIR__ . '/..' . '/nette/component-model/src/ComponentModel/IComponent.php',

@@ -111,7 +111,8 @@ class ExecutionPresenter extends BasePresenter
     public function createComponentExecutionGrid($name)
     {
 
-        $grid = new DataGrid($this, $name);
+        $grid = new DataGrid();
+        $this->addComponent($grid, $name);
 
         $fluent = $this->executionModel->getAllExecutions($this->getSession('sekcePromenna')->project);
         $grid->setDataSource($fluent);

@@ -3,6 +3,7 @@
 namespace App\Presenters;
 
 use App\Model\SetModel;
+use App\Model\CaseModel;
 use Nette,
     Nette\Application\UI\Form;
 
@@ -17,23 +18,87 @@ class SetPresenter extends BasePresenter
 
     /** @var SetModel */
     private $setModel;
-    private $data = null;
-    public $id;
 
-    public function __construct(setModel $setModel)
+    /** @var CaseModel */
+    private $caseModel;
+
+    private $data = null;
+    /** @persistent */
+    public $id;
+    /** @persistent */
+    public $parent_id;
+
+    public function __construct(setModel $setModel, caseModel $caseModel)
     {
         $this->setModel = $setModel;
+        $this->caseModel = $caseModel;
     }
 
     public function renderEdit()
     {
     }
+    public function renderDetail($id, $parent_id){
+        $this->id =$id;
+        $this->parent_id=$parent_id;
+        $this->template->set = $this->setModel->findById($id);
+        $this->template->tree = $this->setModel->getTreeSet($parent_id);
+        $this->template->parentSet = $this->setModel->findById($parent_id);
+        $this->template->childrenSets = $this->setModel->getSets($this->getSession('sekcePromenna')->project)->where('parent_id', $id);
+
+
+    }
+
 
     public function actionEdit($id)
     {
         $this->data = $this->setModel->findById($id);
     }
 
+    public function createComponentSetDetailGrid($name)
+    {
+
+        $grid = new DataGrid();
+        $this->addComponent($grid, $name);
+
+
+        $fluent = $this->caseModel->getCases($this->getSession('sekcePromenna')->project)->where('set_id',$this->id);
+
+
+        $grid->setDataSource($fluent);
+
+
+        $grid->addColumnText('name', 'Jméno test. případu');
+        $grid->addColumnText('description', 'Popis');
+        $grid->addColumnText('id', 'Id');
+        $grid->addColumnDateTime('create_time', 'Přidáno')
+            ->setFormat('d.m.Y H:i:s')->setSortable()->setFilterDateRange();
+
+        $grid->addColumnStatus('status', 'Status')
+            ->setCaret(false)
+            ->addOption(1, 'Navžený')
+            ->setIcon('check')
+            ->setClass('btn-success')
+            ->endOption()
+            ->addOption(2, 'Schválený')
+            ->setIcon('times')
+            ->setClass('btn-danger')
+            ->endOption()
+            ->addOption(3, 'Archivovaný')
+            ->setIcon('dot-circle')
+            ->setClass('btn-warning')
+            ->endOption()
+            ->addOption(0, 'Neznámý')
+            ->setIcon('dot-circle')
+            ->setClass('btn-warning');
+
+        //$grid->addAction('edit', '', 'edit')->setIcon('edit');
+        $grid->addAction('detail', '', 'Case:detail')
+            ->setIcon('lemon');
+
+
+
+
+    }
 
     protected function createComponentAddSetForm()
     {
@@ -42,7 +107,6 @@ class SetPresenter extends BasePresenter
 
         $form->setRenderer(new AlesWita\FormRenderer\BootstrapV4Renderer);
         $form->addText('name', 'Název sady')->setRequired('Prosím zadejte název sady');
-
 
         $form->addSelect('parent_id', 'Nadrazena sada', $this->setModel->getSets($this->getSession('sekcePromenna')->project)->fetchPairs('id', 'name'))
             ->setPrompt('Zadna', null);
@@ -109,7 +173,8 @@ class SetPresenter extends BasePresenter
     public function createComponentCategoriesGrid($name)
     {
 
-        $grid = new DataGrid($this, $name);
+        $grid = new DataGrid();
+        $this->addComponent($grid, $name);
 
 
         $fluent = $this->setModel->getSets($this->getSession('sekcePromenna')->project)->where('set.parent_id', null);
@@ -123,8 +188,9 @@ class SetPresenter extends BasePresenter
         }
 
 
-        $grid->addColumnText('name', 'Name');
 
+
+        $grid->addColumnLink('link', 'Jméno sady', 'Set:detail', 'name', ['id', 'parent_id'])->setSortable();
 
 
         $grid->addAction('edit', '', 'edit')

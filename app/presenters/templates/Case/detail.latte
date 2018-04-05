@@ -6,6 +6,7 @@
 
 				<h2>{$case->name}</h2>
     <a n:href="Execution:run $case->id" class="btn btn-xs btn-primary">Spustit test</a>
+    <a n:href="Case:edit $case->id" class="btn btn-xs btn-primary">Editovat</a>
 <div></div>
     <table class="table w-75">
 
@@ -22,10 +23,17 @@
             </td>
         </tr>
         <tr>
-            <th scope="row">Datum vytvoření</th>
+            <th scope="row">Vytvořeno</th>
             <td>  {$case->create_time|date:'d.m.Y H:i:s'}
             </td>
         </tr>
+{ifset $case->update_time}
+        <tr>
+            <th scope="row">Poslední změna</th>
+            <td>  {$case->update_time|date:'d.m.Y H:i:s'}
+            </td>
+        </tr>
+    {/ifset}
         <tr>
             <th scope="row">Kategorie</th>
             <td>  {ifset $category->name}
@@ -38,7 +46,8 @@
         <tr>
             <th scope="row">Sada</th>
             <td>  {ifset $setName->name}
-                    {$setName->name}
+
+                    <a n:href="Set:detail $setName->id, $setName->parent_id">{$setName->name}</a>
                 {else}
                     Není zadána
                 {/ifset}
@@ -130,10 +139,12 @@
 
 
             </tr>
+
             {foreach $steps as $step}
 
                 <tr>
-                    <td class="td_steps"><a class="steps">
+
+                    <td class="td_steps">
                             <div class="row">
                                 <div class="col-1">
                                     <dt class="step_id">{$step->sequence}. krok</dt>
@@ -156,6 +167,8 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-1">   <a n:href="editStep!  id_step=>$step->id" class="ajax"><span class=" btn btn-warning btn-sm"><i class="fa fa-edit"></i></span></a>
+                                    <a n:href="deleteStep! id_step=>$step->id"><span class=" btn btn-danger btn-sm"><i class="fa fa-trash "></i></span></a></div>
                             </div>
                         </a>
 
@@ -165,13 +178,34 @@
             {/foreach}
             </tbody>
         </table>
-
+    <a n:href="addStep!" class="ajax"><span class=" btn btn-primary">Přidat krok</span></a>
 
 
     <h2>Záznamy spuštění testu</h2>
 
     {control exeGrid}
 
+
 {/block}
 
+{define modal-edit-title}
+    Editace kroku
+{/define}
+{define modal-edit-body}
 
+    {control editStepForm}
+
+{/define}
+{define modal-edit-footer}
+{/define}
+
+{define modal-add-title}
+    Nový krok
+{/define}
+{define modal-add-body}
+
+    {control addStepForm}
+
+{/define}
+{define modal-add-footer}
+{/define}

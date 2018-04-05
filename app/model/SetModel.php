@@ -47,4 +47,15 @@ class SetModel
         return $this->database->table('set')->insert($values);
     }
 
+    public function getTreeSet($id)
+    {
+        $result = null;
+        while($id!=null) {
+            $result = $this->database->table('set')->where('id', $id)->fetch();
+            $id = $this->database->table('set')->select('id')->where('parent_id', $id)->fetch();
+        }
+        return $id;
+    }
+
+
 }

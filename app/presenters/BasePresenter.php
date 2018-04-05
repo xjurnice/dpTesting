@@ -28,7 +28,11 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
     }
 
 
-
+    public function handleModal($modalId)
+    {
+        $this->template->modal = $modalId;
+        $this->redrawControl('modal');
+    }
     protected function beforeRender() {
 
     }

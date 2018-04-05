@@ -70,6 +70,7 @@ class UserPresenter extends BasePresenter
 
         $form = new Form;
         $form->onRender[] = [$this, 'makeBootstrap4'];
+        $form->addHidden('create_time')->setDefaultValue($this->data['create_time']);
         $form->addText('username', 'Login')->setDefaultValue($this->data['username'])->setRequired('Prosím zadejte login');
         $form->addText('name', 'Name')->setDefaultValue($this->data['name']);
         $form->addText('surname', 'Surname')->setDefaultValue($this->data['surname']);

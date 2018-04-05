@@ -26,7 +26,12 @@ class CasePresenter extends BasePresenter
     /** @persistent */
     public $id;
 
+
+    public $id_step;
+
     private $data = null;
+    private $steps = null;
+    private $datastep = null;
     public $case;
 
     public function __construct(CaseModel $caseModel)
@@ -53,14 +58,108 @@ class CasePresenter extends BasePresenter
 
     }
 
+    public function actionEditStep($id_step)
+    {
+        $this->id_step = $id_step;
+        $this->datastep = $this->caseModel->getStep($id_step);
 
 
 
+
+    }
+    public function handleEditStep($id_step)
+    {
+        $this->id_step = $id_step;
+        $this->datastep = $this->caseModel->getStep($id_step);
+
+
+        parent::handleModal('edit');
+
+    }
+
+    public function handleDeleteStep($id_step)
+    {
+        $this->id_step = $id_step;
+        $this->caseModel->deleteStep($id_step);
+        $this->flashMessage('Krok úspěšně smazán.');
+
+
+    }
+
+    public function handleAddStep()
+    {
+
+
+
+
+        parent::handleModal('add');
+    }
+
+    protected function createComponentEditStepForm()
+    {
+
+        $form = new Form;
+
+        $form->setRenderer(new AlesWita\FormRenderer\BootstrapV4Renderer);
+
+
+        $form->addHidden("id")->setDefaultValue($this->datastep['id']);
+        $form->addTextArea('action','Akce',70,7)->setDefaultValue($this->datastep['action']);
+        $form->addTextArea('result','Očekáváný výstup',70,5)->setDefaultValue($this->datastep['result']);
+        $form->addSubmit('edit', 'Editovat')->getControlPrototype()->setClass('btn btn-primary btn-lg btn-block');
+        $form->onSuccess[] = [$this, 'editStepSuccess'];
+
+        return $form;
+    }
+    public function editStepSuccess(Form $form, $values)
+    {
+        $values = $form->getValues();
+
+        $this->caseModel->updateStep($values);
+
+        $this->flashMessage('Záznam byl úspěšně upraven.');
+
+
+    }
+
+    protected function createComponentAddStepForm()
+    {
+
+        $form = new Form;
+
+        $form->setRenderer(new AlesWita\FormRenderer\BootstrapV4Renderer);
+
+        $form->addHidden("sequence");
+        $form->addHidden("case_id")->setDefaultValue($this->id);
+        $form->addTextArea('action','Akce',70,7);
+        $form->addTextArea('result','Očekáváný výstup',70,5);
+        $form->addSubmit('edit', 'Přidat')->getControlPrototype()->setClass('btn btn-primary btn-lg btn-block');
+        $form->onSuccess[] = [$this, 'addStepSuccess'];
+
+        return $form;
+    }
+    public function addStepSuccess(Form $form, $values)
+    {
+        $values = $form->getValues();
+
+        $this->caseModel->addStep($values);
+
+        $this->flashMessage('Záznam byl úspěšně přidán.');
+
+
+    }
+
+    public function actionEdit($id)
+    {
+        $this->data = $this->caseModel->getCase($id);
+        $this->steps = $this->caseModel->getAllSteps($id);
+    }
 
     public function actionDetail($id)
     {
         $this->id = $id;
     }
+
 
 
     protected function createComponentInsertForm()
@@ -115,6 +214,8 @@ class CasePresenter extends BasePresenter
         return $form;
     }
 
+
+
     public function insertFormSucceeded(Form $form, $values)
     {
         // ...
@@ -126,11 +227,64 @@ class CasePresenter extends BasePresenter
         $this->redirect('Case:default');
     }
 
+    //Edit form
+
+
+    protected function createComponentEditForm()
+    {
+        $form = new Form;
+        $form->setRenderer(new AlesWita\FormRenderer\BootstrapV4Renderer);
+        $form->addProtection();
+        $status = array(
+            '0' => 'Naznámý',
+            '1' => 'Navržený',
+            '2' => 'Schválený',
+            '3' => 'Archivovaný',
+
+        );
+
+        $priority = array(
+            '1' => 'Vysoka',
+            '2' => 'Stredni',
+            '3' => 'Nizka',
+        );
+        $form->addHidden('create_time')->setDefaultValue($this->data['create_time']);
+        $form->addHidden('id', 'Název:')->setDefaultValue($this->data['id']);
+        $form->addText('name', 'Název:')->setRequired('Je nutné uvést název')->setDefaultValue($this->data['name']);
+        $form->addSelect('status', 'Status', $status)->setRequired('Uvedte prioritu')->setDefaultValue($this->data['status']);
+        $form->addTextArea('description', 'Popis (předpoklady, uživ. role):')->setDefaultValue($this->data['description']);
+
+        $form->addSelect('priority', 'Priorita', $priority)->setRequired('Uvedte prioritu')->setDefaultValue($this->data['priority']);
+        $form->addSelect('category_id', 'Case category', $this->caseModel->getCaseCategory()->fetchPairs('id', 'name'))
+            ->setDefaultValue($this->data['category_id']);
+        $form->addSelect('project_id', 'Projekt', $this->caseModel->getProject()->fetchPairs('id', 'name'))
+            ->setDefaultValue($this->data['project_id'])->setDisabled(false);
+        $form->addSelect('set_id', 'Testovací sada', $this->caseModel->getSets($this->getSession('sekcePromenna')->project)->
+        fetchPairs('id', 'name'))->setDefaultValue($this->data['set_id'])->setRequired('Testovací sada musí být zvolena');
+
+        $form->addSubmit('add', 'Editovat')->getControlPrototype()->setClass('btn btn-primary btn-lg btn-block');
+        $form->onSuccess[] = array($this, 'editFormSucceeded');
+        return $form;
+    }
+
+
+    public function editFormSucceeded(Form $form, $values)
+    {
+        $values = $form->getValues();
+        $values['update_time']= new \Nette\Utils\DateTime();
+        $this->caseModel->updateCase($values);
+
+
+        $this->flashMessage('Záznam byl úspěšně upraven.');
+
+        $this->redirect('Case:default');
+    }
 
     public function createComponentCaseGrid($name)
     {
 
-        $grid = new DataGrid($this, $name);
+        $grid = new DataGrid();
+        $this->addComponent($grid, $name);
 
 
         $fluent = $this->caseModel->getCases($this->getSession('sekcePromenna')->project);
@@ -144,7 +298,7 @@ class CasePresenter extends BasePresenter
         $grid->addColumnText('id', 'Id');
 
 
-        //$grid->addAction('edit', '', 'edit')->setIcon('edit');
+        $grid->addAction('edit', '', 'edit')->setIcon('edit');
         $grid->addAction('detail', '', 'detail')
             ->setIcon('lemon');
 
@@ -158,7 +312,8 @@ class CasePresenter extends BasePresenter
     public function createComponentExeGrid($name)
     {
 
-        $grid = new DataGrid($this, $name);
+        $grid = new DataGrid();
+        $this->addComponent($grid, $name);
 
 
 

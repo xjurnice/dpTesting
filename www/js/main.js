@@ -1,18 +1,26 @@
-$(document).ready(function() {
-    var max_fields      = 10; //maximum input boxes allowed
-    var wrapper         = document.getElementById("frm-insertForm"); //Fields wrapper
-    var add_button      = $(".add_field_button"); //Add button ID
+$.nette.ext('bs-modal', {
 
-    var x = 1; //initlal text box count
-    $(add_button).click(function(e){ //on add input button click
-        e.preventDefault();
-        if(x < max_fields){ //max input box allowed
-            x++; //text box increment
-            $(wrapper).append('<input type="text" name="mytext[]"/><a href="#" class="remove_field">Remove</a>'); //add input box
+    init: function() {
+        // if the modal has some content, show it when page is loaded
+        var $modal = $('#modal');
+        if ($modal.find('.modal-content').html().trim().length !== 0) {
+            $modal.modal('show');
         }
-    });
+    },
+    success: function (jqXHR, status, settings) {
 
-    $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
-        e.preventDefault(); $(this).parent('div').remove(); x--;
-    })
+        if (typeof settings.responseJSON.snippets != 'undefined') {
+            var $snippet = settings.responseJSON.snippets['snippet--modal'];
+        }
+        if (!$snippet) {
+            return;
+        }
+
+        var $modal = $('#modal');
+        if ($modal.find('.modal-content').html().trim().length !== 0) {
+            $modal.modal('show');
+        } else {
+            $modal.modal('hide');
+        }
+    }
 });
