@@ -123,12 +123,14 @@ class PlanPresenter extends BasePresenter
     {
 
         $this->planModel->addCases($ids,$this->id);
-        if ($this->isAjax()) {
-            $this['caseGrid']->reload();
+
+
+            $this->flashMessage('Záznam byl úspěšně přidán.');
+
             $this['assignCaseGrid']->reload();
-        } else {
+
             $this->redirect('this');
-        }
+
     }
 
     protected function createComponentAddPlanForm()

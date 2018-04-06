@@ -92,14 +92,9 @@ a[href^="#error:"] {
     color: white;
 }
 
-form th, form td {
-    vertical-align: top;
-    font-weight: normal;
-}
 
-form th {
-    text-align: right;
-}
+
+
 
 form .required label {
     font-weight: bold;
@@ -288,3 +283,4 @@ border-bottom: 1px solid #fdfeff;
      border: 1px solid #ccc;
      border-radius: 4px;
 }
+
