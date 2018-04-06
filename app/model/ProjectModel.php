@@ -29,4 +29,8 @@ class ProjectModel
         return $this->database->table('project')->insert($values);
     }
 
+    public function getProject()
+    {
+        return $this->database->table('project');
+    }
 }

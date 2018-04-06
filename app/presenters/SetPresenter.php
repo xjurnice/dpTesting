@@ -88,8 +88,8 @@ class SetPresenter extends BasePresenter
             ->setClass('btn-warning')
             ->endOption()
             ->addOption(0, 'Neznámý')
-            ->setIcon('dot-circle')
-            ->setClass('btn-warning');
+            ->setIcon('question')
+            ->setClass('btn-');
 
         //$grid->addAction('edit', '', 'edit')->setIcon('edit');
         $grid->addAction('detail', '', 'Case:detail')

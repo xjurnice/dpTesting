@@ -37,7 +37,7 @@ services:
 	- App\Forms\SignUpFormFactory
 	router: App\RouterFactory::createRouter
 
-
+	- App\Model\PlanModel
 	- App\Model\ProjectModel
 	- App\Model\UserModel
 	- App\Model\CaseModel

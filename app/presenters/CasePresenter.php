@@ -277,7 +277,7 @@ class CasePresenter extends BasePresenter
 
         $this->flashMessage('Záznam byl úspěšně upraven.');
 
-        $this->redirect('Case:default');
+        $this->redirect('Case:detail',$values['id']);
     }
 
     public function createComponentCaseGrid($name)
@@ -297,8 +297,6 @@ class CasePresenter extends BasePresenter
         $grid->addColumnText('description', 'Popis');
         $grid->addColumnText('id', 'Id');
 
-
-        $grid->addAction('edit', '', 'edit')->setIcon('edit');
         $grid->addAction('detail', '', 'detail')
             ->setIcon('lemon');
 

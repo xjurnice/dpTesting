@@ -1,0 +1,40 @@
+
+
+{block content}
+    <h2>{$plan->name}</h2>
+    <a n:href="addCase!" class="ajax"><span class=" btn btn-success btn-sm"><i class="fa fa-plus-circle"></i></span></a>
+
+<table class="table w-75">
+
+    <tbody>
+    <tr>
+        <th scope="row">ID</th>
+        <td>  {$plan->id}
+        </td>
+
+    </tr>
+    <tr>
+        <th scope="row">Pro uzivatele</th>
+        <td>  {$plan->assign_user_id}
+        </td>
+    </tr>
+    <tr>
+        <th scope="row">Vytvořeno</th>
+        <td>  {$plan->create_time|date:'d.m.Y H:i:s'}
+        </td>
+    </tr>
+
+    </tbody>
+</table>
+    {control assignCaseGrid}
+{/block}
+{define modal-addcase-title}
+    Pridani casu
+{/define}
+{define modal-addcase-body}
+
+    {control caseGrid}
+{/define}
+{define modal-addcase-footer}
+{/define}
+
