@@ -132,6 +132,8 @@ class CaseModel
 
     public function deleteCase($id)
     {
+        $this->database->table('test_plan_has_case')->where('case_id',$id)->delete();
+        $this->database->table('execution')->where('case_id',$id)->delete();
         $this->database->table('step')->where('case_id',$id)->delete();
         $this->database->table('case')->where('id',$id)->delete();
     }

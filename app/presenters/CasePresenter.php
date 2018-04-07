@@ -348,13 +348,13 @@ class CasePresenter extends BasePresenter
     public function actionDelete($id) {
         $this->caseModel->deleteCase($id);
 
-        $this->flashMessage("Najemník byl smazán");
+        $this->flashMessage("Testovací případ byl smazán");
         $this->redirect("Case:prehled");
     }
 
 
     public function handleDelete($id) {
-        $this->flashMessage('Nájemník smazán.');
+        $this->flashMessage('Testovací případ byl smazán.');
         $todo = $this->caseModel;
         if ($todo) {
             $todo->deleteCase($id);

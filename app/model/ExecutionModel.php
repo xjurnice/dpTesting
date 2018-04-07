@@ -26,6 +26,11 @@ class ExecutionModel
 
     public function addExecution($values)
     {
+
+        if($values['test_plan_id']==null)
+        {
+            unset($values['test_plan_id']);
+        }
         return $this->database->table('execution')->insert($values);
     }
 

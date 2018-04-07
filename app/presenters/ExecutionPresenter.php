@@ -3,6 +3,7 @@
 namespace App\Presenters;
 
 
+use App\Model\PlanModel;
 use Nette,
     Nette\Application\UI\Form;
 use App\Model\CaseModel;
@@ -17,11 +18,14 @@ class ExecutionPresenter extends BasePresenter
     /** @var UserModel */
     private $caseModel;
 
+    /** @var PlanModel */
+    private $planModel;
+
     /** @var ExecutionModel */
     private $executionModel;
 
     private $data = null;
-    private  $case_id;
+    private $case_id;
 
     /** @var Nette\Http\Session */
     private $session;
@@ -33,11 +37,13 @@ class ExecutionPresenter extends BasePresenter
 
     /** @persistent */
     public $id;
+    /** @persistent */
+    public $plan_id;
 
 
-    public function __construct(CaseModel $caseModel, ExecutionModel $executionModel, Nette\Http\Session $session)
+    public function __construct(CaseModel $caseModel, ExecutionModel $executionModel, PlanModel $planModel, Nette\Http\Session $session)
     {
-
+        $this->planModel = $planModel;
         $this->caseModel = $caseModel;
         $this->executionModel = $executionModel;
     }
@@ -52,21 +58,20 @@ class ExecutionPresenter extends BasePresenter
     }
 
 
-    public function renderRun($case_id)
+    public function renderRun($case_id, $plan_id)
     {
-
-        $this->case_id =$case_id;
-        $this->template->case= $this->caseModel->getCase($case_id);
-        $this->template->steps= $this->caseModel->getAllSteps($case_id);
+        $this->plan_id = $plan_id;
+        $this->case_id = $case_id;
+        $this->template->case = $this->caseModel->getCase($case_id);
+        $this->template->steps = $this->caseModel->getAllSteps($case_id);
     }
 
     public function renderDefault($id)
     {
 
-        $this->id =$id;
+        $this->id = $id;
 
     }
-
 
 
     protected function createComponentRunExecutionForm()
@@ -83,27 +88,47 @@ class ExecutionPresenter extends BasePresenter
         );
         $form->addSelect('status', 'Status', $status)->setRequired('Uvedte status')->setOption('left-addon', 'addon text')
             ->getControlPrototype();
-        $form->addHidden('number_defect')->setHtmlAttribute("id",'number_defect');
-        $form->addHidden('number_skip')->setHtmlAttribute("id",'number_skip');
-        $form->addHidden('number_pass')->setHtmlAttribute("id",'number_pass');
+
+        $form->addHidden('test_plan_id')->setDefaultValue($this->plan_id);
+        $form->addHidden('number_defect')->setHtmlAttribute("id", 'number_defect');
+        $form->addHidden('number_skip')->setHtmlAttribute("id", 'number_skip');
+        $form->addHidden('number_pass')->setHtmlAttribute("id", 'number_pass');
         $form->addHidden('start_time')->setDefaultValue($this->getSession('sekcePromenna')->promenna);
-        $form->addHidden('spend_time')->setHtmlAttribute("id",'spend_time');
+        $form->addHidden('spend_time')->setHtmlAttribute("id", 'spend_time');
         $form->addHidden('run_by')->setDefaultValue($this->getUser()->getIdentity()->id);
         $form->addHidden('case_id')->setDefaultValue($this->case_id);
-        $form->addSubmit('run', 'Dokončit test')->setHtmlAttribute("id",'pass')
+        $form->addSubmit('run', 'Dokončit test')->setHtmlAttribute("id", 'pass')
             ->getControlPrototype()->setClass('btn btn-primary btn-lg btn-block hidden');
         $form->onSuccess[] = [$this, 'RunExecution'];
-
+        //dump($form->getValues());
         return $form;
     }
 
     public function RunExecution(Form $form, $values)
     {
+        $values = $form->getValues();
         $id = $values["case_id"];
+        $plan_id = $values["test_plan_id"];
         $this->executionModel->addExecution($values);
-        $this->flashMessage('Test byl dokončen');
-        $this->redirect("Case:detail",$id);
 
+        if ($plan_id <> 0) {
+
+            $case = $this->planModel->getNextCase($this->plan_id);
+
+            if ($case['id'] <> 0) {
+                $this->redirect("Execution:run", $case['id'], $this->plan_id);
+            } else {
+                $this->flashMessage("Test plan je dokoncen");
+                $s['status']=1;
+                $this->planModel->setTestPlanFinished($this->plan_id,$s); // 1 means finished
+                $this->redirect("Plan:detail", $this->plan_id);
+
+
+            }
+
+        }
+        $this->flashMessage('Test byl dokončen');
+        $this->redirect("Case:detail", $id);
 
 
     }
@@ -149,7 +174,7 @@ class ExecutionPresenter extends BasePresenter
             ->setIcon('dot-circle')
             ->setClass('btn-warning')
             ->endOption()->onChange[] = [$this, 'statusChange'];
-        $grid->addColumnLink('link', 'Testovací případ', 'Case:detail', 'name',  ['id' => 'case_id'])->setFilterText(['name', 'id']);
+        $grid->addColumnLink('link', 'Testovací případ', 'Case:detail', 'name', ['id' => 'case_id'])->setFilterText(['name', 'id']);
 
     }
 

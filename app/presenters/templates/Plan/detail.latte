@@ -3,7 +3,14 @@
 {block content}
     <h2>{$plan->name}</h2>
     <a n:href="addCase!" class="ajax"><span class=" btn btn-success btn-sm"><i class="fa fa-plus-circle"></i></span></a>
+    {ifset $next}
+        <a n:href="Execution:run case_id=>$next->id, plan_id=>$plan_id" ><span class=" btn btn-primary">Pokracovat test plan</span></a>
+        {else}
+        {ifset $first}
+            <a n:href="Execution:run $first->case_id, plan_id=>$plan_id" ><span class=" btn btn-primary">Spustit test plan</span></a>
+        {/ifset}
 
+    {/ifset}
 <table class="table w-75">
 
     <tbody>
@@ -23,9 +30,24 @@
         <td>  {$plan->create_time|date:'d.m.Y H:i:s'}
         </td>
     </tr>
+    <tr>
+        <th scope="row">Status</th>
+        <td>
+            {switch $plan->status}
+                {case 0}
+                Vytvořený
+                {case 1}
+                Dokončený
+                {default}
+                Neznámý
+            {/switch}
+        </td>
 
+    </tr>
     </tbody>
 </table>
+    <div class="col-3"> </div><canvas id="myChart"  style="position: relative; height:300px; width:300px"></canvas></div>
+
     {control assignCaseGrid}
 
 
@@ -40,3 +62,34 @@
 {define modal-addcase-footer}
 {/define}
 
+{block scripts}
+    {include parent}
+<script>
+
+    var ctx = document.getElementById('myChart').getContext('2d');
+    ctx.canvas.width = 300;
+    ctx.canvas.height = 300;
+    var chart = new Chart(ctx, {
+        // The type of chart we want to create
+        type: 'pie',
+
+        // The data for our dataset
+        data: {
+            labels: JSON.parse({json_encode($labels)}),
+            datasets: [{
+                label: "My First dataset",
+                backgroundColor: ["#28a745","#dc3545", "#ffc107","#dc3545","#e8c3b9","#c45850"],
+
+                data: JSON.parse({json_encode($series)})
+
+    }]
+        },
+
+        // Configuration options go here
+        options: {  responsive: false,
+            maintainAspectRatio: true}
+    });
+
+</script>
+
+{/block}

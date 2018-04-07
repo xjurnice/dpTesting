@@ -41,7 +41,21 @@ class PlanPresenter extends BasePresenter
     }
     public function renderDetail($id)
     {
+        $this->template->plan_id = $id;
         $this->template->plan = $this->planModel->getPlan($id);
+        if ($this->planModel->getFirstCase($id)<>null) {
+            $this->template->first = $this->planModel->getFirstCase($id);
+        }
+
+        if ($this->planModel->getNextCase($id)<>null) {
+            $this->template->next = $this->planModel->getNextCase($id);
+        }
+
+        $succes = $this->planModel->getCountExecution($id)->where('status',1)->count();
+        $fail = $this->planModel->getCountExecution($id)->where('status',2)->count();
+        $skip = $this->planModel->getCountExecution($id)->where('status',3)->count();
+        $this->template->labels = ["Úspěšný","Neúspěšný","Vynechaný"];
+        $this->template->series = [$succes,$fail,$skip];
 
 
     }
@@ -65,19 +79,26 @@ class PlanPresenter extends BasePresenter
         $this->addComponent($grid, $name);
 
 
-        $fluent = $this->caseModel->getCases($this->getSession('sekcePromenna')->project);
+        $fluent = $this->planModel->getCasesNotInPlanYet($this->getSession('sekcePromenna')->project,$this->id);
 
 
         $grid->setDataSource($fluent);
 
 
-        $grid->addColumnText('name', 'Name')->setFilterText(['name', 'id', 'name']);;
+        $grid->addColumnLink('link', 'Testovací případ', 'Case:detail', 'name',  ['id' => 'id'])->setFilterText(['name', 'id']);
+$set = [];
+$set = ['' => 'Všechno'] + $this->caseModel->getSets($this->getSession('sekcePromenna')->project)->fetchPairs('id','name');
 
+
+        $grid->addColumnText('set_id', 'Sada')
+            ->setReplacement($this->caseModel->getSets($this->getSession('sekcePromenna')->project)->fetchPairs('id','name'))
+            ->setFilterSelect($set);
 
         $grid->addGroupAction('Přidat')->onSelect[] = [$this, 'addSelectedCase'];
 
-        $grid->addAction('detail', '', 'detail')
-            ->setIcon('lemon');
+        $grid->addColumnDateTime('create_time', 'Vytvořeno')
+            ->setFormat('d.m.Y H:i:s')->setSortable();
+
 
 
 
@@ -96,13 +117,12 @@ class PlanPresenter extends BasePresenter
         $grid->setDataSource($fluent);
 
 
-        $grid->addColumnText('name', 'Name')->setFilterText(['name', 'id', 'name']);;
-
+        $grid->addColumnText('name', 'Name')->setFilterText(['name', 'id', 'name']);
+        $grid->addColumnText('sequence', 's');
 
         $grid->addGroupAction('Odebrat')->onSelect[] = [$this, 'deleteSelectedCase'];
 
-        $grid->addAction('detail', '', 'detail')
-            ->setIcon('lemon');
+
 
 
 

@@ -34,7 +34,7 @@ class SimpleTranslator implements Nette\Localization\ITranslator
         'ublaboo_datagrid.previous' => 'Předchozí',
         'ublaboo_datagrid.next' => 'Další',
         'ublaboo_datagrid.choose' => 'Vybrat',
-        'ublaboo_datagrid.execute' => 'Spustit',
+        'ublaboo_datagrid.execute' => 'Odeslat',
 		'ublaboo_datagrid.show' => 'Zobrazit',
 		'ublaboo_datagrid.add' => 'Přidat',
 		'ublaboo_datagrid.edit' => 'Editovat',
