@@ -118,7 +118,7 @@ class ExecutionPresenter extends BasePresenter
             if ($case['id'] <> 0) {
                 $this->redirect("Execution:run", $case['id'], $this->plan_id);
             } else {
-                $this->flashMessage("Test plan je dokoncen");
+                $this->flashMessage("Test plán je dokončen");
                 $s['status']=1;
                 $this->planModel->setTestPlanFinished($this->plan_id,$s); // 1 means finished
                 $this->redirect("Plan:detail", $this->plan_id);

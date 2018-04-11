@@ -46,6 +46,7 @@ class DashboardPresenter extends BasePresenter
 
     public function renderDefault()
     {
+        $project =$this->getSession('sekcePromenna')->project;
         $names = $this->projectModel->getProjectNameCaseInProject();
 
         $this->template->labels = $names;
@@ -55,6 +56,10 @@ class DashboardPresenter extends BasePresenter
         $this->template->series = $number;
 
         $this->template->events = $this->eventModel->getEvents();
+
+        $this->template->defect = $this->projectModel->getFailedTestToProject($project);
+        $this->template->sucess = $this->projectModel->getPassTestToProject($project);
+        $this->template->plan = $this->projectModel->getNumberTestPlan($project);
     }
 
     public function renderAll()

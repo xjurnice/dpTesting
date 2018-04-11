@@ -50,4 +50,22 @@ class ProjectModel
         return $this->database->query('SELECT project.name AS c FROM `project`JOIN `case` on project.id = case.project_id group by project.id')->fetchPairs();
 
     }
+
+    public function getFailedTestToProject($id)
+    {
+        $fail =2;
+        return $this->database->query('SELECT execution.id FROM `case`JOIN `execution` on case.id = execution.case_id WHERE execution.status=? AND case.project_id=?',$fail,$id)->getRowCount();
+    }
+
+    public function getPassTestToProject($id)
+    {
+        $pass =1;
+        return $this->database->query('SELECT execution.id FROM `case`JOIN `execution` on case.id = execution.case_id WHERE execution.status=? AND case.project_id=?',$pass,$id)->getRowCount();
+    }
+
+    public function getNumberTestPlan($id)
+    {
+        return $this->database->table('test_plan')->select('name')->where('project_id',$id)->count();
+    }
+
 }

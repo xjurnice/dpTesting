@@ -7,7 +7,17 @@
 {block content}
 
 	<div class="row">
-		<div class="col-lg-4 col-md-5 col-xl-4 order-1">		<div class="card box shadow">
+        <div class="col-lg-4 col-sm-3 col-md-6 col-xl-4 ">
+            <div class="card box shadow">
+                <h5 class="card-header">Výběr projektu</h5>
+                <div class="card-body">
+                    <h5 class="card-title">Pro začátek je třeba...</h5>
+                    <p class="card-text">Vyberte projekt.     {control selectProjectForm}</p>
+                    <a n:href="Project:add"><button type="button" class="btn btn-success"><i class="fa fa-plus-circle"></i>  Přidat nový projekt</button></a>
+                </div>
+            </div>
+        </div>
+		<div class="col-lg-4 col-md-5 col-xl-4 ">		<div class="card box shadow">
 				<h5 class="card-header">Poslední aktivity</h5>
 				<div class="card-body">
 
@@ -33,7 +43,7 @@
 			</div>
 			</div>
 
-		<div class="col-lg-4 col-sm-6 col-md-7 col-xl-4 order-2">
+		<div class="col-lg-4 col-sm-6 col-md-7 col-xl-4">
 
 
             <div class="card box shadow" style="padding: 1em">
@@ -42,19 +52,34 @@
             </div>
 
 		</div>
-		<div class="col-lg-4 col-sm-3 col-md-6 col-xl-4 order-3">
-			<div class="card text-white bg-info mb-3">
-						<h5 class="card-header">Výběr projektu</h5>
-				<div class="card-body">
-					<h5 class="card-title">Pro začátek je třeba...</h5>
-					<p class="card-text">Vyberte projekt.     {control selectProjectForm}</p>
-					<a n:href="Project:add"><button type="button" class="btn btn-success"><i class="fa fa-plus-circle"></i>  Přidat nový projekt</button></a>
-				</div>
-			</div>
-		</div>
 
 	</div>
+    <div class="row">
 
+        <div class="col-lg-4 col-md-5 col-xl-4 ">
+
+
+                    <div class="card box shadow" style="padding: 1em">
+                        <h4 style="color:indigo; text-align: center"><i class="fa fa-map fa-2x"></i> Počet test plánů <span class="count">{$plan}</span></h4>
+                    </div>
+        </div>
+        <div class="col-lg-4 col-sm-3 col-md-6 col-xl-4 ">
+            <div class="card box shadow" style="padding: 1em">
+                <h4 style="color:green; text-align: center"><i class="fa fa-check-circle fa-2x"></i> Počet úspěšných testů <span class="count">{$sucess}</span></h4>
+            </div>
+
+        </div>
+
+        <div class="col-lg-4 col-sm-6 col-md-7 col-xl-4">
+
+
+            <div class="card box shadow" style="padding: 1em">
+                <h4 style="color:rgba(255, 0, 0, 0.6); text-align: center"><i class="fa fa-bug fa-2x"></i> Počet neúspěšných testů: <span class="count">{$defect}</span></h4>
+            </div>
+
+        </div>
+
+    </div>
 
 
 
@@ -134,7 +159,17 @@
                 }
             }
         });
-
+        $('.count').each(function () {
+            $(this).prop('Counter',0).animate({
+                Counter: $(this).text()
+            }, {
+                duration: 1000,
+                easing: 'swing',
+                step: function (now) {
+                    $(this).text(Math.ceil(now));
+                }
+            });
+        });
 	</script>
 
 {/block}

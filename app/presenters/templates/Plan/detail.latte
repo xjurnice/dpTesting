@@ -39,6 +39,11 @@
             </td>
         </tr>
         <tr>
+            <th scope="row">Plánovaný čas spuštění</th>
+            <td>  {$plan->planed_time|date:'d.m.Y'}
+            </td>
+        </tr>
+        <tr>
             <th scope="row">Status</th>
             <td>
                 {switch $plan->status}

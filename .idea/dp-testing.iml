@@ -4,9 +4,14 @@
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/log" />
       <excludeFolder url="file://$MODULE_DIR$/temp" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/aleswita/formrenderer" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/composer" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/dg/adminer-custom" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/joseki/pdf-response" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/kdyby/events" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/kdyby/strict-objects" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/latte/latte" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/mpdf/mpdf" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/nette/application" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/nette/bootstrap" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/nette/caching" />
@@ -25,7 +30,16 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/nette/security" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/nette/tester" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/nette/utils" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/nextras/mail-panel" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/paragonie/random_compat" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/inflector" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/polyfill-php70" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/property-access" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/tracy/tracy" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/ublaboo/datagrid" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/ublaboo/responses" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/webchemistry/forms-multiplier" />
+      <excludeFolder url="file://$MODULE_DIR$/www/node_modules" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
