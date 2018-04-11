@@ -1,0 +1,21 @@
+
+
+{block content}
+    <h2>Přehled všech aktivit</h2>
+    {foreach $events as $event}
+        <p class="card-text">
+
+            {switch $event->event_type_id}
+                {case 1}
+                <i class="fa fa-user-circle"></i> Přihlášení uživatele
+            {case 2}
+                <i class="fa fa-plus-circle"></i><a n:href="Case:detail $event->object_id">  Vytvořené test. případu </a>
+            {case 3}
+                <i class="fa fa-play-circle"></i><a n:href="Case:detail $event->object_id">  Spuštění test. případu</a>
+
+                {default}
+                Neznámý
+            {/switch}
+            ({$event->event_time|date:'d.m.Y H:i:s'}) -  <a n:href="User:profile $event->user_id">{$event->username}</a> </p>
+    {/foreach}
+{/block}

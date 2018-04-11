@@ -4,7 +4,7 @@
     <a n:href="Execution:run $case->id" class="btn btn-xs btn-primary">Spustit test</a>
     <a n:href="Case:edit $case->id" class="btn btn-xs btn-primary">Editovat</a>
     <div></div>
-    <table class="table w-75">
+    <table class="table table-striped w-75 align-self-center">
 
         <tbody>
         <tr>
@@ -73,7 +73,7 @@
             <tr>
                 <th scope="row">Počet spuštění testu</th>
                 <td>
-                    {$exeCount}
+                    {$exeCount} krát
                 </td>
             </tr>
             <tr>
@@ -88,7 +88,7 @@
                              style="width: {$podilFail|number:0:',':' '}%" aria-valuenow="{$exeFailCount}"
                              aria-valuemin="0"
                              aria-valuemax="{$exeCount}"
-                             title="{$exeFailCount} neúspěšné výsledkz">{$exeFailCount}</div>
+                             title="{$exeFailCount} neúspěšné výsledky">{$exeFailCount}</div>
                         <div class="progress-bar progress-bar-striped bg-success" role="progressbar"
                              style="width: {$podilPass|number:0:',':' '}%" aria-valuenow="{$exePassCount}"
                              aria-valuemin="0"
@@ -112,30 +112,33 @@
             </tr>
         {/if}
         </tbody>
+
     </table>
 
+    <h2>Kroky scénáře</h2>
+    <table class="table table-striped w-75">
 
 
-    <table class="table noBorder">
+
         <thead>
         </thead>
         <tbody>
         <tr>
 
-            <div class="row border-dark">
-                <div class="col-1">
-                    Krok
+            <div class="row">
+                <div class="col-lg-2 col-sm-1 col-md-1 col-xl-1">
+                    <b>Krok</b>
                 </div>
-                <div class="col-5">
+                <div class="col-lg-4 col-sm-6 col-md-5 col-xl-4">
 
 
-                    <p class="card-title">Action</p>
+                    <b>Akce</b>
 
 
                 </div>
-                <div class="col-5">
+                <div class="col-lg-4 col-sm-6 col-md-5 col-xl-4">
 
-                    <p class="card-title">Result</p>
+                    <b>Očekávaný výstup</b>
 
 
                 </div>
@@ -150,10 +153,10 @@
 
                 <td class="td_steps">
                     <div class="row">
-                        <div class="col-1">
-                            <dt class="step_id">{$step->sequence}. krok</dt>
+                        <div class="col-lg-2 col-sm-1 col-md-1 col-xl-1">
+                            <dt class="step_id primary">{$iterator->counter}. krok</dt>
                         </div>
-                        <div class="col-5">
+                        <div class="col-lg-4 col-sm-6 col-md-5 col-xl-4">
                             <div class="card">
                                 <div class="card-body">
 
@@ -162,7 +165,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-5">
+                        <div class="col-lg-4 col-sm-6 col-md-5 col-xl-4">
                             <div class="card">
                                 <div class="card-body">
 
@@ -171,7 +174,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-1"><a n:href="editStep!  id_step=>$step->id" class="ajax"><span
+                        <div class="col-lg-2 col-sm-1 col-md-1 col-xl-1"><a n:href="editStep!  id_step=>$step->id" class="ajax"><span
                                         class=" btn btn-warning btn-sm"><i class="fa fa-edit"></i></span></a>
                             <a n:href="deleteStep! id_step=>$step->id"><span class=" btn btn-danger btn-sm"><i
                                             class="fa fa-trash "></i></span></a></div>
@@ -184,7 +187,7 @@
         {/foreach}
         </tbody>
     </table>
-    <a n:href="addStep!" class="ajax"><span class=" btn btn-primary">Přidat krok</span></a>
+    <a n:href="addStep!" class="ajax"><span class=" btn btn-success"><i class="fa fa-plus-circle"></i> Přidat krok</span></a>
 
 
     <h2>Záznamy spuštění testu</h2>

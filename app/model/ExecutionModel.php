@@ -31,7 +31,19 @@ class ExecutionModel
         {
             unset($values['test_plan_id']);
         }
-        return $this->database->table('execution')->insert($values);
+
+
+      $this->database->table('execution')->insert($values);
+
+        //event
+        $val = [];
+        $val['user_id'] = $values['run_by'];
+        $val['object_id'] = $values['case_id'];
+        $val['event_type_id'] = 3;
+        $val['event_time'] = new \Nette\Utils\DateTime();
+
+        $this->database->table('event')->insert($val);
+
     }
 
     public function getExecution()

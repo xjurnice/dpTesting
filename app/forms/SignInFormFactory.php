@@ -62,7 +62,7 @@ class SignInFormFactory
 		$form = $this->factory->create();
         $form->onRender[] = [$this, 'makeBootstrap4'];
 		$form->addText('username')
-			->setRequired('Please enter your username.')->setHtmlAttribute('placeholder', 'uživatelské jméno');;
+			->setRequired('Please enter your username.')->setHtmlAttribute('placeholder', 'uživatelské jméno');
 
 		$form->addPassword('password')
 			->setRequired('Please enter your password.')->setHtmlAttribute('placeholder', 'heslo');

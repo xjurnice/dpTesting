@@ -3,6 +3,7 @@
 namespace App\Presenters;
 
 use App\Model\CaseModel;
+use App\Model\EventModel;
 use App\Model\ProjectModel;
 use Composer\IO\NullIO;
 use Nette,
@@ -18,6 +19,10 @@ class DashboardPresenter extends BasePresenter
     /** @var CaseModel */
     private $caseModel;
 
+
+    /** @var EventModel */
+    public $eventModel;
+
     /** @var ProjectModel */
     private $projectModel;
     /** @var Nette\Http\Session */
@@ -29,25 +34,37 @@ class DashboardPresenter extends BasePresenter
     private $data = null;
 
 
-    public function __construct(CaseModel $caseModel,ProjectModel $projectModel, Nette\Http\Session $session)
+    public function __construct(CaseModel $caseModel, ProjectModel $projectModel, Nette\Http\Session $session,Model\EventModel $eventModel)
     {
+        parent::__construct($eventModel);
+
         $this->caseModel = $caseModel;
         $this->projectModel = $projectModel;
 
 
     }
-	public function renderDefault()
-	{
 
-        $this->template->labels = ["Úspěšný","Neúspěšný","Vynechaný"];
+    public function renderDefault()
+    {
+        $names = $this->projectModel->getProjectNameCaseInProject();
 
+        $this->template->labels = $names;
 
-        $this->template->series= [25,37,45];
-	}
+        $number = $this->projectModel->getCountCaseInProject();
+//dump($number);
+        $this->template->series = $number;
 
+        $this->template->events = $this->eventModel->getEvents();
+    }
 
+    public function renderAll()
+    {
 
-    public function createComponentSelectProjectForm() {
+        $this->template->events = $this->eventModel->getAllEvents();
+
+    }
+    public function createComponentSelectProjectForm()
+    {
 
         $form = new Form();
         $form->setRenderer(new AlesWita\FormRenderer\BootstrapV4Renderer);
@@ -66,11 +83,10 @@ class DashboardPresenter extends BasePresenter
         $values = $form->getValues();
         $session = $this->getSession();
         $sessionSection = $session->getSection('sekcePromenna');
-        $sessionSection->project =  $values['id'];
-        $name =  $this->projectModel->getProjectById($values['id'])->toArray();
-        $sessionSection->projectName =  $name['name'];
+        $sessionSection->project = $values['id'];
+        $name = $this->projectModel->getProjectById($values['id'])->toArray();
+        $sessionSection->projectName = $name['name'];
         $this->flashMessage('Úspěšně jste zvolili projekt.');
-
 
 
     }

@@ -38,4 +38,16 @@ class ProjectModel
     {
         return $this->database->table('project')->select('name')->where('id',$id)->fetch();
     }
+
+    public function getCountCaseInProject()
+    {
+        return $this->database->query('SELECT count(case.id) AS c FROM `project`JOIN `case` on project.id = case.project_id group by project.id')->fetchPairs();
+
+    }
+
+    public function getProjectNameCaseInProject()
+    {
+        return $this->database->query('SELECT project.name AS c FROM `project`JOIN `case` on project.id = case.project_id group by project.id')->fetchPairs();
+
+    }
 }

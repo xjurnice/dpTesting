@@ -7,10 +7,14 @@
         <div class="form-signin">
             <h1 n:block=title class="display-2 sign-logo"> Test<i class="fas fa-lemon fa-1x"></i>ne</h1>
             <p>Testovací nástroj</p>
-            {control signInForm}
+            {control forgottenPasswordForm}
+
+            {* OR
+            {import '../components/form.latte'}
+            {include form signInForm}
+            *}
 
 
-            <p><a n:href="forgotten"><i class="fa fa-key"></i> Zapomenuté heslo?</a></p>
-            <p><a n:href="up"><i class="fa fa-user-plus"></i> Nemáte účet? Registrujte se zde.</a></p>
+            <p><a n:href="up">Nemáte účet? Registrujte se zde.</a></p>
         </div>
 

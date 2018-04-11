@@ -141,7 +141,13 @@ ORDER BY sequence", $id)->fetchAll();
     public function getTimeOfExecution($id)
     {
 
-        return $this->database->table('execution')->select('spend_time')->where('test_plan_id', $id);
+        return $this->database->query('SELECT (spend_time/60) FROM `execution` WHERE test_plan_id=? ',$id)->fetchPairs();
+
+    }
+    public function getNameofExecution($id)
+    {
+
+        return $this->database->query('SELECT name FROM `execution` JOIN `case` ON execution.case_id=case.id  WHERE test_plan_id=? ',$id)->fetchPairs();
 
     }
 

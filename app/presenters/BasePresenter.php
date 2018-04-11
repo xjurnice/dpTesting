@@ -2,6 +2,7 @@
 
 namespace App\Presenters;
 
+use App\Model\EventModel;
 use Nette;
 
 
@@ -10,10 +11,17 @@ use Nette;
  */
 abstract class BasePresenter extends Nette\Application\UI\Presenter
 {
+    /** @var EventModel */
+    public $eventModel;
 
     private $acl = null;
 
+    public function __construct(EventModel $eventModel)
+    {
 
+        $this->eventModel = $eventModel;
+
+    }
     public function startup() {
         parent::startup();
 

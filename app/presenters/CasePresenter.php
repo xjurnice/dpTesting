@@ -24,6 +24,7 @@ class CasePresenter extends BasePresenter
     /** @var CaseModel */
     private $caseModel;
 
+
     /** @persistent */
     public $id;
 
@@ -35,8 +36,9 @@ class CasePresenter extends BasePresenter
     private $datastep = null;
     public $case;
 
-    public function __construct(CaseModel $caseModel)
+    public function __construct(CaseModel $caseModel, Model\EventModel $eventModel)
     {
+        parent::__construct($eventModel);
         $this->caseModel = $caseModel;
 
     }

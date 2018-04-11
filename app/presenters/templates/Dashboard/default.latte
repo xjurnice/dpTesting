@@ -7,25 +7,42 @@
 {block content}
 
 	<div class="row">
-		<div class="col-4">		<div class="card text-white bg-info mb-3">
-				<div class="card-header">Header</div>
+		<div class="col-lg-4 col-md-5 col-xl-4 order-1">		<div class="card box shadow">
+				<h5 class="card-header">Poslední aktivity</h5>
 				<div class="card-body">
-					<h5 class="card-title">Info card title</h5>
-					<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-				</div>
+
+                    {foreach $events as $event}
+					<p class="card-text">
+
+                        {switch $event->event_type_id}
+                            {case 1}
+                            <i class="fa fa-user-circle"></i> Přihlášení uživatele
+                            {case 2}
+                            <i class="fa fa-plus-circle"></i><a n:href="Case:detail $event->object_id">  Vytvořené test. případu </a>
+                            {case 3}
+                            <i class="fa fa-play-circle"></i><a n:href="Case:detail $event->object_id">  Spuštění test. případu</a>
+
+                            {default}
+                            Neznámý
+                        {/switch}
+                        ({$event->event_time|date:'d.m.Y H:i:s'}) -  <a n:href="User:profile $event->user_id">{$event->username}</a> </p>
+				{/foreach}
+                    <a n:href="all"><button type="button" class="btn btn-primary">Zobrazit všechny aktivity</button></a>
+
+                </div>
 			</div>
 			</div>
 
-		<div class="col-4">
-			<div class="card text-white bg-light mb-3">
-				<div class="card-header">Header</div>
-				<div class="card-body">
+		<div class="col-lg-4 col-sm-6 col-md-7 col-xl-4 order-2">
 
-					<p class="card-text">    <div class="col-6"><canvas id="myChart"  ></canvas></div></p>
-				</div>
-			</div>
+
+            <div class="card box shadow" style="padding: 1em">
+                <div class="h5 chartjs-title align-self-center">Počet test. případů na projekt</div>
+                <canvas id="myChart" width="600" height="400"></canvas>
+            </div>
+
 		</div>
-		<div class="col-4">
+		<div class="col-lg-4 col-sm-3 col-md-6 col-xl-4 order-3">
 			<div class="card text-white bg-info mb-3">
 						<h5 class="card-header">Výběr projektu</h5>
 				<div class="card-body">
@@ -47,20 +64,47 @@
 
 	<script>
 
+        function random_rgba() {
+
+            var r = Math.floor((Math.random() * 256));
+            var g = Math.floor((Math.random() * 256));
+            var b = Math.floor((Math.random() * 256));
+            return 'rgb(' + r + ', ' + g + ', ' + b + ',0.4)';
+        }
+        var color =[];
+        for(i=0; i<200;i++){
+            color[i]=  random_rgba();
+        }
+
+        function shuffle(array)
+        {
+            var m = array.length, t, i;
+            while (m > 0)
+            {
+                i = Math.floor(Math.random() * m--);
+                t = array[m];
+                array[m] = array[i];
+                array[i] = t;
+            }
+            return array;
+        }
+
+        Chart.defaults.global.responsive = true;
+
+
         var ctx = document.getElementById('myChart').getContext('2d');
-        ctx.canvas.width = 400;
-        ctx.canvas.height = 300;
+
         var chart = new Chart(ctx, {
             // The type of chart we want to create
-            type: 'line',
+            type: 'bar',
 
             // The data for our dataset
             data: {
 
                 labels: JSON.parse({json_encode($labels)}),
                 datasets: [{
-                    label: "My First dataset",
-                    backgroundColor: ["#631aae"],
+                    label: "Testovací případy",
+                    backgroundColor: color.sort(shuffle),
 
                     data: JSON.parse({json_encode($series)})
 
@@ -68,51 +112,29 @@
             },
 
             // Configuration options go here
-            options: {  responsive: false,
-                maintainAspectRatio: true,
-                title: {
-                    display: true,
-                    text: 'Úspěšnost všech testů'
-                }}
-        });
+            options: {
+                animation: {
+                    easing: "easeInOutBack"
+                },
+                responsive: true,
+                scales: {
+                    xAxes: [{
+                        stacked: true,
+                        beginAtZero: true,
 
-        var ctx = document.getElementById('myChart2').getContext('2d');
-        ctx.canvas.width = 600;
-        ctx.canvas.height = 300;
-        var chart = new Chart(ctx, {
-            // The type of chart we want to create
-            type: 'line',
-
-            // The data for our dataset
-            data: {
-
-                labels: JSON.parse({json_encode($labels)}),
-                datasets: [{
-                                       label: "Testovací případy",
-                    backgroundColor: ["#631aae"],
-
-                    data: JSON.parse({json_encode($series)})
-
-                }]
-            },
-
-            // Configuration options go here
-            options: {  responsive: false,
-                maintainAspectRatio: true,
-                title: {
-                    display: true,
-                    text: 'Úspěšnost všech testů'
-                },    scales: {
-                    yAxes: [{
-                        time: {
-                            unit: 'second'
+                        ticks: {
+                            stepSize: 1,
+                            min: 0,
+                            autoSkip: false
                         }
                     }]
-                }, legend: {
-                    display: false},
-
+                },
+                legend: {
+                    display: false,
+                }
             }
         });
+
 	</script>
 
 {/block}

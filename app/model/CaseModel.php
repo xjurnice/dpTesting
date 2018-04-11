@@ -2,6 +2,7 @@
 
 namespace App\Model;
 
+
 use Nette;
 
 class CaseModel
@@ -37,6 +38,15 @@ class CaseModel
 
         $this->database->table('case')->insert($values);
         $lastId = $this->database->table('case')->select('id')->order('id DESC')->limit(1)->fetch();
+        //event
+        $val = [];
+        $val['user_id'] = $values['author_id'];
+        $val['object_id'] = $lastId;
+        $val['event_type_id'] = 2;
+        $val['event_time'] = new \Nette\Utils\DateTime();
+
+        $this->database->table('event')->insert($val);
+
 
         if(sizeof($steps)>0)
         {

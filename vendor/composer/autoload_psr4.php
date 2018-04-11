@@ -11,6 +11,7 @@ return array(
     'Symfony\\Polyfill\\Php70\\' => array($vendorDir . '/symfony/polyfill-php70'),
     'Symfony\\Component\\PropertyAccess\\' => array($vendorDir . '/symfony/property-access'),
     'Symfony\\Component\\Inflector\\' => array($vendorDir . '/symfony/inflector'),
+    'Nextras\\MailPanel\\' => array($vendorDir . '/nextras/mail-panel/src'),
     'Kdyby\\StrictObjects\\' => array($vendorDir . '/kdyby/strict-objects/src'),
     'Kdyby\\Events\\' => array($vendorDir . '/kdyby/events/src/Events'),
 );

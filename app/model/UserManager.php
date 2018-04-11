@@ -4,6 +4,7 @@ namespace App\Model;
 
 use Nette;
 use Nette\Security\Passwords;
+use App\Model\EventModel;
 
 
 /**
@@ -26,10 +27,14 @@ class UserManager implements Nette\Security\IAuthenticator
 	/** @var Nette\Database\Context */
 	private $database;
 
+    /** @var EventModel */
+    private $eventModel;
 
-	public function __construct(Nette\Database\Context $database)
+
+	public function __construct(Nette\Database\Context $database, EventModel $eventModel)
 	{
 		$this->database = $database;
+		$this->eventModel = $eventModel;
 	}
 
 
@@ -40,6 +45,7 @@ class UserManager implements Nette\Security\IAuthenticator
 	 */
 	public function authenticate(array $credentials)
 	{
+
 		list($username, $password) = $credentials;
 
 		$row = $this->database->table(self::TABLE_NAME)
@@ -61,6 +67,14 @@ class UserManager implements Nette\Security\IAuthenticator
         			]);
 
        		}else{
+            $values=[];
+            $values['user_id']=$this->eventModel->getUserId($username);
+            $values['event_type_id']=1;
+            $values['event_time']= new \Nette\Utils\DateTime();
+
+
+            $this->eventModel->addEvent($values);
+
             $row->update([
                 self::COLUMN_LAST_LOGIN_TIME =>new Nette\Utils\DateTime,
             ]);

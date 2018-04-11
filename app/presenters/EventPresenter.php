@@ -12,7 +12,7 @@ use AlesWita;
 
 
 
-class PlanPresenter extends BasePresenter
+class EventPresenter extends BasePresenter
 {
 
     /** @var PlanModel */
@@ -54,9 +54,8 @@ class PlanPresenter extends BasePresenter
         $this->template->labels = ["Úspěšný","Neúspěšný","Vynechaný"];
         $this->template->series = [$succes,$fail,$skip];
         $times = $this->planModel->getTimeOfExecution($id);
-        $case = $this->planModel->getNameofExecution($id);
-        $this->template->labelsTime = $case;
-        $this->template->seriesTime = $times;
+        $this->template->labelsTime = [$times];
+        $this->template->seriesTime = [25,37,45,66,90,1,3,6,4];
 
 
     }
@@ -168,7 +167,7 @@ $set = ['' => 'Všechno'] + $this->caseModel->getSets($this->getSession('sekcePr
 
 
         $grid->addAction('delete', '', 'deletePlan!')
-            ->setIcon('trash')->setConfirm('Opravdu chcete smazat testovací plán "%s?"', 'name');
+            ->setIcon('trash')->setConfirm('Opravdu chcete smazat testovací případ "%s?"', 'name');
 
 
 
@@ -209,7 +208,7 @@ $set = ['' => 'Všechno'] + $this->caseModel->getSets($this->getSession('sekcePr
         $form->addSelect('project_id', 'Projekt', $this->projectModel->getProject()->fetchPairs('id', 'name'))
             ->setDefaultValue($this->getSession('sekcePromenna')->project)->setDisabled(false);
         $form->addSelect('assign_user_id', 'Určeno pro', $this->planModel->getUsers()->fetchPairs('id', 'username'));
-        $form->addText('planed_time', 'Plánovaný čas spuštění')->setType('date')->setRequired('Prosím zadejte datum k plánovanému spuštění');
+        $form->addText('planed_time', 'Plánovaný čas spuštění')->setType('date')->setRequired('Prosím zadejte platnost nájemní smlouvy');
 
         $form->addSubmit('add', 'Vložit')->getControlPrototype()->setClass('btn btn-primary btn-lg btn-block');
         $form->onSuccess[] = array($this, 'insertFormSucceeded');

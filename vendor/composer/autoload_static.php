@@ -29,6 +29,10 @@ class ComposerStaticInit4e76a5ed7d99f3187ed4a44de0aa3cbc
             'Symfony\\Component\\PropertyAccess\\' => 33,
             'Symfony\\Component\\Inflector\\' => 28,
         ),
+        'N' => 
+        array (
+            'Nextras\\MailPanel\\' => 18,
+        ),
         'K' => 
         array (
             'Kdyby\\StrictObjects\\' => 20,
@@ -56,6 +60,10 @@ class ComposerStaticInit4e76a5ed7d99f3187ed4a44de0aa3cbc
         'Symfony\\Component\\Inflector\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/inflector',
+        ),
+        'Nextras\\MailPanel\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/nextras/mail-panel/src',
         ),
         'Kdyby\\StrictObjects\\' => 
         array (
