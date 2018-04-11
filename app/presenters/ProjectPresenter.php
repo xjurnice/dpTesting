@@ -3,6 +3,7 @@
 namespace App\Presenters;
 
 use App\Model\ProjectModel;
+use Latte\Runtime\Template;
 use Nette,
     Nette\Application\UI\Form;
 
@@ -53,7 +54,7 @@ class ProjectPresenter extends BasePresenter
         $this->projectModel->addProject($values);
         $this->flashMessage('Záznam byl úspěšně vložen.');
 
-        $this->redirect('Homepage:default');
+        $this->redirect('Dashboard:default');
     }
 
 

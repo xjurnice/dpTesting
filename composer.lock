@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "dbce3e552de16562ad9e81ff813edc40",
+    "content-hash": "de6730ae2c11e7d045a0b86bb2b1e2a5",
     "packages": [
         {
             "name": "aleswita/formrenderer",
@@ -87,6 +87,71 @@
                 "sqlite"
             ],
             "time": "2018-02-21T15:58:44+00:00"
+        },
+        {
+            "name": "joseki/pdf-response",
+            "version": "v2.2.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Joseki/PdfResponse.git",
+                "reference": "2a023b58c47aea448af521e09cf084dc0ca4a603"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Joseki/PdfResponse/zipball/2a023b58c47aea448af521e09cf084dc0ca4a603",
+                "reference": "2a023b58c47aea448af521e09cf084dc0ca4a603",
+                "shasum": ""
+            },
+            "require": {
+                "mpdf/mpdf": "5.*"
+            },
+            "conflict": {
+                "mpdf/mpdf": ">=5.7.3, <=5.7.99"
+            },
+            "replace": {
+                "castamir/pdf-response": "2.*"
+            },
+            "require-dev": {
+                "latte/latte": "~2.2",
+                "nette/application": "~2.2",
+                "nette/tester": "~1.0",
+                "symfony/css-selector": "~2.5",
+                "symfony/dom-crawler": "~2.5"
+            },
+            "suggest": {
+                "nette/nette": "PHP framework to which this extension belongs to.",
+                "symfony/dom-crawler": "Allows filtering html tags."
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.2-dev"
+                }
+            },
+            "autoload": {
+                "classmap": [
+                    "src"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Jan Kuchař"
+                },
+                {
+                    "name": "Tomáš Votruba",
+                    "email": "tomas.vot@gmail.com"
+                },
+                {
+                    "name": "Miroslav Paulík",
+                    "email": "miras.paulik@seznam.cz"
+                }
+            ],
+            "description": "Pdf response extension for Nette Framework",
+            "time": "2015-01-13T20:38:15+00:00"
         },
         {
             "name": "kdyby/events",
@@ -287,6 +352,49 @@
                 "twig"
             ],
             "time": "2018-02-06T14:42:33+00:00"
+        },
+        {
+            "name": "mpdf/mpdf",
+            "version": "v5.7.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mpdf/mpdf.git",
+                "reference": "1627f9e7d2ef0f635a886f611079216ed2929717"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mpdf/mpdf/zipball/1627f9e7d2ef0f635a886f611079216ed2929717",
+                "reference": "1627f9e7d2ef0f635a886f611079216ed2929717",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "php": ">=4.3.10"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "mpdf.php",
+                    "classes"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-1.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Ian Back"
+                }
+            ],
+            "description": "A PHP class to generate PDF files from HTML with Unicode/UTF-8 and CJK support",
+            "homepage": "http://www.mpdf1.com/mpdf/index.php",
+            "keywords": [
+                "pdf",
+                "php",
+                "utf-8"
+            ],
+            "time": "2014-05-16T07:18:10+00:00"
         },
         {
             "name": "nette/application",
@@ -1488,7 +1596,7 @@
         },
         {
             "name": "symfony/inflector",
-            "version": "v4.0.7",
+            "version": "v4.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/inflector.git",
@@ -1604,7 +1712,7 @@
         },
         {
             "name": "symfony/property-access",
-            "version": "v3.4.7",
+            "version": "v3.4.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/property-access.git",

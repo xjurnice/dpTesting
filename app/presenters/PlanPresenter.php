@@ -35,10 +35,7 @@ class PlanPresenter extends BasePresenter
         $this->projectModel = $projectModel;
     }
 
-    public function renderDefault()
-    {
-    $this->template->plans = $this->planModel->getPlans($this->getSession('sekcePromenna')->project);
-    }
+
     public function renderDetail($id)
     {
         $this->template->plan_id = $id;
@@ -56,10 +53,19 @@ class PlanPresenter extends BasePresenter
         $skip = $this->planModel->getCountExecution($id)->where('status',3)->count();
         $this->template->labels = ["Úspěšný","Neúspěšný","Vynechaný"];
         $this->template->series = [$succes,$fail,$skip];
+        $times = $this->planModel->getTimeOfExecution($id);
+        $this->template->labelsTime = [$times];
+        $this->template->seriesTime = [25,37,45,66,90,1,3,6,4];
 
 
     }
 
+    public function handleDeletePlan($id){
+
+
+        $this->planModel->deletePlan($id);
+        $this->flashMessage('Plán byl úspěšně smazán.');
+    }
 
     public function handleAddPlan(){
 
@@ -77,6 +83,7 @@ class PlanPresenter extends BasePresenter
 
         $grid = new DataGrid();
         $this->addComponent($grid, $name);
+        $grid->setRememberState(FALSE);
 
 
         $fluent = $this->planModel->getCasesNotInPlanYet($this->getSession('sekcePromenna')->project,$this->id);
@@ -94,7 +101,7 @@ $set = ['' => 'Všechno'] + $this->caseModel->getSets($this->getSession('sekcePr
             ->setReplacement($this->caseModel->getSets($this->getSession('sekcePromenna')->project)->fetchPairs('id','name'))
             ->setFilterSelect($set);
 
-        $grid->addGroupAction('Přidat')->onSelect[] = [$this, 'addSelectedCase'];
+        $grid->addGroupAction('Přidat')->setClass('btn')->onSelect[] = [$this, 'addSelectedCase'];
 
         $grid->addColumnDateTime('create_time', 'Vytvořeno')
             ->setFormat('d.m.Y H:i:s')->setSortable();
@@ -109,6 +116,7 @@ $set = ['' => 'Všechno'] + $this->caseModel->getSets($this->getSession('sekcePr
 
         $grid = new DataGrid();
         $this->addComponent($grid, $name);
+        $grid->setRememberState(FALSE);
 
 
         $fluent = $this->planModel->getAssignCases($this->id);
@@ -117,12 +125,49 @@ $set = ['' => 'Všechno'] + $this->caseModel->getSets($this->getSession('sekcePr
         $grid->setDataSource($fluent);
 
 
-        $grid->addColumnText('name', 'Name')->setFilterText(['name', 'id', 'name']);
+        $grid->addColumnText('name', 'Name')->setFilterText(['name', 'id']);
         $grid->addColumnText('sequence', 's');
 
         $grid->addGroupAction('Odebrat')->onSelect[] = [$this, 'deleteSelectedCase'];
 
 
+
+
+
+    }
+
+    public function createComponentPlanGrid($name)
+    {
+
+        $grid = new DataGrid();
+        $this->addComponent($grid, $name);
+        $grid->setRememberState(FALSE);
+
+
+        $fluent = $this->planModel->getPlans($this->getSession('sekcePromenna')->project);
+
+
+        $grid->setDataSource($fluent);
+
+
+        $grid->addColumnLink('link', 'Název', 'Plan:detail', 'name',  ['id' => 'id'])->setFilterText(['name', 'id']);
+
+        $grid->addColumnDateTime('create_time', 'Vytvořeno')
+            ->setFormat('d.m.Y H:i:s')->setSortable();
+        $grid->addColumnStatus('status', 'Status')
+            ->setCaret(false)
+            ->addOption(0, 'Upravený')
+            ->setIcon('check')
+            ->setClass('btn-info')
+            ->endOption()
+            ->addOption(1, 'Dokončený')
+            ->setIcon('check')
+            ->setClass('btn-success')
+            ->endOption();
+
+
+        $grid->addAction('delete', '', 'deletePlan!')
+            ->setIcon('trash')->setConfirm('Opravdu chcete smazat testovací případ "%s?"', 'name');
 
 
 

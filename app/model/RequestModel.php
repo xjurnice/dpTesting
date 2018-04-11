@@ -10,7 +10,7 @@ namespace App\Model;
 
 use Nette;
 
-class ProjectModel
+class RequestModel
 {
     use Nette\SmartObject;
 
@@ -24,18 +24,18 @@ class ProjectModel
         $this->database = $database;
     }
 
-    public function addProject($values)
+
+    public function getRequests($id)
     {
-        return $this->database->table('project')->insert($values);
+        return $this->database->table('request')->where('project_id',$id);
     }
 
-    public function getProject()
+    public function addRequest($values)
     {
-        return $this->database->table('project');
+        return $this->database->table('request')->insert($values);
     }
 
-    public function getProjectById($id)
-    {
-        return $this->database->table('project')->select('name')->where('id',$id)->fetch();
-    }
+
+
+
 }

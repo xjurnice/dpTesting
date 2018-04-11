@@ -63,7 +63,7 @@ class PlanModel
             $sequence++;
         }
         $status = 0; //0 mean in creation status
-        $this->database->query('UPDATE test_plan SET status=? WHERE id=? ',$status,$id);
+        $this->database->query('UPDATE test_plan SET status=? WHERE id=? ', $status, $id);
     }
 
     public function deleteCases($ids, $id)
@@ -71,6 +71,8 @@ class PlanModel
 
         foreach ($ids as $i) {
             $this->database->table('test_plan_has_case')->where('case_id=?', $i)->where('test_plan_id', $id)->delete();
+            $this->database->table('execution')->where('case_id=?', $i)->where('test_plan_id', $id)->delete();
+
 
         }
 
@@ -135,5 +137,21 @@ ORDER BY sequence", $id)->fetchAll();
         return $this->database->table('execution')->where('test_plan_id', $id);
 
     }
+
+    public function getTimeOfExecution($id)
+    {
+
+        return $this->database->table('execution')->select('spend_time')->where('test_plan_id', $id);
+
+    }
+
+    public function deletePlan($id)
+    {
+        $this->database->table('execution')->where('test_plan_id', $id)->delete(); // all execution
+        $this->database->table('test_plan_has_case')->where('test_plan_id', $id)->delete(); //all association plan and case
+        $this->database->table('test_plan')->where('id', $id)->delete(); // finally test plan
+
+    }
+
 
 }

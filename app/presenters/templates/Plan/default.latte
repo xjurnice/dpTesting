@@ -1,17 +1,12 @@
 {* This is the welcome page, you can delete it *}
 
 {block content}
-{foreach $plans as $plan}
-
-    <a n:href="Plan:detail $plan->id" ><span>{$plan->name}  </span></a><hr>
-
-    {/foreach}
-	<a n:href="addPlan!" class="ajax"><span class=" btn btn-success btn-sm"><i class="fa fa-plus-circle"></i></span></a>
+<h2>Přehled test planů</h2>
+	<a n:href="addPlan!" class="ajax"><span class=" btn btn-success btn-sm"><i class="fa fa-plus-circle"></i> Přidat test plán</span></a>
 				<div class="card">
 					<h5 class="card-header"></h5>
 					<div class="card-body">
-
-
+                        {control planGrid}
 					</div>
 				</div>
 

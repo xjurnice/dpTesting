@@ -1,0 +1,24 @@
+
+
+{block content}
+
+
+
+				<h2>Požadavky</h2>
+				<a n:href="addRequest!" class="ajax"><span class=" btn btn-success btn-sm"><i class="fa fa-plus-circle"></i> Přidat nový požadavek</span></a>
+
+
+				{control requestGrid}
+
+
+{/block}
+{define modal-addRequest-title}
+	Nový požadavek
+{/define}
+{define modal-addRequest-body}
+
+    {control addRequestForm}
+
+{/define}
+{define modal-addRequest-footer}
+{/define}

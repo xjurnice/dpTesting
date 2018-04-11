@@ -1,0 +1,118 @@
+{block style}
+    {include parent}
+
+
+{/block}
+
+{block content}
+
+	<div class="row">
+		<div class="col-4">		<div class="card text-white bg-info mb-3">
+				<div class="card-header">Header</div>
+				<div class="card-body">
+					<h5 class="card-title">Info card title</h5>
+					<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+				</div>
+			</div>
+			</div>
+
+		<div class="col-4">
+			<div class="card text-white bg-light mb-3">
+				<div class="card-header">Header</div>
+				<div class="card-body">
+
+					<p class="card-text">    <div class="col-6"><canvas id="myChart"  ></canvas></div></p>
+				</div>
+			</div>
+		</div>
+		<div class="col-4">
+			<div class="card text-white bg-info mb-3">
+						<h5 class="card-header">Výběr projektu</h5>
+				<div class="card-body">
+					<h5 class="card-title">Pro začátek je třeba...</h5>
+					<p class="card-text">Vyberte projekt.     {control selectProjectForm}</p>
+					<a n:href="Project:add"><button type="button" class="btn btn-success"><i class="fa fa-plus-circle"></i>  Přidat nový projekt</button></a>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+
+
+
+{/block}
+{block scripts}
+    {include parent}
+
+	<script>
+
+        var ctx = document.getElementById('myChart').getContext('2d');
+        ctx.canvas.width = 400;
+        ctx.canvas.height = 300;
+        var chart = new Chart(ctx, {
+            // The type of chart we want to create
+            type: 'line',
+
+            // The data for our dataset
+            data: {
+
+                labels: JSON.parse({json_encode($labels)}),
+                datasets: [{
+                    label: "My First dataset",
+                    backgroundColor: ["#631aae"],
+
+                    data: JSON.parse({json_encode($series)})
+
+                }]
+            },
+
+            // Configuration options go here
+            options: {  responsive: false,
+                maintainAspectRatio: true,
+                title: {
+                    display: true,
+                    text: 'Úspěšnost všech testů'
+                }}
+        });
+
+        var ctx = document.getElementById('myChart2').getContext('2d');
+        ctx.canvas.width = 600;
+        ctx.canvas.height = 300;
+        var chart = new Chart(ctx, {
+            // The type of chart we want to create
+            type: 'line',
+
+            // The data for our dataset
+            data: {
+
+                labels: JSON.parse({json_encode($labels)}),
+                datasets: [{
+                                       label: "Testovací případy",
+                    backgroundColor: ["#631aae"],
+
+                    data: JSON.parse({json_encode($series)})
+
+                }]
+            },
+
+            // Configuration options go here
+            options: {  responsive: false,
+                maintainAspectRatio: true,
+                title: {
+                    display: true,
+                    text: 'Úspěšnost všech testů'
+                },    scales: {
+                    yAxes: [{
+                        time: {
+                            unit: 'second'
+                        }
+                    }]
+                }, legend: {
+                    display: false},
+
+            }
+        });
+	</script>
+
+{/block}

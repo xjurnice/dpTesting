@@ -13,6 +13,7 @@ use Nette\Utils\Html;
 use Ublaboo\DataGrid\Exception\DataGridException;
 use WebChemistry\Forms;
 use AlesWita;
+use Joseki;
 
 
 
@@ -58,6 +59,20 @@ class CasePresenter extends BasePresenter
 
     }
 
+    public function actionPdf()
+    {
+        $template = $this->createTemplate();
+        $template->setFile(__DIR__ . "/templates/Case/default.latte");
+
+        // Tip: In template to make a new page use <pagebreak>
+
+        $pdf = new \Joseki\Application\Responses\PdfResponse($template);
+
+
+
+        // do something with $pdf
+        $this->sendResponse($pdf);
+    }
     public function actionEditStep($id_step)
     {
         $this->id_step = $id_step;
@@ -285,6 +300,7 @@ class CasePresenter extends BasePresenter
 
         $grid = new DataGrid();
         $this->addComponent($grid, $name);
+        $grid->setRememberState(FALSE);
 
 
         $fluent = $this->caseModel->getCases($this->getSession('sekcePromenna')->project);
@@ -293,15 +309,23 @@ class CasePresenter extends BasePresenter
         $grid->setDataSource($fluent);
 
 
-        $grid->addColumnText('name', 'Name');
-        $grid->addColumnText('description', 'Popis');
-        $grid->addColumnText('id', 'Id');
+        $grid->addColumnLink('link', 'Testovací případ', 'Case:detail', 'name',  ['id' => 'id'])->setFilterText(['name', 'id']);
+
+        $set = [];
+        $set = ['' => 'Všechno'] + $this->caseModel->getSets($this->getSession('sekcePromenna')->project)->fetchPairs('id','name');
+
+        $grid->addColumnText('set_id', 'Sada')
+            ->setReplacement($this->caseModel->getSets($this->getSession('sekcePromenna')->project)->fetchPairs('id','name'))
+            ->setFilterSelect($set);
+        $grid->addColumnDateTime('create_time', 'Vytvořeno')
+            ->setFormat('d.m.Y H:i:s')->setSortable();
+
 
         $grid->addAction('detail', '', 'detail')
             ->setIcon('lemon');
 
         $grid->addAction('delete', '', 'delete!')
-            ->setIcon('trash')->setConfirm('Opravdu chcete smazat test case %s?', 'name');;
+            ->setIcon('trash')->setConfirm('Opravdu chcete smazat testovací případ "%s?"', 'name');
 
 
     }

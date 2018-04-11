@@ -3,6 +3,7 @@
 namespace App\Presenters;
 
 use App\Model\CaseModel;
+use App\Model\ProjectModel;
 use Composer\IO\NullIO;
 use Nette,
     App\Model,
@@ -11,11 +12,14 @@ use Nette,
 use WebChemistry\Forms;
 use AlesWita;
 
-class HomepagePresenter extends BasePresenter
+class DashboardPresenter extends BasePresenter
 {
 
     /** @var CaseModel */
     private $caseModel;
+
+    /** @var ProjectModel */
+    private $projectModel;
     /** @var Nette\Http\Session */
     private $session;
 
@@ -25,14 +29,20 @@ class HomepagePresenter extends BasePresenter
     private $data = null;
 
 
-    public function __construct(CaseModel $caseModel, Nette\Http\Session $session)
+    public function __construct(CaseModel $caseModel,ProjectModel $projectModel, Nette\Http\Session $session)
     {
         $this->caseModel = $caseModel;
+        $this->projectModel = $projectModel;
+
 
     }
 	public function renderDefault()
 	{
-		$this->template->anyVariable = 'any value';
+
+        $this->template->labels = ["Úspěšný","Neúspěšný","Vynechaný"];
+
+
+        $this->template->series= [25,37,45];
 	}
 
 
@@ -57,6 +67,8 @@ class HomepagePresenter extends BasePresenter
         $session = $this->getSession();
         $sessionSection = $session->getSection('sekcePromenna');
         $sessionSection->project =  $values['id'];
+        $name =  $this->projectModel->getProjectById($values['id'])->toArray();
+        $sessionSection->projectName =  $name['name'];
         $this->flashMessage('Úspěšně jste zvolili projekt.');
 
 

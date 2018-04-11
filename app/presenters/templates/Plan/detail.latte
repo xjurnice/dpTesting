@@ -1,14 +1,24 @@
 
 
 {block content}
-    <h2>{$plan->name}</h2>
-    <a n:href="addCase!" class="ajax"><span class=" btn btn-success btn-sm"><i class="fa fa-plus-circle"></i></span></a>
+    <h2>{$plan->name}</h2><h3 class="lead">[{switch $plan->status}
+    {case 0}
+    Upravený
+    {case 1}
+    Dokončený
+    {default}
+    Vytvořený
+    {/switch}]</h3>
+    <br>
+    <a n:href="addCase!" class="ajax"><span class=" btn btn-success btn-sm"><i class="fa fa-plus-circle"></i> Přidat testovací případy</span></a>
     {ifset $next}
         <a n:href="Execution:run case_id=>$next->id, plan_id=>$plan_id" ><span class=" btn btn-primary">Pokracovat test plan</span></a>
         {else}
         {ifset $first}
+            {if !$plan->status==1}
             <a n:href="Execution:run $first->case_id, plan_id=>$plan_id" ><span class=" btn btn-primary">Spustit test plan</span></a>
-        {/ifset}
+                {/if}
+            {/ifset}
 
     {/ifset}
 <table class="table w-75">
@@ -35,18 +45,22 @@
         <td>
             {switch $plan->status}
                 {case 0}
-                Vytvořený
+                Upravený
                 {case 1}
                 Dokončený
                 {default}
-                Neznámý
+                Vytvořený
             {/switch}
         </td>
 
     </tr>
     </tbody>
 </table>
-    <div class="col-3"> </div><canvas id="myChart"  style="position: relative; height:300px; width:300px"></canvas></div>
+<div class="row">
+    <div class="col-6"><canvas id="myChart"  style="position: relative; height:300px; width:300px"></canvas></div>
+    <div class="col-6"><canvas id="myChart2"  style="position: relative; height:300px; width:700px"></canvas></div>
+</div>
+
 
     {control assignCaseGrid}
 
@@ -58,12 +72,14 @@
 {define modal-addcase-body}
 
     {control caseGrid}
+
 {/define}
 {define modal-addcase-footer}
 {/define}
 
 {block scripts}
     {include parent}
+
 <script>
 
     var ctx = document.getElementById('myChart').getContext('2d');
@@ -75,6 +91,7 @@
 
         // The data for our dataset
         data: {
+
             labels: JSON.parse({json_encode($labels)}),
             datasets: [{
                 label: "My First dataset",
@@ -87,9 +104,49 @@
 
         // Configuration options go here
         options: {  responsive: false,
-            maintainAspectRatio: true}
+            maintainAspectRatio: true,
+            title: {
+                display: true,
+                text: 'Úspěšnost všech testů'
+            }}
     });
 
+    var ctx = document.getElementById('myChart2').getContext('2d');
+    ctx.canvas.width = 600;
+    ctx.canvas.height = 300;
+    var chart = new Chart(ctx, {
+        // The type of chart we want to create
+        type: 'line',
+
+        // The data for our dataset
+        data: {
+
+            labels: JSON.parse({json_encode($labelsTime)}),
+            datasets: [{
+                label: "Testovací případy",
+                backgroundColor: ["#631aae"],
+
+                data: JSON.parse({json_encode($seriesTime)})
+
+            }]
+        },
+
+        // Configuration options go here
+        options: {  responsive: false,
+            maintainAspectRatio: true,
+            title: {
+                display: true,
+                text: 'Úspěšnost všech testů'
+            },    scales: {
+                yAxes: [{
+                    time: {
+                        unit: 'second'
+                    }
+                }]
+            }
+
+        }
+    });
 </script>
 
 {/block}
