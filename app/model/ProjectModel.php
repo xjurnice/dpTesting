@@ -36,7 +36,7 @@ class ProjectModel
 
     public function getProjectById($id)
     {
-        return $this->database->table('project')->select('name')->where('id',$id)->fetch();
+        return $this->database->table('project')->select('name')->where('id', $id)->fetch();
     }
 
     public function getCountCaseInProject()
@@ -53,19 +53,40 @@ class ProjectModel
 
     public function getFailedTestToProject($id)
     {
-        $fail =2;
-        return $this->database->query('SELECT execution.id FROM `case`JOIN `execution` on case.id = execution.case_id WHERE execution.status=? AND case.project_id=?',$fail,$id)->getRowCount();
+        $fail = 2;
+        return $this->database->query('SELECT execution.id FROM `case`JOIN `execution` on case.id = execution.case_id WHERE execution.status=? AND case.project_id=?', $fail, $id)->getRowCount();
     }
 
     public function getPassTestToProject($id)
     {
-        $pass =1;
-        return $this->database->query('SELECT execution.id FROM `case`JOIN `execution` on case.id = execution.case_id WHERE execution.status=? AND case.project_id=?',$pass,$id)->getRowCount();
+        $pass = 1;
+        return $this->database->query('SELECT execution.id FROM `case`JOIN `execution` on case.id = execution.case_id WHERE execution.status=? AND case.project_id=?', $pass, $id)->getRowCount();
     }
 
     public function getNumberTestPlan($id)
     {
-        return $this->database->table('test_plan')->select('name')->where('project_id',$id)->count();
+        return $this->database->table('test_plan')->select('name')->where('project_id', $id)->count();
+    }
+
+    public function getNumberExecutionByTester($id)
+    {
+        return $this->database->query('SELECT COUNT(execution.id) FROM `execution` JOIN `case` ON execution.case_id=case.id WHERE case.project_id=? GROUP BY run_by ORDER BY run_by', $id)->fetchPairs();
+    }
+
+    public function getNameTesterByExe($id)
+    {
+        return $this->database->query('SELECT DISTINCT(user.username) FROM (`user` JOIN `execution` on user.id = execution.run_by) LEFT JOIN `case` ON execution.case_id=case.id WHERE case.project_id=? ORDER BY user.id', $id)->fetchPairs();
+
+    }
+    public function getSumTimeTesterByExe($id)
+    {
+        return $this->database->query('SELECT SUM(spend_time)/60 FROM (`user` JOIN `execution` on user.id = execution.run_by) LEFT JOIN `case` ON execution.case_id=case.id WHERE case.project_id=? GROUP BY run_by ORDER BY user.id', $id)->fetchPairs();
+
+    }
+    public function getSumTimByProject($id)
+    {
+        return $this->database->query('SELECT SUM(spend_time)/60 AS s FROM  `execution` JOIN `case` ON execution.case_id=case.id WHERE case.project_id=?', $id)->fetch();
+
     }
 
 }

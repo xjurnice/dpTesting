@@ -16,7 +16,6 @@ use AlesWita;
 use Joseki;
 
 
-
 class CasePresenter extends BasePresenter
 {
 
@@ -46,44 +45,34 @@ class CasePresenter extends BasePresenter
 
     public function renderDetail($id)
     {
-        $this->id =$id;
+
+
+        $this->id = $id;
         $this->template->author = $this->caseModel->getCurrentAuthor($id);
         $this->template->category = $this->caseModel->getCurrentCaseCategory($id);
         $this->template->case = $this->caseModel->getCase($id);
         $this->template->steps = $this->caseModel->getAllSteps($id);
         $this->template->exe = $this->caseModel->getAllExecutions($id);
+        $this->template->plans = $this->caseModel->getAllTestPlans($id,$this->getSession('sekcePromenna')->project);
         $this->template->exeCount = $this->caseModel->getExecutions($id)->count();
-        $this->template->exePassCount = $this->caseModel->getExecutions($id)->where('status',1)->count();
-        $this->template->exeFailCount = $this->caseModel->getExecutions($id)->where('status',2)->count();
-        $this->template->exeSkipCount = $this->caseModel->getExecutions($id)->where('status',3)->count();
+        $this->template->exePassCount = $this->caseModel->getExecutions($id)->where('status', 1)->count();
+        $this->template->exeFailCount = $this->caseModel->getExecutions($id)->where('status', 2)->count();
+        $this->template->exeSkipCount = $this->caseModel->getExecutions($id)->where('status', 3)->count();
         $this->template->exeSumTime = $this->caseModel->getExecutions($id)->sum('spend_time');
         $this->template->setName = $this->caseModel->getCurrentSet($id);
+        $this->template->projectName = $this->getSession('sekcePromenna')->projectName;
 
     }
 
-    public function actionPdf()
-    {
-        $template = $this->createTemplate();
-        $template->setFile(__DIR__ . "/templates/Case/default.latte");
 
-        // Tip: In template to make a new page use <pagebreak>
-
-        $pdf = new \Joseki\Application\Responses\PdfResponse($template);
-
-
-
-        // do something with $pdf
-        $this->sendResponse($pdf);
-    }
     public function actionEditStep($id_step)
     {
         $this->id_step = $id_step;
         $this->datastep = $this->caseModel->getStep($id_step);
 
 
-
-
     }
+
     public function handleEditStep($id_step)
     {
         $this->id_step = $id_step;
@@ -105,10 +94,6 @@ class CasePresenter extends BasePresenter
 
     public function handleAddStep()
     {
-
-
-
-
         parent::handleModal('add');
     }
 
@@ -121,13 +106,14 @@ class CasePresenter extends BasePresenter
 
 
         $form->addHidden("id")->setDefaultValue($this->datastep['id']);
-        $form->addTextArea('action','Akce',70,7)->setDefaultValue($this->datastep['action']);
-        $form->addTextArea('result','Očekáváný výstup',70,5)->setDefaultValue($this->datastep['result']);
+        $form->addTextArea('action', 'Akce', 70, 7)->setDefaultValue($this->datastep['action']);
+        $form->addTextArea('result', 'Očekáváný výstup', 70, 5)->setDefaultValue($this->datastep['result']);
         $form->addSubmit('edit', 'Editovat')->getControlPrototype()->setClass('btn btn-primary btn-lg btn-block');
         $form->onSuccess[] = [$this, 'editStepSuccess'];
 
         return $form;
     }
+
     public function editStepSuccess(Form $form, $values)
     {
         $values = $form->getValues();
@@ -148,13 +134,14 @@ class CasePresenter extends BasePresenter
 
         $form->addHidden("sequence");
         $form->addHidden("case_id")->setDefaultValue($this->id);
-        $form->addTextArea('action','Akce',70,7);
-        $form->addTextArea('result','Očekáváný výstup',70,5);
+        $form->addTextArea('action', 'Akce', 70, 7);
+        $form->addTextArea('result', 'Očekáváný výstup', 70, 5);
         $form->addSubmit('edit', 'Přidat')->getControlPrototype()->setClass('btn btn-primary btn-lg btn-block');
         $form->onSuccess[] = [$this, 'addStepSuccess'];
 
         return $form;
     }
+
     public function addStepSuccess(Form $form, $values)
     {
         $values = $form->getValues();
@@ -176,7 +163,6 @@ class CasePresenter extends BasePresenter
     {
         $this->id = $id;
     }
-
 
 
     protected function createComponentInsertForm()
@@ -212,16 +198,17 @@ class CasePresenter extends BasePresenter
 
         $multiplier = $form->addMultiplier('multiplier', function (Nette\Forms\Container $container, Nette\Forms\Form $form) {
 
-            $container->addTextArea("action", '#'.((int)$container->getName()+1).' krok'.' Akce')
-                ->setDefaultValue('My value'); $container->addTextArea("result", 'Očekávaný výstup')
-                ->setDefaultValue('My value') ->setOption('description', Html::el('p')
+            $container->addTextArea("action", '#' . ((int)$container->getName() + 1) . ' krok' . ' Akce')
+                ->setDefaultValue('My value');
+            $container->addTextArea("result", 'Očekávaný výstup')
+                ->setDefaultValue('My value')->setOption('description', Html::el('p')
                     ->setHtml(' <hr>')
                 );
         }, $copies, $maxCopies);
 
-        $multiplier->addCreateButton('Přidat 1 krok',1);
-        $multiplier->addCreateButton('Přidat 3 kroky',3);
-        $multiplier->addCreateButton('Přidat 5 kroků',5);
+        $multiplier->addCreateButton('Přidat 1 krok', 1);
+        $multiplier->addCreateButton('Přidat 3 kroky', 3);
+        $multiplier->addCreateButton('Přidat 5 kroků', 5);
 
         $multiplier->addRemoveButton('Odebrat krok');
 
@@ -232,12 +219,11 @@ class CasePresenter extends BasePresenter
     }
 
 
-
     public function insertFormSucceeded(Form $form, $values)
     {
         // ...
         $values['author_id'] = $this->getUser()->getIdentity()->id;
-        $steps= $values['multiplier'];
+        $steps = $values['multiplier'];
         $this->caseModel->addCase($values, $steps);
         $this->flashMessage('Záznam byl úspěšně vložen.');
 
@@ -288,13 +274,13 @@ class CasePresenter extends BasePresenter
     public function editFormSucceeded(Form $form, $values)
     {
         $values = $form->getValues();
-        $values['update_time']= new \Nette\Utils\DateTime();
+        $values['update_time'] = new \Nette\Utils\DateTime();
         $this->caseModel->updateCase($values);
 
 
         $this->flashMessage('Záznam byl úspěšně upraven.');
 
-        $this->redirect('Case:detail',$values['id']);
+        $this->redirect('Case:detail', $values['id']);
     }
 
     public function createComponentCaseGrid($name)
@@ -311,13 +297,13 @@ class CasePresenter extends BasePresenter
         $grid->setDataSource($fluent);
 
 
-        $grid->addColumnLink('link', 'Testovací případ', 'Case:detail', 'name',  ['id' => 'id'])->setFilterText(['name', 'id']);
+        $grid->addColumnLink('link', 'Testovací případ', 'Case:detail', 'name', ['id' => 'id'])->setFilterText(['name', 'id']);
 
         $set = [];
-        $set = ['' => 'Všechno'] + $this->caseModel->getSets($this->getSession('sekcePromenna')->project)->fetchPairs('id','name');
+        $set = ['' => 'Všechno'] + $this->caseModel->getSets($this->getSession('sekcePromenna')->project)->fetchPairs('id', 'name');
 
         $grid->addColumnText('set_id', 'Sada')
-            ->setReplacement($this->caseModel->getSets($this->getSession('sekcePromenna')->project)->fetchPairs('id','name'))
+            ->setReplacement($this->caseModel->getSets($this->getSession('sekcePromenna')->project)->fetchPairs('id', 'name'))
             ->setFilterSelect($set);
         $grid->addColumnDateTime('create_time', 'Vytvořeno')
             ->setFormat('d.m.Y H:i:s')->setSortable();
@@ -340,8 +326,6 @@ class CasePresenter extends BasePresenter
         $this->addComponent($grid, $name);
 
 
-
-
         $fluent = $this->caseModel->getAllExecutions($this->id);
 
 
@@ -349,7 +333,6 @@ class CasePresenter extends BasePresenter
 
         $grid->addColumnDateTime('start_time', 'Cas spusteni')
             ->setFormat('d.m.Y H:i:s')->setSortable();
-
 
 
         try {
@@ -365,13 +348,13 @@ class CasePresenter extends BasePresenter
         } catch (DataGridException $e) {
         };
 
-        $grid->addColumnLink('link', 'Uživatel', 'User:profile', 'username',  ['id' => 'ide'])->setSortable();
-
+        $grid->addColumnLink('link', 'Uživatel', 'User:profile', 'username', ['id' => 'ide'])->setSortable();
 
 
     }
 
-    public function actionDelete($id) {
+    public function actionDelete($id)
+    {
         $this->caseModel->deleteCase($id);
 
         $this->flashMessage("Testovací případ byl smazán");
@@ -379,7 +362,8 @@ class CasePresenter extends BasePresenter
     }
 
 
-    public function handleDelete($id) {
+    public function handleDelete($id)
+    {
         $this->flashMessage('Testovací případ byl smazán.');
         $todo = $this->caseModel;
         if ($todo) {
@@ -388,14 +372,6 @@ class CasePresenter extends BasePresenter
 
         $this->redirect('this'); // this vyjadřuje aktuální presenter i view, ale bez signálu
     }
-
-
-
-
-
-
-
-
 
 
 }

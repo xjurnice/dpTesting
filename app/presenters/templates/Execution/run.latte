@@ -16,32 +16,23 @@
 
     <hr>
     <h2>{$case->name}</h2>
+    <p style="padding: 1em" class="w-50 shadow"><b>Popis:</b> {$case->description}</p>
     <table class="table noBorder">
         <thead>
         </thead>
         <tbody>
         <tr>
-
-            <div class="row border-dark">
-                <div class="col-1">
-                    Krok
+            <div class="row">
+                <div class="col-lg-2 col-sm-1 col-md-1 col-xl-1">
+                    <b>Krok</b>
                 </div>
-                <div class="col-5">
-
-
-                    <p class="card-title">Action</p>
-
-
+                <div class="col-lg-4 col-sm-6 col-md-5 col-xl-5">
+                    <b>Akce</b>
                 </div>
-                <div class="col-5">
-
-                    <p class="card-title">Result</p>
-
-
+                <div class="col-lg-4 col-sm-6 col-md-5 col-xl-5">
+                    <b>Očekávaný výstup</b>
                 </div>
-            </div>
-
-
+            </div><br>
         </tr>
 
 
@@ -50,10 +41,10 @@
             <tr>
                 <td class="td_steps"><a class="steps">
                         <div class="row">
-                            <div class="col-1">
+                            <div class="col-lg-2 col-sm-1 col-md-1 col-xl-1">
                                 <dt class="step_id">{$iterator->counter}. krok</dt>
                             </div>
-                            <div class="col-5">
+                            <div class="col-lg-4 col-sm-6 col-md-5 col-xl-5">
                                 <div class="card">
                                     <div class="card-body">
 
@@ -62,7 +53,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-5">
+                            <div class="col-lg-4 col-sm-6 col-md-5 col-xl-5">
                                 <div class="card">
                                     <div class="card-body">
 

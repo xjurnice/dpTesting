@@ -60,6 +60,12 @@ class DashboardPresenter extends BasePresenter
         $this->template->defect = $this->projectModel->getFailedTestToProject($project);
         $this->template->sucess = $this->projectModel->getPassTestToProject($project);
         $this->template->plan = $this->projectModel->getNumberTestPlan($project);
+        $this->template->sumTime = $this->projectModel->getSumTimByProject($project);
+
+        $this->template->seriesTesters = $this->projectModel->getNumberExecutionByTester($project);
+        $this->template->sumTimeTesters = $this->projectModel->getSumTimeTesterByExe($project);
+        $this->template->labelsTesters = $this->projectModel->getNameTesterByExe($project);
+
     }
 
     public function renderAll()

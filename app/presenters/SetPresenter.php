@@ -108,8 +108,8 @@ class SetPresenter extends BasePresenter
         $form->setRenderer(new AlesWita\FormRenderer\BootstrapV4Renderer);
         $form->addText('name', 'Název sady')->setRequired('Prosím zadejte název sady');
 
-        $form->addSelect('parent_id', 'Nadrazena sada', $this->setModel->getSets($this->getSession('sekcePromenna')->project)->fetchPairs('id', 'name'))
-            ->setPrompt('Zadna', null);
+        $form->addSelect('parent_id', 'Nadřazená sada', $this->setModel->getSets($this->getSession('sekcePromenna')->project)->fetchPairs('id', 'name'))
+            ->setPrompt('Žádna', null);
 
         $form->addHidden('id')->setDefaultValue($this->data['id']);
 

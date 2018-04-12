@@ -43,10 +43,12 @@ class PlanPresenter extends BasePresenter
         if ($this->planModel->getFirstCase($id)<>null) {
             $this->template->first = $this->planModel->getFirstCase($id);
         }
+        $this->template->isExe = $this->planModel->isAnyCaseInPlanExist($id);
 
         if ($this->planModel->getNextCase($id)<>null) {
             $this->template->next = $this->planModel->getNextCase($id);
         }
+        $this->template->assign_user = $this->planModel->getUserForTestPlan($id);
 
         $succes = $this->planModel->getCountExecution($id)->where('status',1)->count();
         $fail = $this->planModel->getCountExecution($id)->where('status',2)->count();
@@ -126,8 +128,14 @@ $set = ['' => 'Všechno'] + $this->caseModel->getSets($this->getSession('sekcePr
         $grid->setDataSource($fluent);
 
 
-        $grid->addColumnText('name', 'Name')->setFilterText(['name', 'id']);
-        $grid->addColumnText('sequence', 's');
+        $grid->addColumnLink('link', 'Testovací případ', 'Case:detail', 'name',  ['id' => 'id'])->setFilterText(['name', 'id']);
+        $set = [];
+        $set = ['' => 'Všechno'] + $this->caseModel->getSets($this->getSession('sekcePromenna')->project)->fetchPairs('id','name');
+
+
+        $grid->addColumnText('set_id', 'Sada')
+            ->setReplacement($this->caseModel->getSets($this->getSession('sekcePromenna')->project)->fetchPairs('id','name'))
+            ->setFilterSelect($set);
 
         $grid->addGroupAction('Odebrat')->onSelect[] = [$this, 'deleteSelectedCase'];
 

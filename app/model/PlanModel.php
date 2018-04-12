@@ -151,6 +151,13 @@ ORDER BY sequence", $id)->fetchAll();
 
     }
 
+    public function getUserForTestPlan($id)
+    {
+
+        return $this->database->query('SELECT user.* FROM `user` JOIN `test_plan` ON user.id=test_plan.assign_user_id  WHERE test_plan.id=? ',$id)->fetch();
+
+    }
+
     public function deletePlan($id)
     {
         $this->database->table('execution')->where('test_plan_id', $id)->delete(); // all execution
@@ -159,5 +166,12 @@ ORDER BY sequence", $id)->fetchAll();
 
     }
 
+    public function isAnyCaseInPlanExist($id){
+        if (!empty($this->database->query('SELECT name FROM `execution` JOIN `case` ON execution.case_id=case.id  WHERE test_plan_id=?',$id)->fetchAll())) {
 
+            return 1;
+        } else {
+            return 0;
+        }
+    }
 }

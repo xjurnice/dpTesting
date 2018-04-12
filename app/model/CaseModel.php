@@ -118,6 +118,11 @@ class CaseModel
         return $this->database->query("SELECT execution.*,user.username,user.id AS ide FROM `execution` JOIN `user` on execution.run_by=user.id WHERE case_id=?",$id)->fetchAll();
 
     }
+    public function getAllTestPlans($id,$project)
+    {
+        return $this->database->query("SELECT test_plan.* FROM `test_plan` JOIN `test_plan_has_case` on test_plan.id=test_plan_has_case.test_plan_id WHERE case_id=? AND project_id=?",$id,$project)->fetchAll();
+
+    }
     public function getExecutions($id)
     {
         return $this->database->table('execution')->where('case_id',$id);

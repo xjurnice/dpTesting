@@ -1,24 +1,40 @@
 {block content}
-    <h2>{$plan->name}</h2><h3 class="lead">[{switch $plan->status}
-    {case 0}
-    Upravený
-    {case 1}
-    Dokončený
-    {default}
-    Vytvořený
-    {/switch}]</h3>
+    <div class="row">
+
+        <div class="col-xl-2 col-sm-5 col-md-4 col-6">
+            <h2><i class="fa fa-map"></i> {$plan->name}</h2>
+
+            <h3 class="lead"><b>Status: {switch $plan->status}
+                {case 0}
+                Upravený
+                {case 1}
+                <span class="text-success">Dokončený</span>
+                {default}
+                Vytvořený
+                {/switch}</b></h3>
+        </div>
+        <div class="col-xl-2 col-sm-5 col-md-4 col-6">
+
+            {ifset $next}
+
+                <a n:href="Execution:run case_id=>$next->id, plan_id=>$plan_id" ><span class=" btn btn-primary"><i
+                                class="fa fa-play-circle"></i> Pokračovat v test plánu</span></a>
+            {else}
+                {ifset $first}
+                    {if !$plan->status==1}
+                        <a n:href="Execution:run $first->case_id, plan_id=>$plan_id" ><span class=" btn btn-primary"><i
+                                        class="fa fa-play-circle"></i> Spustit test plán</span></a>
+                    {/if}
+                {/ifset}
+
+            {/ifset}
+        </div>
+    </div>
     <br>
 
-    {ifset $next}
-        <a n:href="Execution:run case_id=>$next->id, plan_id=>$plan_id" ><span class=" btn btn-primary">Pokracovat test plan</span></a>
-    {else}
-        {ifset $first}
-            {if !$plan->status==1}
-                <a n:href="Execution:run $first->case_id, plan_id=>$plan_id" ><span class=" btn btn-primary">Spustit test plan</span></a>
-            {/if}
-        {/ifset}
 
-    {/ifset}
+    <br>
+    <br>
     <table class="table table-striped w-75">
 
         <tbody>
@@ -30,7 +46,7 @@
         </tr>
         <tr>
             <th scope="row">Pro uzivatele</th>
-            <td>  {$plan->assign_user_id}
+            <td>  <a n:href="User:profile $assign_user->id">{$assign_user->username}</a>
             </td>
         </tr>
         <tr>
@@ -43,33 +59,30 @@
             <td>  {$plan->planed_time|date:'d.m.Y'}
             </td>
         </tr>
-        <tr>
-            <th scope="row">Status</th>
-            <td>
-                {switch $plan->status}
-                    {case 0}
-                    Upravený
-                    {case 1}
-                    Dokončený
-                    {default}
-                    Vytvořený
-                {/switch}
-            </td>
 
-        </tr>
         </tbody>
     </table>
-    <div class="row">
-        <div class="col-6">
-            <canvas id="myChart" style="position: relative; height:300px; width:300px"></canvas>
+    {if $isExe}
+        <div class="row">
+            <div class="col-6 col-md-4 col-xl-4">
+                <div class="card box shadow" style="position: relative;padding: 1em;  width:400px">
+                    <div class="h5 chartjs-title align-self-center">Úspěšnost testů</div>
+                    <canvas id="myChart"></canvas>
+                </div>
+            </div>
+            <div class="col-7 col-md-9 col-xl-8 ">
+                <div class="card box shadow" style="position: relative;padding: 1em; width:600px">
+                    <div class="h5 chartjs-title align-self-center">Čas strávený na jednotlivé testy</div>
+                    <canvas id="myChart2"></canvas>
+                </div>
+            </div>
+
         </div>
 
-    </div>
-<div class="card box shadow" style="padding: 1em; width:700px">
-    <div class="h5 chartjs-title align-self-center">Čas strávený na jednotlivé testy</div>
-        <canvas id="myChart2" ></canvas>
-</div>
-<h3>Přiřazené testovací případy</h3>     <a n:href="addCase!" class="ajax"><span class=" btn btn-success btn-sm"><i class="fa fa-plus-circle"></i> Přidat testovací případy</span></a>
+
+    {/if}
+    <h3>Přiřazené testovací případy</h3>     <a n:href="addCase!" class="ajax"><span class=" btn btn-success btn-sm"><i
+                class="fa fa-plus-circle"></i> Přidat testovací případy</span></a>
     {control assignCaseGrid}
 
 
@@ -87,118 +100,119 @@
 
 {block scripts}
     {include parent}
+    {if $isExe}
+        <script>
+            function random_rgba() {
 
-    <script>
-        function random_rgba() {
-
-            var r = Math.floor((Math.random() * 256));
-            var g = Math.floor((Math.random() * 256));
-            var b = Math.floor((Math.random() * 256));
-            return 'rgb(' + r + ', ' + g + ', ' + b + ',0.4)';
-        }
-
-        var color = [];
-        for (i = 0; i < 200; i++) {
-            color[i] = random_rgba();
-        }
-
-        function shuffle(array) {
-            var m = array.length, t, i;
-            while (m > 0) {
-                i = Math.floor(Math.random() * m--);
-                t = array[m];
-                array[m] = array[i];
-                array[i] = t;
+                var r = Math.floor((Math.random() * 256));
+                var g = Math.floor((Math.random() * 256));
+                var b = Math.floor((Math.random() * 256));
+                return 'rgb(' + r + ', ' + g + ', ' + b + ',0.4)';
             }
-            return array;
-        }
 
-        var ctx = document.getElementById('myChart').getContext('2d');
-        ctx.canvas.width = 300;
-        ctx.canvas.height = 300;
-        var chart = new Chart(ctx, {
-            // The type of chart we want to create
-            type: 'pie',
+            var color = [];
+            for (i = 0; i < 200; i++) {
+                color[i] = random_rgba();
+            }
 
-            // The data for our dataset
-            data: {
-
-                labels: JSON.parse({json_encode($labels)}),
-                datasets: [{
-                    label: "My First dataset",
-                    backgroundColor: ['rgba(40,167,69,0.8)', "rgba(220, 53, 69,0.8)", "rgba(255, 193, 7,0.8)"],
-
-                    data: JSON.parse({json_encode($series)})
-
-                }]
-            },
-
-            // Configuration options go here
-            options: {
-                responsive: false,
-                maintainAspectRatio: true,
-                title: {
-                    display: true,
-                    text: 'Úspěšnost testů'
+            function shuffle(array) {
+                var m = array.length, t, i;
+                while (m > 0) {
+                    i = Math.floor(Math.random() * m--);
+                    t = array[m];
+                    array[m] = array[i];
+                    array[i] = t;
                 }
+                return array;
             }
-        });
 
-        var ctx = document.getElementById('myChart2').getContext('2d');
+            var ctx = document.getElementById('myChart').getContext('2d');
 
-        var chart = new Chart(ctx, {
-            // The type of chart we want to create
-            type: 'bar',
+            var chart = new Chart(ctx, {
+                // The type of chart we want to create
+                type: 'pie',
 
-            // The data for our dataset
-            data: {
+                // The data for our dataset
+                data: {
 
-                labels: JSON.parse({json_encode($labelsTime)}),
-                datasets: [{
-                    label: 'Strávený čas v minutách',
-                    backgroundColor: color,
+                    labels: JSON.parse({json_encode($labels)}),
+                    datasets: [{
+                        label: "My First dataset",
+                        backgroundColor: ['rgba(40,167,69,0.8)', "rgba(220, 53, 69,0.8)", "rgba(255, 193, 7,0.8)"],
 
-                    data: JSON.parse({json_encode($seriesTime)})
+                        data: JSON.parse({json_encode($series)})
 
-                }]
-            },
-
-            // Configuration options go here
-            options: {
-                responsive: false,
-                scales: {
-                    xAxes: [{
-                        stacked: true,
-                        beginAtZero: true,
-
-                        ticks: {
-                            stepSize: 1,
-                            min: 0,
-                            autoSkip: false,
-
-                            callback: function (value) {
-                                return value.substr(0, 10);//truncate
-                            },
-                        }
-                    }],
-
+                    }]
                 },
 
-                tooltips: {
-                    enabled: true,
-                    mode: 'label',
-                    callbacks: {
-                        title: function (tooltipItems, data) {
-                            var idx = tooltipItems[0].index;
-                            return data.labels[idx];
-                        },
+                // Configuration options go here
+                options: {
+                    responsive: false,
+                    maintainAspectRatio: true,
+                    title: {
+                        display: false,
+
+                    }, legend: {
+                        display: false,
+                    }
+                }
+            });
+
+            var ctx = document.getElementById('myChart2').getContext('2d');
+
+            var chart = new Chart(ctx, {
+                // The type of chart we want to create
+                type: 'bar',
+
+                // The data for our dataset
+                data: {
+
+                    labels: JSON.parse({json_encode($labelsTime)}),
+                    datasets: [{
+                        label: 'Strávený čas v minutách',
+                        backgroundColor: color,
+
+                        data: JSON.parse({json_encode($seriesTime)})
+
+                    }]
+                },
+
+                // Configuration options go here
+                options: {
+                    responsive: false,
+                    scales: {
+                        xAxes: [{
+                            stacked: true,
+                            beginAtZero: true,
+
+                            ticks: {
+                                stepSize: 1,
+                                min: 0,
+                                autoSkip: false,
+
+                                callback: function (value) {
+                                    return value.substr(0, 10) + '...';//truncate
+                                },
+                            }
+                        }],
 
                     },
-                }, legend: {
-                    display: false,
-                }
-            }
-        });
-    </script>
 
+                    tooltips: {
+                        enabled: true,
+                        mode: 'label',
+                        callbacks: {
+                            title: function (tooltipItems, data) {
+                                var idx = tooltipItems[0].index;
+                                return data.labels[idx];
+                            },
+
+                        },
+                    }, legend: {
+                        display: false,
+                    }
+                }
+            });
+        </script>
+    {/if}
 {/block}
