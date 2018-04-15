@@ -17,4 +17,13 @@
 <a n:class="$presenter->isLinkCurrent('Request:*') ? 'list-group-item list-group-item-action active' : 'list-group-item list-group-item-action'"
         href="{plink Request:default}">
     Požadavky</a>
+<a n:class="$presenter->isLinkCurrent('User:management') ? 'list-group-item list-group-item-action active' : 'list-group-item list-group-item-action'"
+        href="{plink User:management}">
+    Správa uživatelů</a>
+
+<a n:class="$presenter->isLinkCurrent('Case:approval') ? 'list-group-item list-group-item-action active' : 'list-group-item list-group-item-action'"
+        href="{plink Case:approval}">
+    Schvalován test. případů</a>
+
+
 

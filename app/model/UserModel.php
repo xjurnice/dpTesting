@@ -28,6 +28,52 @@ class UserModel
     {
         return $this->database->table('user')->where('id',$id)->fetch();
     }
+    public function getUsers()
+    {
+        return $this->database->table('user');
+    }
+
+    public function getProjects()
+    {
+        return $this->database->table('project');
+    }
+
+    public function getAssignProjects($id)
+    {
+        $ids = $this->database->table('project_has_user')->select('project_id')->where('user_id', $id);
+
+        return $this->database->table('project')->where('(id ?)', $ids);
+    }
+
+    public function getNotAssignProjects($id)
+    {
+        $ids = $this->database->table('project_has_user')->select('project_id')->where('user_id', $id);
+
+        return $this->database->table('project')->where('NOT (id ?)', $ids);
+    }
+
+
+    public function addProjectsToUser($ids, $id)
+    {
+
+        foreach ($ids as $i) {
+            $this->database->query("INSERT INTO project_has_user (project_id,user_id) VALUES ($i,$id)");
+        }
+
+    }
+
+    public function deleteProjectsToUser($ids, $id)
+    {
+
+        foreach ($ids as $i) {
+            $this->database->query('DELETE FROM project_has_user WHERE project_id=? AND user_id=?',$i,$id);
+        }
+
+    }
+    public function getAssignProjectToUser($id)
+    {
+        return $this->database->query('SELECT name from project JOIN project_has_user ON project.id=project_has_user.project_id WHERE user_id=?',$id)->fetchPairs();
+    }
 
     public function updateUser($values)
     {

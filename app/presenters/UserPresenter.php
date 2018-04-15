@@ -5,7 +5,8 @@ namespace App\Presenters;
 use Nette,
     Nette\Application\UI\Form;
 use App\Model\UserModel;
-
+use Ublaboo\DataGrid\DataGrid;
+use AlesWita;
 
 
 class UserPresenter extends BasePresenter
@@ -14,6 +15,7 @@ class UserPresenter extends BasePresenter
     /** @var UserModel */
     private $userModel;
     private $data = null;
+    /** @persistent */
     public $id;
 
     public function __construct(UserModel $userModel)
@@ -23,53 +25,173 @@ class UserPresenter extends BasePresenter
 
     public function renderEdit()
     {
-        $this -> template-> userdata= $this->userModel->getUserInfo($this->getUser()->getIdentity()->id);
-        $this -> data= $this->userModel->getUserInfo($this->getUser()->getIdentity()->id);
+        $this->template->userdata = $this->userModel->getUserInfo($this->getUser()->getIdentity()->id);
+        $this->data = $this->userModel->getUserInfo($this->getUser()->getIdentity()->id);
     }
+
     public function renderProfile($id)
     {
-        $this->id =$id;
-        $this->template->userdata= $this->userModel->getUserInfo($id);
+        $this->id = $id;
+        $this->template->userdata = $this->userModel->getUserInfo($id);
 
     }
 
-
-    function makeBootstrap4(Form $form)
+    public function renderManagement()
     {
-        $renderer = $form->getRenderer();
-        $renderer->wrappers['controls']['container'] = 'container';
-        $renderer->wrappers['pair']['container'] = 'div class="form-group row"';
-        $renderer->wrappers['pair']['.error'] = 'has-danger';
-        $renderer->wrappers['control']['container'] = 'div class=col-sm-6';
-        $renderer->wrappers['label']['container'] = 'div class="col-sm-2 col-form-label"';
-        $renderer->wrappers['control']['description'] = 'span class=form-text';
-        $renderer->wrappers['control']['errorcontainer'] = 'span class=form-control-feedback';
-        foreach ($form->getControls() as $control) {
-            $type = $control->getOption('type');
-            if ($type === 'button') {
-                $control->getControlPrototype()->addClass(empty($usedPrimary) ? 'btn btn-primary' : 'btn btn-secondary');
-                $usedPrimary = true;
-            } elseif (in_array($type, ['text', 'textarea', 'select'], true)) {
-                $control->getControlPrototype()->addClass('form-control');
-            } elseif ($type === 'file') {
-                $control->getControlPrototype()->addClass('form-control-file');
-            } elseif (in_array($type, ['checkbox', 'radio'], true)) {
-                if ($control instanceof Nette\Forms\Controls\Checkbox) {
-                    $control->getLabelPrototype()->addClass('form-check-label');
-                } else {
-                    $control->getItemLabelPrototype()->addClass('form-check-label');
+        $this->template->userdata = $this->userModel->getUsers();
+
+    }
+
+    public function handleAssign()
+    {
+
+        parent::handleModal('add');
+    }
+
+    public function handleDelete()
+    {
+
+        parent::handleModal('delete');
+    }
+
+
+    public function createComponentAssignToProjectGrid($name)
+    {
+
+        $grid = new DataGrid();
+        $this->addComponent($grid, $name);
+
+
+        $fluent = $this->userModel->getNotAssignProjects($this->id);
+
+
+        $grid->setDataSource($fluent);
+
+
+        $grid->addColumnText('name', 'name', '');
+
+
+        $grid->addGroupAction('Přidat')->onSelect[] = [$this, 'addSelectedProject'];
+
+
+    }
+    public function createComponentDeleteAssignToProjectGrid($name)
+    {
+
+        $grid = new DataGrid();
+        $this->addComponent($grid, $name);
+
+
+        $fluent = $this->userModel->getAssignProjects($this->id);
+
+
+        $grid->setDataSource($fluent);
+
+
+        $grid->addColumnText('name', 'name', '');
+
+
+        $grid->addGroupAction('Odebrat')->onSelect[] = [$this, 'deleteSelectedProject'];
+
+
+    }
+    public function addSelectedProject(array $ids)
+    {
+
+        $this->userModel->addProjectsToUser($ids, $this->id);
+
+
+        $this->flashMessage('Záznam byl úspěšně přidán.');
+
+        $this['assignToProjectGrid']->reload();
+
+        $this->redirect('this');
+
+    }
+
+    public function deleteSelectedProject(array $ids)
+    {
+
+        $this->userModel->deleteProjectsToUser($ids, $this->id);
+
+
+        $this->flashMessage('Záznam byl úspěšně odebrán.');
+
+        $this['assignToProjectGrid']->reload();
+
+        $this->redirect('this');
+
+    }
+    public function createComponentUsersGrid($name)
+    {
+
+        $grid = new DataGrid();
+        $this->addComponent($grid, $name);
+
+
+        $fluent = $this->userModel->getUsers()->fetchAll();
+        $grid->addColumnLink('link', 'Uživatel', 'User:profile', 'username', ['id'])
+            ->addAttributes(['class' => 'text-center font-weight-bold'])->setSortable();
+
+
+        $grid->setDataSource($fluent);
+        $grid->addColumnStatus('role_id', 'Uživatelská role (skupina)')
+            ->setCaret(false)
+            ->addOption(1, 'registrovanný uživatel')
+            ->setIcon('users')
+            ->setClass('btn-success')
+            ->endOption()
+            ->addOption(2, 'administrátor')
+            ->setIcon('users')
+            ->setClass('btn-danger')
+            ->endOption()
+            ->addOption(3, 'tester')
+            ->setIcon('users')
+            ->setClass('btn-info')
+            ->endOption()
+            ->addOption(4, 'zákazník')
+            ->setIcon('users')
+            ->setClass('btn-warning')
+            ->endOption()->onChange[] = [$this, 'roleChange'];
+
+        $grid->addColumnText('id', 'Přiřazené projekty')
+            ->setRenderer(function ($item) {
+                $projects = $this->userModel->getAssignProjectToUser($item->id);
+                //dump($projects);
+                $projectString = '';
+                foreach ($projects as $project) {
+                    $projectString = $projectString . ' ' . $project . ', ';
                 }
-                $control->getControlPrototype()->addClass('form-check-input');
-                $control->getSeparatorPrototype()->setName('div')->addClass('form-check');
-            }
+                return $projectString ;
+            })->addAttributes(['class' => 'text-center font-weight-bold']);
+
+
+        $grid->addAction('assign', 'Přiřadit další projekt', 'assign!', ['id'])->setIcon('plus-circle')->setClass('btn btn-xs btn-success ajax');
+        $grid->addAction('delete', 'Odebrat přiřazené projekty', 'delete!', ['id'])->setIcon('minus-circle')->setClass('btn btn-xs btn-danger ajax');
+
+
+
+    }
+
+    public function roleChange($id, $new_status)
+    {
+        if (in_array($new_status, [1, 2, 3, 4])) {
+            $this->userModel->getUsers()->where('id = ?', $id)
+                ->update(['role_id' => $new_status]);
         }
+
+
+        $this->flashMessage("Role byla úspěšně změněna");
+        $this->redirect("this");
+
     }
 
     protected function createComponentEditMemberForm()
     {
 
         $form = new Form;
-        $form->onRender[] = [$this, 'makeBootstrap4'];
+        $form->setRenderer(new AlesWita\FormRenderer\BootstrapV4Renderer);
+
         $form->addHidden('create_time')->setDefaultValue($this->data['create_time']);
         $form->addText('username', 'Login')->setDefaultValue($this->data['username'])->setRequired('Prosím zadejte login');
         $form->addText('name', 'Name')->setDefaultValue($this->data['name']);
@@ -81,7 +203,6 @@ class UserPresenter extends BasePresenter
 
         return $form;
     }
-
 
 
     public function editMemberSuccess(Form $form, $values)

@@ -11,8 +11,6 @@ use Ublaboo\DataGrid\DataGrid;
 use AlesWita;
 
 
-
-
 class SetPresenter extends BasePresenter
 {
 
@@ -37,9 +35,11 @@ class SetPresenter extends BasePresenter
     public function renderEdit()
     {
     }
-    public function renderDetail($id, $parent_id){
-        $this->id =$id;
-        $this->parent_id=$parent_id;
+
+    public function renderDetail($id, $parent_id)
+    {
+        $this->id = $id;
+        $this->parent_id = $parent_id;
         $this->template->set = $this->setModel->findById($id);
         $this->template->tree = $this->setModel->getTreeSet($parent_id);
         $this->template->parentSet = $this->setModel->findById($parent_id);
@@ -61,7 +61,7 @@ class SetPresenter extends BasePresenter
         $this->addComponent($grid, $name);
 
 
-        $fluent = $this->caseModel->getCases($this->getSession('sekcePromenna')->project)->where('set_id',$this->id);
+        $fluent = $this->caseModel->getCases($this->getSession('sekcePromenna')->project)->where('set_id', $this->id);
 
 
         $grid->setDataSource($fluent);
@@ -96,8 +96,6 @@ class SetPresenter extends BasePresenter
             ->setIcon('lemon');
 
 
-
-
     }
 
     protected function createComponentAddSetForm()
@@ -120,12 +118,11 @@ class SetPresenter extends BasePresenter
     }
 
 
-
     public function addSetSuccess(Form $form, $values)
     {
         $values = $form->getValues();
 
-        $values['project_id']=$this->getSession('sekcePromenna')->project;
+        $values['project_id'] = $this->getSession('sekcePromenna')->project;
         $this->setModel->addSet($values);
 
         $this->flashMessage('Úspěšně přidána sada');
@@ -143,7 +140,7 @@ class SetPresenter extends BasePresenter
         $form->addText('name', 'Název sady')->setDefaultValue($this->data['name'])->setRequired('Prosím zadejte název sady');
 
 
-        $form->addSelect('parent_id', 'Nadrazena sada', $this->setModel->notThisId($this->data['id'],$this->getSession('sekcePromenna')->project)->fetchPairs('id', 'name'))
+        $form->addSelect('parent_id', 'Nadrazena sada', $this->setModel->notThisId($this->data['id'], $this->getSession('sekcePromenna')->project)->fetchPairs('id', 'name'))
             ->setPrompt('Zadna', null)->setDefaultValue($this->data['parent_id']);
 
 
@@ -155,7 +152,6 @@ class SetPresenter extends BasePresenter
 
         return $form;
     }
-
 
 
     public function editSetSuccess(Form $form, $values)
@@ -188,8 +184,6 @@ class SetPresenter extends BasePresenter
         }
 
 
-
-
         $grid->addColumnLink('link', 'Jméno sady', 'Set:detail', 'name', ['id', 'parent_id'])->setSortable();
 
 
@@ -205,12 +199,10 @@ class SetPresenter extends BasePresenter
     }
 
 
-
     public function hasChildren($parentId)
     {
         return $this->setModel->getSets($this->getSession('sekcePromenna')->project)->where('parent_id', $parentId)->count() > 0 ? true : false;
     }
-
 
 
 }

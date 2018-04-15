@@ -1,7 +1,16 @@
-{block content}
+{block content}<div class="progress">
+    <div class="progress-bar progress-bar-striped" role="progressbar" style="width: {$processNumber/$caseNumber*100 |number:2:',':' '}%" aria-valuenow="{$processNumber/$caseNumber*100 |number:2:',':' '}" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
     <div class="row">
 
         <div class="col-xl-2 col-sm-5 col-md-4 col-6">
+            {if $caseNumber>0}
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped role="progressbar" aria-valuenow="{$processNumber/$caseNumber*100 |number:0}" aria-valuemin="0" aria-valuemax="100" style="width: {$processNumber/$caseNumber*100 |number:3:',':' '}%">{$processNumber/$caseNumber*100 |number:3:',':' '}</div>
+                </div>
+
+            {$processNumber/$caseNumber*100 |number:3:',':' '}%
+            {/if}
             <h2><i class="fa fa-map"></i> {$plan->name}</h2>
 
             <h3 class="lead"><b>Status: {switch $plan->status}
@@ -101,30 +110,10 @@
 {block scripts}
     {include parent}
     {if $isExe}
+        <script src="{$basePath}/js/dashboard-graphs.js"></script>
+
         <script>
-            function random_rgba() {
 
-                var r = Math.floor((Math.random() * 256));
-                var g = Math.floor((Math.random() * 256));
-                var b = Math.floor((Math.random() * 256));
-                return 'rgb(' + r + ', ' + g + ', ' + b + ',0.4)';
-            }
-
-            var color = [];
-            for (i = 0; i < 200; i++) {
-                color[i] = random_rgba();
-            }
-
-            function shuffle(array) {
-                var m = array.length, t, i;
-                while (m > 0) {
-                    i = Math.floor(Math.random() * m--);
-                    t = array[m];
-                    array[m] = array[i];
-                    array[i] = t;
-                }
-                return array;
-            }
 
             var ctx = document.getElementById('myChart').getContext('2d');
 

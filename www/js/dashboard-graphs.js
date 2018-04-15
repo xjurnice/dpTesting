@@ -1,22 +1,10 @@
 
-$('.count').each(function () {
-    $(this).prop('Counter', 0).animate({
-        Counter: $(this).text()
-    }, {
-        duration: 1000,
-        easing: 'swing',
-        step: function (now) {
-            $(this).text(Math.ceil(now));
-        }
-    });
-});
-
 function random_rgba() {
 
     var r = Math.floor((Math.random() * 256));
     var g = Math.floor((Math.random() * 256));
     var b = Math.floor((Math.random() * 256));
-    return 'rgb(' + r + ', ' + g + ', ' + b + ',0.7)';
+    return 'rgb(' + r + ', ' + g + ', ' + b + ')';
 }
 
 var color = [];

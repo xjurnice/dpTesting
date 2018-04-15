@@ -1,0 +1,28 @@
+{block content}
+
+                <h1 n:block=title class="display-4">Správa uživatelů</h1>
+
+
+    {control usersGrid}
+{/block}
+{define modal-add-title}
+   Přiřazení uživatele k projektům
+{/define}
+{define modal-add-body}
+
+    {control assignToProjectGrid}
+
+{/define}
+{define modal-add-footer}
+{/define}
+
+{define modal-delete-title}
+   Odebrání uživatele z projektu
+{/define}
+{define modal-delete-body}
+
+    {control deleteAssignToProjectGrid}
+
+{/define}
+{define modal-delete-footer}
+{/define}

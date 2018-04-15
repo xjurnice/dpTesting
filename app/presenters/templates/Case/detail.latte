@@ -6,7 +6,7 @@
     <a n:href="Case:edit $case->id" class="btn btn-xs btn-primary"><i
                 class="fa fa-pencil-alt"></i> Editovat</a>
     <button id="pdf">PDF</button>
- <br><br>
+    <br><br>
     <table id="table1" class="table table-striped w-75 align-self-center">
 
         <tbody>
@@ -86,7 +86,7 @@
                     {var podilFail = ($exeFailCount/$exeCount)*100}
                     {var podilPass = ($exePassCount/$exeCount)*100}
                     {var podilSkip = ($exeSkipCount/$exeCount)*100}
-                    <div class="progress">
+                    <div class="progress shadow">
                         <div class="progress-bar progress-bar-striped bg-danger" role="progressbar"
                              style="width: {$podilFail|number:0:',':' '}%" aria-valuenow="{$exeFailCount}"
                              aria-valuemin="0"
@@ -136,6 +136,7 @@
                 <div class="col-lg-4 col-sm-6 col-md-5 col-xl-4">
                     <b>Očekávaný výstup</b>
                 </div>
+
             </div>
         </tr>
         {foreach $steps as $step}
@@ -146,7 +147,7 @@
                             <dt class="step_id primary">{$iterator->counter}. krok</dt>
                         </div>
                         <div class="col-lg-4 col-sm-6 col-md-5 col-xl-4">
-                            <div class="card">
+                            <div class="card shadow">
                                 <div class="card-body">
 
                                     <p class="card-text">    {$step->action}</p>
@@ -155,7 +156,7 @@
                             </div>
                         </div>
                         <div class="col-lg-4 col-sm-6 col-md-5 col-xl-4">
-                            <div class="card">
+                            <div class="card shadow">
                                 <div class="card-body">
 
                                     <p class="card-text">    {$step->result}</p>
@@ -167,9 +168,18 @@
                                     class="ajax"><span
                                         class=" btn btn-warning btn-sm"><i class="fa fa-edit"></i></span></a>
                             <a n:href="deleteStep! id_step=>$step->id"><span class=" btn btn-danger btn-sm"><i
-                                            class="fa fa-trash "></i></span></a></div>
+                                            class="fa fa-trash "></i></span></a>
+                        </div>
+                        <div class="col-lg-2 col-sm-1 col-md-1 col-xl-1">
+                            <a n:href="addNote! id_step=>$step->id" class="ajax"><span class=" btn btn-light btn-sm">Poznámka +</span></a>
+                            {if $step->note<>null}<br>
+                                <button type="button" class="btn btn-sm btn-info shadow" data-toggle="popover" title="Poznámka"
+                                        data-content="{$step->note}"><i
+                                            class="fa fa-info "></i></button>
+                            {/if}
+                        </div>
                     </div>
-                    </a>
+
 
                 </td>
             </tr>
@@ -186,22 +196,23 @@
 
         <tbody>
         {foreach $plans as $plan}
-            <tr><td>
-               <b> <a n:href="Plan:detail $plan->id">{$plan->name} </a></b>
+            <tr>
+                <td>
+                    <b> <a n:href="Plan:detail $plan->id">{$plan->name} </a></b>
                 </td>
                 <td>
-                   Status:  <b>{switch $plan->status}
+                    Status: <b>{switch $plan->status}
                         {case 0}
                             <span class="text-info"> Upravený</span>
                         {case 1}
-                        <span class="text-success">Dokončený</span>
-                    {default}
-                        Vytvořený
-                    {/switch}</b>
+                            <span class="text-success">Dokončený</span>
+                        {default}
+                            Vytvořený
+                        {/switch}</b>
                 <td>  {$case->create_time|date:'d.m.Y H:i:s'}
                 </td>
                 </td>
-                 </tr>
+            </tr>
 
         {/foreach}
         </tbody>
@@ -235,39 +246,49 @@
 {define modal-add-footer}
 {/define}
 
+{define modal-note-title}
+    Připomínka ke kroku scénáře
+{/define}
+{define modal-note-body}
+
+    {control addNoteForm}
+
+{/define}
+{define modal-note-footer}
+{/define}
+
 {block scripts}
-{include parent}
+    {include parent}
 
-<script>
-    $(document).ready(function () {
-        var doc = new jsPDF()
-        doc.addFont('arial.ttf', 'Arial', 'normal');
+    <script>
+        $(document).ready(function () {
+            var doc = new jsPDF()
+            doc.addFont('arial.ttf', 'Arial', 'normal');
 
-        doc.text('Projekt:' + {$projectName}, 10, 10);
+            doc.text('Projekt:' + {$projectName}, 10, 10);
 
-        doc.text({$case->name}, 110, 10);
-        doc.line(20, 20, 180, 12); // horizontal line
+            doc.text({$case->name}, 110, 10);
+            doc.line(20, 20, 180, 12); // horizontal line
 
-        {foreach $steps as $step}
+            {foreach $steps as $step}
 
-        doc.setFont('Arial');
-        doc.addFont('NotoSansCJKtc-Regular.ttf', 'NotoSansCJKtc', 'normal');
-        doc.setFont('NotoSansCJKtc');
-        doc.text(15, 100, '早上好。 很高兴见到你');
-        doc.setFontSize('12');
-        doc.text({$iterator->counter}9, {$iterator->counter}9,JSON.parse({json_encode($step->action)}))
-        {/foreach}
+            doc.setFont('Arial');
+            doc.addFont('NotoSansCJKtc-Regular.ttf', 'NotoSansCJKtc', 'normal');
+            doc.setFont('NotoSansCJKtc');
+            doc.text(15, 100, '早上好。 很高兴见到你');
+            doc.setFontSize('12');
+            doc.text({$iterator->counter}9, {$iterator->counter}9, JSON.parse({json_encode($step->action)}))
+            {/foreach}
 
 
-        doc.text(20, 80, 'This is times italic.');
-        $('#pdf').click(function (e) {
+            doc.text(20, 80, 'This is times italic.');
+            $('#pdf').click(function (e) {
 
-            doc.save('a4.pdf');
+                doc.save('a4.pdf');
+            });
+
+
         });
-
-
-
-    });
     </script>
 
 {/block}

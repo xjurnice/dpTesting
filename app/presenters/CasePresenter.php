@@ -53,7 +53,7 @@ class CasePresenter extends BasePresenter
         $this->template->case = $this->caseModel->getCase($id);
         $this->template->steps = $this->caseModel->getAllSteps($id);
         $this->template->exe = $this->caseModel->getAllExecutions($id);
-        $this->template->plans = $this->caseModel->getAllTestPlans($id,$this->getSession('sekcePromenna')->project);
+        $this->template->plans = $this->caseModel->getAllTestPlans($id, $this->getSession('sekcePromenna')->project);
         $this->template->exeCount = $this->caseModel->getExecutions($id)->count();
         $this->template->exePassCount = $this->caseModel->getExecutions($id)->where('status', 1)->count();
         $this->template->exeFailCount = $this->caseModel->getExecutions($id)->where('status', 2)->count();
@@ -72,6 +72,7 @@ class CasePresenter extends BasePresenter
 
 
     }
+
 
     public function handleEditStep($id_step)
     {
@@ -96,6 +97,16 @@ class CasePresenter extends BasePresenter
     {
         parent::handleModal('add');
     }
+
+    public function handleAddNote($id_step)
+
+    {
+        $this->id_step = $id_step;
+        $this->datastep = $this->caseModel->getStep($id_step);
+
+        parent::handleModal('note');
+    }
+
 
     protected function createComponentEditStepForm()
     {
@@ -142,6 +153,23 @@ class CasePresenter extends BasePresenter
         return $form;
     }
 
+
+    protected function createComponentAddNoteForm()
+    {
+
+        $form = new Form;
+
+        $form->setRenderer(new AlesWita\FormRenderer\BootstrapV4Renderer);
+        $form->addHidden("id")->setDefaultValue($this->datastep['id']);
+        $form->addHidden("case_id")->setDefaultValue($this->id);
+        $form->addTextArea('note', 'Poznámka', 70, 7)->setDefaultValue($this->datastep['note']);
+        $form->addSubmit('edit', 'Přidat')->getControlPrototype()->setClass('btn btn-primary btn-lg btn-block');
+        $form->onSuccess[] = [$this, 'editStepSuccess'];
+
+        return $form;
+    }
+
+
     public function addStepSuccess(Form $form, $values)
     {
         $values = $form->getValues();
@@ -176,9 +204,9 @@ class CasePresenter extends BasePresenter
         );
 
         $priority = array(
-            '1' => 'Vysoka',
-            '2' => 'Stredni',
-            '3' => 'Nizka',
+            '1' => 'Vysoká',
+            '2' => 'Střední',
+            '3' => 'Nízká',
         );
 
         $form->addText('name', 'Název:')->setRequired('Je nutné uvést název');
@@ -239,17 +267,16 @@ class CasePresenter extends BasePresenter
         $form->setRenderer(new AlesWita\FormRenderer\BootstrapV4Renderer);
         $form->addProtection();
         $status = array(
-            '0' => 'Naznámý',
+            '0' => 'K přepracování',
             '1' => 'Navržený',
             '2' => 'Schválený',
-            '3' => 'Archivovaný',
 
         );
 
         $priority = array(
-            '1' => 'Vysoka',
-            '2' => 'Stredni',
-            '3' => 'Nizka',
+            '1' => 'Vysoká',
+            '2' => 'Střední',
+            '3' => 'Nízká',
         );
         $form->addHidden('create_time')->setDefaultValue($this->data['create_time']);
         $form->addHidden('id', 'Název:')->setDefaultValue($this->data['id']);
@@ -318,6 +345,87 @@ class CasePresenter extends BasePresenter
 
     }
 
+    public function createComponentApprovalCaseGrid($name)
+    {
+
+        $grid = new DataGrid();
+        $this->addComponent($grid, $name);
+
+
+        $fluent = $this->caseModel->getCases($this->getSession('sekcePromenna')->project);
+
+
+        $grid->setDataSource($fluent);
+
+
+        $grid->addColumnLink('link', 'Testovací případ', 'Case:detail', 'name', ['id' => 'id'])->setFilterText(['name', 'id']);
+
+        $set = [];
+        $set = ['' => 'Všechno'] + $this->caseModel->getSets($this->getSession('sekcePromenna')->project)->fetchPairs('id', 'name');
+        $grid->addColumnStatus('status', 'Status')
+            ->setCaret(false)
+            ->addOption(0, 'K přepracování')
+            ->setIcon('')
+            ->setClass('btn-light')
+            ->endOption()
+            ->addOption(1, 'Navžený')
+            ->setIcon('spinner')
+            ->setClass('btn-info')
+            ->endOption()
+            ->addOption(2, 'Schválený')
+            ->setIcon('check')
+            ->setClass('btn-success')
+            ->endOption()->onChange[] = [$this, 'statusChange'];
+
+        $grid->addColumnText('set_id', 'Sada')
+            ->setReplacement($this->caseModel->getSets($this->getSession('sekcePromenna')->project)->fetchPairs('id', 'name'))
+            ->setFilterSelect($set);
+        $grid->addColumnDateTime('create_time', 'Vytvořeno')
+            ->setFormat('d.m.Y H:i:s')->setSortable();
+
+        $grid->addGroupAction('K přepracování')->onSelect[] = [$this, 'changeTo0Project'];
+        $grid->addGroupAction('Navržený')->onSelect[] = [$this, 'changeTo1Project'];
+        $grid->addGroupAction('Schválený')->onSelect[] = [$this, 'changeTo2Project'];
+
+    }
+
+    public function changeTo0Project(array $ids)
+    {
+        $status = 0;
+        $this->caseModel->updateCaseStatus($ids, $status);
+        $this->flashMessage('Záznam byl úspěšně odebrán.');
+        $this['approvalCaseGrid']->reload();
+        $this->redirect('this');
+    }
+
+    public function changeTo1Project(array $ids)
+    {
+        $status = 1;
+        $this->caseModel->updateCaseStatus($ids, $status);
+        $this->flashMessage('Záznam byl úspěšně odebrán.');
+        $this['approvalCaseGrid']->reload();
+        $this->redirect('this');
+
+    }
+
+    public function changeTo2Project(array $ids)
+    {
+        $status = 2;
+        $this->caseModel->updateCaseStatus($ids, $status);
+        $this->flashMessage('Záznam byl úspěšně odebrán.');
+        $this['approvalCaseGrid']->reload();
+        $this->redirect('this');
+
+    }
+
+    public function statusChange($id, $new_status)
+    {
+        $this->planModel->deleteCases($ids, $this->id);
+        $this->flashMessage('Záznam byl úspěšně odebrán.');
+        $this['assignCaseGrid']->reload();
+        $this->redirect('this');
+
+    }
 
     public function createComponentExeGrid($name)
     {

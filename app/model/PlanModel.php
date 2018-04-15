@@ -84,6 +84,16 @@ class PlanModel
         return $this->database->query("SELECT * FROM `case` JOIN test_plan_has_case ON case.id=test_plan_has_case.case_id WHERE test_plan_has_case.test_plan_id=? 
 ORDER BY sequence", $id)->fetchAll();
     }
+    public function getAssignCasesCount($id)
+    {
+        return $this->database->query("SELECT * FROM `case` JOIN test_plan_has_case ON case.id=test_plan_has_case.case_id WHERE test_plan_has_case.test_plan_id=? 
+ORDER BY sequence", $id)->getRowCount();
+    }
+    public function getProcessCaseCount($id)
+    {
+        return $this->database->table('execution')->where('test_plan_id',$id)->count();
+    }
+
 
 
     public function getCasesNotInPlanYet($id, $test_plan_id)
@@ -141,20 +151,21 @@ ORDER BY sequence", $id)->fetchAll();
     public function getTimeOfExecution($id)
     {
 
-        return $this->database->query('SELECT (spend_time/60) FROM `execution` WHERE test_plan_id=? ',$id)->fetchPairs();
+        return $this->database->query('SELECT (spend_time/60) FROM `execution` WHERE test_plan_id=? ', $id)->fetchPairs();
 
     }
-    public function getNameofExecution($id)
+
+    public function getNameOfExecution($id)
     {
 
-        return $this->database->query('SELECT name FROM `execution` JOIN `case` ON execution.case_id=case.id  WHERE test_plan_id=? ',$id)->fetchPairs();
+        return $this->database->query('SELECT name FROM `execution` JOIN `case` ON execution.case_id=case.id  WHERE test_plan_id=? ', $id)->fetchPairs();
 
     }
 
     public function getUserForTestPlan($id)
     {
 
-        return $this->database->query('SELECT user.* FROM `user` JOIN `test_plan` ON user.id=test_plan.assign_user_id  WHERE test_plan.id=? ',$id)->fetch();
+        return $this->database->query('SELECT user.* FROM `user` JOIN `test_plan` ON user.id=test_plan.assign_user_id  WHERE test_plan.id=? ', $id)->fetch();
 
     }
 
@@ -166,8 +177,9 @@ ORDER BY sequence", $id)->fetchAll();
 
     }
 
-    public function isAnyCaseInPlanExist($id){
-        if (!empty($this->database->query('SELECT name FROM `execution` JOIN `case` ON execution.case_id=case.id  WHERE test_plan_id=?',$id)->fetchAll())) {
+    public function isAnyCaseInPlanExist($id)
+    {
+        if (!empty($this->database->query('SELECT name FROM `execution` JOIN `case` ON execution.case_id=case.id  WHERE test_plan_id=?', $id)->fetchAll())) {
 
             return 1;
         } else {

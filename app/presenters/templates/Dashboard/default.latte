@@ -38,6 +38,7 @@
             </div>
 
         </div>
+    </div>
         <div class="row">
 
             <div class="col-lg-4 col-md-5 col-xl-4 ">
@@ -74,11 +75,19 @@
                 </div>
 
             </div>
+            <div class="col-lg-4 col-sm-6 col-md-7 col-xl-4">
+
+
+                <div class="card text-white bg-warning box shadow fail" style="padding: 1em">
+                    <h4 style=" text-align: center"><i class="fa fa-clock fa-2x"></i> Počet vynechaných testů: {$skip}</h4>
+                </div>
+
+            </div>
         </div>
         <div class="row">
 
 
-        </div>
+
         <div class="col-lg-4 col-sm-6 col-md-7 col-xl-4">
             <div class="card box shadow" style="padding: 1em">
                 <div class="h5 chartjs-title align-self-center">Celkový čas strávený spouštěním testů na uživatele</div>
@@ -117,6 +126,7 @@
                 </div>
             </div>
         </div>
+
     </div>
 {/block}
 {block scripts}
@@ -124,6 +134,18 @@
 
     <script src="{$basePath}/js/dashboard-graphs.js"></script>
     <script>
+        $('.count').each(function () {
+            $(this).prop('Counter', 0).animate({
+                Counter: $(this).text()
+            }, {
+                duration: 1000,
+                easing: 'swing',
+                step: function (now) {
+                    $(this).text(Math.ceil(now));
+                }
+            });
+        });
+
 
         Chart.defaults.global.responsive = true;
 
@@ -140,7 +162,7 @@
                 labels: JSON.parse({json_encode($labelsTesters)}),
                 datasets: [{
                     label: "Testovací případy",
-                    backgroundColor: color.sort(shuffle),
+                    backgroundColor: color,
 
                     data: JSON.parse({json_encode($seriesTesters)})
 

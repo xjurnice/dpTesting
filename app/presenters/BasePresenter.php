@@ -16,6 +16,11 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 
     private $acl = null;
 
+    public function renderLayout(){
+
+       $this->template->neco = 'a';
+    }
+
     public function __construct(EventModel $eventModel)
     {
 
@@ -42,6 +47,7 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
         $this->redrawControl('modal');
     }
     protected function beforeRender() {
+        $this->template->project = $this->getSession('sekcePromenna')->project;
 
     }
 
