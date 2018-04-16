@@ -2,38 +2,31 @@
 
 namespace App\Presenters;
 
+use AlesWita;
+use App\Model;
 use App\Model\CaseModel;
-use Composer\IO\NullIO;
-use Nette,
-    App\Model,
-    Nette\Application\UI\Form;
-
-use Ublaboo\DataGrid\DataGrid;
+use Joseki;
+use Nette;
+use Nette\Application\UI\Form;
 use Nette\Utils\Html;
+use Ublaboo\DataGrid\DataGrid;
 use Ublaboo\DataGrid\Exception\DataGridException;
 use WebChemistry\Forms;
-use AlesWita;
-use Joseki;
 
 
 class CasePresenter extends BasePresenter
 {
 
 
-    /** @var CaseModel */
-    private $caseModel;
-
-
     /** @persistent */
     public $id;
-
-
     public $id_step;
-
+    public $case;
+    /** @var CaseModel */
+    private $caseModel;
     private $data = null;
     private $steps = null;
     private $datastep = null;
-    public $case;
 
     public function __construct(CaseModel $caseModel, Model\EventModel $eventModel)
     {
@@ -107,24 +100,6 @@ class CasePresenter extends BasePresenter
         parent::handleModal('note');
     }
 
-
-    protected function createComponentEditStepForm()
-    {
-
-        $form = new Form;
-
-        $form->setRenderer(new AlesWita\FormRenderer\BootstrapV4Renderer);
-
-
-        $form->addHidden("id")->setDefaultValue($this->datastep['id']);
-        $form->addTextArea('action', 'Akce', 70, 7)->setDefaultValue($this->datastep['action']);
-        $form->addTextArea('result', 'Očekáváný výstup', 70, 5)->setDefaultValue($this->datastep['result']);
-        $form->addSubmit('edit', 'Editovat')->getControlPrototype()->setClass('btn btn-primary btn-lg btn-block');
-        $form->onSuccess[] = [$this, 'editStepSuccess'];
-
-        return $form;
-    }
-
     public function editStepSuccess(Form $form, $values)
     {
         $values = $form->getValues();
@@ -135,40 +110,6 @@ class CasePresenter extends BasePresenter
 
 
     }
-
-    protected function createComponentAddStepForm()
-    {
-
-        $form = new Form;
-
-        $form->setRenderer(new AlesWita\FormRenderer\BootstrapV4Renderer);
-
-        $form->addHidden("sequence");
-        $form->addHidden("case_id")->setDefaultValue($this->id);
-        $form->addTextArea('action', 'Akce', 70, 7);
-        $form->addTextArea('result', 'Očekáváný výstup', 70, 5);
-        $form->addSubmit('edit', 'Přidat')->getControlPrototype()->setClass('btn btn-primary btn-lg btn-block');
-        $form->onSuccess[] = [$this, 'addStepSuccess'];
-
-        return $form;
-    }
-
-
-    protected function createComponentAddNoteForm()
-    {
-
-        $form = new Form;
-
-        $form->setRenderer(new AlesWita\FormRenderer\BootstrapV4Renderer);
-        $form->addHidden("id")->setDefaultValue($this->datastep['id']);
-        $form->addHidden("case_id")->setDefaultValue($this->id);
-        $form->addTextArea('note', 'Poznámka', 70, 7)->setDefaultValue($this->datastep['note']);
-        $form->addSubmit('edit', 'Přidat')->getControlPrototype()->setClass('btn btn-primary btn-lg btn-block');
-        $form->onSuccess[] = [$this, 'editStepSuccess'];
-
-        return $form;
-    }
-
 
     public function addStepSuccess(Form $form, $values)
     {
@@ -192,61 +133,6 @@ class CasePresenter extends BasePresenter
         $this->id = $id;
     }
 
-
-    protected function createComponentInsertForm()
-    {
-        $form = new Form;
-        $form->setRenderer(new AlesWita\FormRenderer\BootstrapV4Renderer);
-        $form->addProtection();
-        $status = array(
-            '1' => 'Navržený',
-
-        );
-
-        $priority = array(
-            '1' => 'Vysoká',
-            '2' => 'Střední',
-            '3' => 'Nízká',
-        );
-
-        $form->addText('name', 'Název:')->setRequired('Je nutné uvést název');
-        $form->addSelect('status', 'Status', $status)->setRequired('Uvedte prioritu')
-            ->setOption('left-addon', 'addon text');
-        $form->addTextArea('description', 'Popis (předpoklady, uživ. role):');
-
-        $form->addSelect('priority', 'Priorita', $priority)->setRequired('Uvedte prioritu');
-        $form->addSelect('category_id', 'Case category', $this->caseModel->getCaseCategory()->fetchPairs('id', 'name'))
-            ->setPrompt('Zvolte', null);
-        $form->addSelect('project_id', 'Projekt', $this->caseModel->getProject()->fetchPairs('id', 'name'))
-            ->setDefaultValue($this->getSession('sekcePromenna')->project)->setDisabled(false);
-        $form->addSelect('set_id', 'Testovací sada', $this->caseModel->getSets($this->getSession('sekcePromenna')->project)->fetchPairs('id', 'name'))->setPrompt('Zvolte', null)->setRequired('Testovací sada musí být zvolena');
-
-        $copies = 0;
-        $maxCopies = 100;
-
-        $multiplier = $form->addMultiplier('multiplier', function (Nette\Forms\Container $container, Nette\Forms\Form $form) {
-
-            $container->addTextArea("action", '#' . ((int)$container->getName() + 1) . ' krok' . ' Akce')
-                ->setDefaultValue('My value');
-            $container->addTextArea("result", 'Očekávaný výstup')
-                ->setDefaultValue('My value')->setOption('description', Html::el('p')
-                    ->setHtml(' <hr>')
-                );
-        }, $copies, $maxCopies);
-
-        $multiplier->addCreateButton('Přidat 1 krok', 1);
-        $multiplier->addCreateButton('Přidat 3 kroky', 3);
-        $multiplier->addCreateButton('Přidat 5 kroků', 5);
-
-        $multiplier->addRemoveButton('Odebrat krok');
-
-
-        $form->addSubmit('add', 'Vložit')->getControlPrototype()->setClass('btn btn-primary btn-lg btn-block');
-        $form->onSuccess[] = array($this, 'insertFormSucceeded');
-        return $form;
-    }
-
-
     public function insertFormSucceeded(Form $form, $values)
     {
         // ...
@@ -257,46 +143,6 @@ class CasePresenter extends BasePresenter
 
         $this->redirect('Case:default');
     }
-
-    //Edit form
-
-
-    protected function createComponentEditForm()
-    {
-        $form = new Form;
-        $form->setRenderer(new AlesWita\FormRenderer\BootstrapV4Renderer);
-        $form->addProtection();
-        $status = array(
-            '0' => 'K přepracování',
-            '1' => 'Navržený',
-            '2' => 'Schválený',
-
-        );
-
-        $priority = array(
-            '1' => 'Vysoká',
-            '2' => 'Střední',
-            '3' => 'Nízká',
-        );
-        $form->addHidden('create_time')->setDefaultValue($this->data['create_time']);
-        $form->addHidden('id', 'Název:')->setDefaultValue($this->data['id']);
-        $form->addText('name', 'Název:')->setRequired('Je nutné uvést název')->setDefaultValue($this->data['name']);
-        $form->addSelect('status', 'Status', $status)->setRequired('Uvedte prioritu')->setDefaultValue($this->data['status']);
-        $form->addTextArea('description', 'Popis (předpoklady, uživ. role):')->setDefaultValue($this->data['description']);
-
-        $form->addSelect('priority', 'Priorita', $priority)->setRequired('Uvedte prioritu')->setDefaultValue($this->data['priority']);
-        $form->addSelect('category_id', 'Case category', $this->caseModel->getCaseCategory()->fetchPairs('id', 'name'))
-            ->setDefaultValue($this->data['category_id']);
-        $form->addSelect('project_id', 'Projekt', $this->caseModel->getProject()->fetchPairs('id', 'name'))
-            ->setDefaultValue($this->data['project_id'])->setDisabled(false);
-        $form->addSelect('set_id', 'Testovací sada', $this->caseModel->getSets($this->getSession('sekcePromenna')->project)->
-        fetchPairs('id', 'name'))->setDefaultValue($this->data['set_id'])->setRequired('Testovací sada musí být zvolena');
-
-        $form->addSubmit('add', 'Editovat')->getControlPrototype()->setClass('btn btn-primary btn-lg btn-block');
-        $form->onSuccess[] = array($this, 'editFormSucceeded');
-        return $form;
-    }
-
 
     public function editFormSucceeded(Form $form, $values)
     {
@@ -393,16 +239,18 @@ class CasePresenter extends BasePresenter
     {
         $status = 0;
         $this->caseModel->updateCaseStatus($ids, $status);
-        $this->flashMessage('Záznam byl úspěšně odebrán.');
+        $this->flashMessage('Záznam byl úspěšně upraven.');
         $this['approvalCaseGrid']->reload();
         $this->redirect('this');
     }
+
+    //Edit form
 
     public function changeTo1Project(array $ids)
     {
         $status = 1;
         $this->caseModel->updateCaseStatus($ids, $status);
-        $this->flashMessage('Záznam byl úspěšně odebrán.');
+        $this->flashMessage('Záznam byl úspěšně upraven.');
         $this['approvalCaseGrid']->reload();
         $this->redirect('this');
 
@@ -412,7 +260,7 @@ class CasePresenter extends BasePresenter
     {
         $status = 2;
         $this->caseModel->updateCaseStatus($ids, $status);
-        $this->flashMessage('Záznam byl úspěšně odebrán.');
+        $this->flashMessage('Záznam byl úspěšně upraven.');
         $this['approvalCaseGrid']->reload();
         $this->redirect('this');
 
@@ -420,10 +268,14 @@ class CasePresenter extends BasePresenter
 
     public function statusChange($id, $new_status)
     {
-        $this->planModel->deleteCases($ids, $this->id);
-        $this->flashMessage('Záznam byl úspěšně odebrán.');
-        $this['assignCaseGrid']->reload();
-        $this->redirect('this');
+        if (in_array($new_status, [0, 1, 2])) {
+            $this->caseModel->getCase($id)
+                ->update(['status' => $new_status]);
+        }
+
+        $this->flashMessage('Záznam byl úspěšně upraven.');
+
+        $this->redirect("this");
 
     }
 
@@ -469,7 +321,6 @@ class CasePresenter extends BasePresenter
         $this->redirect("Case:prehled");
     }
 
-
     public function handleDelete($id)
     {
         $this->flashMessage('Testovací případ byl smazán.');
@@ -479,6 +330,144 @@ class CasePresenter extends BasePresenter
         }
 
         $this->redirect('this'); // this vyjadřuje aktuální presenter i view, ale bez signálu
+    }
+
+    protected function createComponentEditStepForm()
+    {
+
+        $form = new Form;
+
+        $form->setRenderer(new AlesWita\FormRenderer\BootstrapV4Renderer);
+
+
+        $form->addHidden("id")->setDefaultValue($this->datastep['id']);
+        $form->addTextArea('action', 'Akce', 70, 7)->setDefaultValue($this->datastep['action']);
+        $form->addTextArea('result', 'Očekáváný výstup', 70, 5)->setDefaultValue($this->datastep['result']);
+        $form->addSubmit('edit', 'Editovat')->getControlPrototype()->setClass('btn btn-primary btn-lg btn-block');
+        $form->onSuccess[] = [$this, 'editStepSuccess'];
+
+        return $form;
+    }
+
+    protected function createComponentAddStepForm()
+    {
+
+        $form = new Form;
+
+        $form->setRenderer(new AlesWita\FormRenderer\BootstrapV4Renderer);
+
+        $form->addHidden("sequence");
+        $form->addHidden("case_id")->setDefaultValue($this->id);
+        $form->addTextArea('action', 'Akce', 70, 7);
+        $form->addTextArea('result', 'Očekáváný výstup', 70, 5);
+        $form->addSubmit('edit', 'Přidat')->getControlPrototype()->setClass('btn btn-primary btn-lg btn-block');
+        $form->onSuccess[] = [$this, 'addStepSuccess'];
+
+        return $form;
+    }
+
+    protected function createComponentAddNoteForm()
+    {
+
+        $form = new Form;
+
+        $form->setRenderer(new AlesWita\FormRenderer\BootstrapV4Renderer);
+        $form->addHidden("id")->setDefaultValue($this->datastep['id']);
+        $form->addHidden("case_id")->setDefaultValue($this->id);
+        $form->addTextArea('note', 'Poznámka', 70, 7)->setDefaultValue($this->datastep['note']);
+        $form->addSubmit('edit', 'Přidat')->getControlPrototype()->setClass('btn btn-primary btn-lg btn-block');
+        $form->onSuccess[] = [$this, 'editStepSuccess'];
+
+        return $form;
+    }
+
+    protected function createComponentInsertForm()
+    {
+        $form = new Form;
+        $form->setRenderer(new AlesWita\FormRenderer\BootstrapV4Renderer);
+        $form->addProtection();
+        $status = array(
+            '1' => 'Navržený',
+
+        );
+
+        $priority = array(
+            '1' => 'Vysoká',
+            '2' => 'Střední',
+            '3' => 'Nízká',
+        );
+
+        $form->addText('name', 'Název:')->setRequired('Je nutné uvést název');
+        $form->addSelect('status', 'Status', $status)->setRequired('Uvedte prioritu')
+            ->setOption('left-addon', 'addon text');
+        $form->addTextArea('description', 'Popis (předpoklady, uživ. role):');
+
+        $form->addSelect('priority', 'Priorita', $priority)->setRequired('Uvedte prioritu');
+        $form->addSelect('category_id', 'Case category', $this->caseModel->getCaseCategory()->fetchPairs('id', 'name'))
+            ->setPrompt('Zvolte', null);
+        $form->addSelect('project_id', 'Projekt', $this->caseModel->getProject()->fetchPairs('id', 'name'))
+            ->setDefaultValue($this->getSession('sekcePromenna')->project)->setDisabled(false);
+        $form->addSelect('set_id', 'Testovací sada', $this->caseModel->getSets($this->getSession('sekcePromenna')->project)->fetchPairs('id', 'name'))->setPrompt('Zvolte', null)->setRequired('Testovací sada musí být zvolena');
+
+        $copies = 0;
+        $maxCopies = 100;
+
+        $multiplier = $form->addMultiplier('multiplier', function (Nette\Forms\Container $container, Nette\Forms\Form $form) {
+
+            $container->addTextArea("action", '#' . ((int)$container->getName() + 1) . ' krok' . ' Akce')
+                ->setDefaultValue('My value');
+            $container->addTextArea("result", 'Očekávaný výstup')
+                ->setDefaultValue('My value')->setOption('description', Html::el('p')
+                    ->setHtml(' <hr>')
+                );
+        }, $copies, $maxCopies);
+
+        $multiplier->addCreateButton('Přidat 1 krok', 1);
+        $multiplier->addCreateButton('Přidat 3 kroky', 3);
+        $multiplier->addCreateButton('Přidat 5 kroků', 5);
+
+        $multiplier->addRemoveButton('Odebrat krok');
+
+
+        $form->addSubmit('add', 'Vložit')->getControlPrototype()->setClass('btn btn-primary btn-lg btn-block');
+        $form->onSuccess[] = array($this, 'insertFormSucceeded');
+        return $form;
+    }
+
+    protected function createComponentEditForm()
+    {
+        $form = new Form;
+        $form->setRenderer(new AlesWita\FormRenderer\BootstrapV4Renderer);
+        $form->addProtection();
+        $status = array(
+            '0' => 'K přepracování',
+            '1' => 'Navržený',
+            '2' => 'Schválený',
+
+        );
+
+        $priority = array(
+            '1' => 'Vysoká',
+            '2' => 'Střední',
+            '3' => 'Nízká',
+        );
+        $form->addHidden('create_time')->setDefaultValue($this->data['create_time']);
+        $form->addHidden('id', 'Název:')->setDefaultValue($this->data['id']);
+        $form->addText('name', 'Název:')->setRequired('Je nutné uvést název')->setDefaultValue($this->data['name']);
+        $form->addSelect('status', 'Status', $status)->setRequired('Uvedte prioritu')->setDefaultValue($this->data['status']);
+        $form->addTextArea('description', 'Popis (předpoklady, uživ. role):')->setDefaultValue($this->data['description']);
+
+        $form->addSelect('priority', 'Priorita', $priority)->setRequired('Uvedte prioritu')->setDefaultValue($this->data['priority']);
+        $form->addSelect('category_id', 'Case category', $this->caseModel->getCaseCategory()->fetchPairs('id', 'name'))
+            ->setDefaultValue($this->data['category_id']);
+        $form->addSelect('project_id', 'Projekt', $this->caseModel->getProject()->fetchPairs('id', 'name'))
+            ->setDefaultValue($this->data['project_id'])->setDisabled(false);
+        $form->addSelect('set_id', 'Testovací sada', $this->caseModel->getSets($this->getSession('sekcePromenna')->project)->
+        fetchPairs('id', 'name'))->setDefaultValue($this->data['set_id'])->setRequired('Testovací sada musí být zvolena');
+
+        $form->addSubmit('add', 'Editovat')->getControlPrototype()->setClass('btn btn-primary btn-lg btn-block');
+        $form->onSuccess[] = array($this, 'editFormSucceeded');
+        return $form;
     }
 
 
