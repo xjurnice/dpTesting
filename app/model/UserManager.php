@@ -83,7 +83,7 @@ class UserManager implements Nette\Security\IAuthenticator
 
 		$arr = $row->toArray();
 		unset($arr[self::COLUMN_PASSWORD_HASH]);
-		return new Nette\Security\Identity($row[self::COLUMN_ID], $row[self::COLUMN_ROLE_ID], $arr);
+		return new Nette\Security\Identity($row[self::COLUMN_ID],  (string) $row[self::COLUMN_ROLE_ID], $arr);
 	}
 
 

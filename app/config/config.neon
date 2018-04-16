@@ -48,6 +48,7 @@ services:
 	- App\Model\CaseModel
 	- App\Model\ExecutionModel
 	- App\Model\SetModel
+	- App\Model\SettingModel
 tracy:
 	bar:
 		- Nextras\MailPanel\MailPanel(%tempDir%/mail-panel-latte)

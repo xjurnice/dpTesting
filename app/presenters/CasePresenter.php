@@ -175,15 +175,21 @@ class CasePresenter extends BasePresenter
         $set = [];
         $set = ['' => 'Všechno'] + $this->caseModel->getSets($this->getSession('sekcePromenna')->project)->fetchPairs('id', 'name');
 
+        $category = [];
+        $category = ['' => 'Všechno'] + $this->caseModel->getCaseCategory()->fetchPairs('id', 'name');
         $grid->addColumnText('set_id', 'Sada')
             ->setReplacement($this->caseModel->getSets($this->getSession('sekcePromenna')->project)->fetchPairs('id', 'name'))
             ->setFilterSelect($set);
+
+        $grid->addColumnText('category_id', 'Kategorie')
+            ->setReplacement($this->caseModel->getCaseCategory()->fetchPairs('id', 'name'))
+            ->setFilterSelect($category);
         $grid->addColumnDateTime('create_time', 'Vytvořeno')
             ->setFormat('d.m.Y H:i:s')->setSortable();
+        $grid->addColumnDateTime('update_time', 'Poslední změna')
+            ->setFormat('d.m.Y H:i:s')->setSortable();
+        $grid->addExportCsv('Exportovat do CSV', 'all.csv', 'windows-1250', ';');
 
-
-        $grid->addAction('detail', '', 'detail')
-            ->setIcon('lemon');
 
         $grid->addAction('delete', '', 'delete!')
             ->setIcon('trash')->setConfirm('Opravdu chcete smazat testovací případ "%s?"', 'name');
@@ -196,7 +202,7 @@ class CasePresenter extends BasePresenter
 
         $grid = new DataGrid();
         $this->addComponent($grid, $name);
-
+        $grid->setRememberState(FALSE);
 
         $fluent = $this->caseModel->getCases($this->getSession('sekcePromenna')->project);
 
@@ -226,6 +232,14 @@ class CasePresenter extends BasePresenter
         $grid->addColumnText('set_id', 'Sada')
             ->setReplacement($this->caseModel->getSets($this->getSession('sekcePromenna')->project)->fetchPairs('id', 'name'))
             ->setFilterSelect($set);
+
+
+        $category = [];
+        $category = ['' => 'Všechno'] + $this->caseModel->getCaseCategory()->fetchPairs('id', 'name');
+
+        $grid->addColumnText('category_id', 'Kategorie')
+            ->setReplacement($this->caseModel->getCaseCategory()->fetchPairs('id', 'name'))
+            ->setFilterSelect($category);
         $grid->addColumnDateTime('create_time', 'Vytvořeno')
             ->setFormat('d.m.Y H:i:s')->setSortable();
 
@@ -291,12 +305,14 @@ class CasePresenter extends BasePresenter
 
         $grid->setDataSource($fluent);
 
-        $grid->addColumnDateTime('start_time', 'Cas spusteni')
+        $grid->addColumnDateTime('start_time', 'Čas spusteni')
+            ->setFormat('d.m.Y H:i:s')->setSortable();
+        $grid->addColumnDateTime('end_time', 'Čas ukonceni')
             ->setFormat('d.m.Y H:i:s')->setSortable();
 
 
         try {
-            $grid->addColumnText('spend_time', 'Cas')
+            $grid->addColumnText('spend_time', 'Čas')
                 ->setSortable()->setRenderer(function ($item) {
                     if ($item->spend_time < 60) {
                         return ($item->spend_time) . ' sekund';
@@ -307,8 +323,20 @@ class CasePresenter extends BasePresenter
                 })->setSortable();
         } catch (DataGridException $e) {
         };
-
-        $grid->addColumnLink('link', 'Uživatel', 'User:profile', 'username', ['id' => 'ide'])->setSortable();
+        $grid->addColumnStatus('status', 'Status')
+            ->setCaret(false)
+            ->addOption(1, 'Úspěšný')
+            ->setIcon('check')
+            ->setClass('btn-success')
+            ->endOption()
+            ->addOption(2, 'Neúspěšný')
+            ->setIcon('times')
+            ->setClass('btn-danger')
+            ->endOption()
+            ->addOption(3, 'Vynechaný')
+            ->setIcon('dot-circle')
+            ->setClass('btn-warning');
+        $grid->addColumnLink('link', 'Uživatelem', 'User:profile', 'username', ['id' => 'ide'])->setSortable();
 
 
     }

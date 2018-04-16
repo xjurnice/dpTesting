@@ -150,6 +150,9 @@ class SignPresenter extends BasePresenter
 
 	public function actionOut()
 	{
+        $session = $this->getSession();
+        $sessionSection = $session->getSection('sekcePromenna');
+        $sessionSection->project = NULL;
 		$this->getUser()->logout();
         $this->flashMessage('Byl jsi odhlášen');
 

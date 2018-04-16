@@ -49,11 +49,14 @@ class SetPresenter extends BasePresenter
     }
 
 
-    public function actionEdit($id)
-    {
-        $this->data = $this->setModel->findById($id);
-    }
 
+    public function handleEdit($id)
+
+    {
+        $this->id = $id;
+        $this->data = $this->setModel->findById($id);
+        parent::handleModal('edit');
+    }
     public function createComponentSetDetailGrid($name)
     {
 
@@ -140,11 +143,10 @@ class SetPresenter extends BasePresenter
         $form->addText('name', 'Název sady')->setDefaultValue($this->data['name'])->setRequired('Prosím zadejte název sady');
 
 
-        $form->addSelect('parent_id', 'Nadrazena sada', $this->setModel->notThisId($this->data['id'], $this->getSession('sekcePromenna')->project)->fetchPairs('id', 'name'))
+        $form->addSelect('parent_id', 'Nadrazena sada', $this->setModel->notThisId($this->id, $this->getSession('sekcePromenna')->project)->fetchPairs('id', 'name'))
             ->setPrompt('Zadna', null)->setDefaultValue($this->data['parent_id']);
 
 
-        $form->addText('project_id', 'Projekt')->setDefaultValue($this->getSession('sekcePromenna')->project);
         $form->addHidden('id')->setDefaultValue($this->data['id']);
 
         $form->addSubmit('edit', 'Editovat')->getControlPrototype()->setClass('btn btn-primary btn-lg btn-block');
@@ -187,8 +189,8 @@ class SetPresenter extends BasePresenter
         $grid->addColumnLink('link', 'Jméno sady', 'Set:detail', 'name', ['id', 'parent_id'])->setSortable();
 
 
-        $grid->addAction('edit', '', 'edit')
-            ->setIcon('edit');
+        $grid->addAction('edit', '', 'edit!', ['id'])
+            ->setIcon('edit')->setClass('ajax');;
 
 
     }

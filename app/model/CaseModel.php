@@ -72,9 +72,9 @@ class CaseModel
         return $this->database->table('case_category');
     }
 
-    public function getProject()
+    public function getProject($user_id)
     {
-        return $this->database->table('project');
+        return $this->database->query('SELECT project.id, project.name FROM project JOIN project_has_user ON project.id=project_has_user.project_id WHERE user_id=?',$user_id);
     }
 
     public function getCase($id)
@@ -86,7 +86,7 @@ class CaseModel
 
     public function getAllSteps($id)
     {
-        return $this->database->table('step')->where('case_id', $id)->order('sequence')->fetchAll();
+        return $this->database->query("SELECT * FROM step WHERE case_id=?",$id)->fetchAll();
 
     }
 

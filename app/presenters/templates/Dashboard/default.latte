@@ -11,7 +11,6 @@
             <div class="card box shadow">
                 <h5 class="card-header">Výběr projektu</h5>
                 <div class="card-body">
-                    <h5 class="card-title">Pro začátek je třeba...</h5>
                     <p class="card-text">Vyberte projekt. {control selectProjectForm}</p>
                     <a n:href="Project:add">
                         <button type="button" class="btn btn-success"><i class="fa fa-plus-circle"></i> Přidat nový
@@ -21,7 +20,7 @@
                 </div>
             </div>
         </div>
-
+        {if $user->isInRole('2')}
         <div class="col-lg-4 col-sm-6 col-md-7 col-xl-4">
 
             <div class="card box shadow" style="padding: 1em">
@@ -30,7 +29,7 @@
             </div>
 
         </div>
-
+{/if}
         <div class="col-lg-4 col-sm-6 col-md-7 col-xl-4">
             <div class="card box shadow" style="padding: 1em">
                 <div class="h5 chartjs-title align-self-center">Spuštených testů dle uživatele</div>
@@ -79,7 +78,7 @@
 
 
                 <div class="card text-white bg-warning box shadow fail" style="padding: 1em">
-                    <h4 style=" text-align: center"><i class="fa fa-clock fa-2x"></i> Počet vynechaných testů: {$skip}</h4>
+                    <h4 style=" text-align: center"><i class="fa fa-angle-double-right fa-2x"></i> Počet vynechaných testů: {$skip}</h4>
                 </div>
 
             </div>

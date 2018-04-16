@@ -36,7 +36,17 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 
                 $this->flashMessage("Musíte se přihlásit!");
                 $this->redirect("Sign:in");
-            }}
+            }
+        }else {
+            $this->acl = new \AclModel();
+            $roles = $this->getUser()->getRoles();
+            $role = array_shift($roles);
+            if (!$this->acl->isAllowed($role, strtolower($this->name), $this->action)) {
+
+                $this->flashMessage("Nemáš oprávnění");
+                $this->redirect("Dashboard:default");
+            }
+        }
 
     }
 

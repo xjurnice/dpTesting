@@ -52,7 +52,7 @@ class ExecutionModel
     }
     public function getAllExecutions($id)
     {
-        return $this->database->query("SELECT execution.*, case.name FROM `execution` JOIN `case` on execution.case_id=case.id WHERE case.project_id=?",$id)->fetchAll();
+        return $this->database->query("SELECT execution.*, set_id,category_id, case.name FROM `execution` JOIN `case` on execution.case_id=case.id WHERE case.project_id=?",$id)->fetchAll();
 
     }
 

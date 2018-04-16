@@ -24,3 +24,7 @@ $.nette.ext('bs-modal', {
         }
     }
 });
+
+
+
+    $(".flash").first().hide().fadeIn(200).delay(2000).fadeOut(1000, function () { $(this).remove()});

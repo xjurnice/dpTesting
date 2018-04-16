@@ -1,6 +1,17 @@
 {block content}
 
     <h2>{$case->name}</h2>
+    <h3 class="lead"><b>Status:     {switch $case->status}
+                {case 0}
+                <span class="text-danger">K přepracování</span>
+                {case 1}
+                <span class="text-info">Navžený</span>
+                {case 2}
+                <span class="text-success">Schválený</span>
+                {default}
+                Neznámý
+            {/switch}</b></h3>
+
     <a n:href="Execution:run $case->id" ><span class=" btn btn-success"><i
                     class="fa fa-play-circle"></i> Spustit test</span></a>
     <a n:href="Case:edit $case->id" class="btn btn-xs btn-primary"><i
@@ -60,16 +71,7 @@
         </tr>
         <tr>
             <th scope="row">Status</th>
-            <td>  {switch $case->status}
-                    {case 1}
-                    Navžený
-                    {case 2}
-                    Schválený
-                    {case 3}
-                    Archivovaný
-                    {default}
-                    Neznámý
-                {/switch}
+            <td>
             </td>
         </tr>
         {if $exeCount>=1}
@@ -171,11 +173,17 @@
                                             class="fa fa-trash "></i></span></a>
                         </div>
                         <div class="col-lg-2 col-sm-1 col-md-1 col-xl-1">
-                            <a n:href="addNote! id_step=>$step->id" class="ajax"><span class=" btn btn-light btn-sm">Poznámka +</span></a>
-                            {if $step->note<>null}<br>
-                                <button type="button" class="btn btn-sm btn-info shadow" data-toggle="popover" title="Poznámka"
+
+                            {if $step->note<>null}<br><br>
+                                <a n:href="addNote! id_step=>$step->id" class="ajax"><span class=" btn btn-light btn-sm"><i
+                                                class="fa fa-pencil-alt"></i> Editovat poznámku</span></a>
+
+                                <button type="button" class="btn btn-sm btn-primary shadow " data-toggle="popover" title="Poznámka"
                                         data-content="{$step->note}"><i
-                                            class="fa fa-info "></i></button>
+                                            class="fa fa-info fa-1x "></i></button>
+                                {else}
+                                <a n:href="addNote! id_step=>$step->id" class="ajax"><span class=" btn btn-light btn-sm"><i
+                                                class="fa fa-plus-circle "></i> Přidat poznámku</span></a>
                             {/if}
                         </div>
                     </div>

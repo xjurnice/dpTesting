@@ -1,0 +1,38 @@
+{block content}
+
+
+
+    <h2><i class="fa fa-play-circle"> </i> {$request->name}</h2>
+
+
+
+    <table class="table table-striped w-75 align-self-center">
+
+        <tbody>
+
+        <tr>
+
+
+                <th>Status:</th> <td><b>{switch $request->status}
+                    {case 0}
+                        <span class="text-info">Zadaný</span>
+                    {case 1}
+                        <span class="text-success">Splněný</span>
+                    {default}
+                        Vytvořený
+                    {/switch}</b>
+            </td>
+
+
+        </tr>
+        <tr>
+             <th>Vytvořeno</th><td> {$request->create_time|date:'d.m.Y H:i:s'}</td>
+        </tr>
+        <tr>
+            <th>Podrobnější popis:</th><td>  {$request->description}</td>
+        </tr>
+        </tbody>
+    </table>
+
+
+{/block}

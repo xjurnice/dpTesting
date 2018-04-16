@@ -13,8 +13,6 @@ use Ublaboo\DataGrid\DataGrid;
 use AlesWita;
 
 
-
-
 class RequestPresenter extends BasePresenter
 {
 
@@ -41,12 +39,19 @@ class RequestPresenter extends BasePresenter
     }
 
 
-    public function handleAddRequest(){
+    public function handleAddRequest()
+    {
 
         parent::handleModal('addRequest');
     }
 
 
+    public function renderDetail($id)
+    {
+        $this->id = $id;
+        $this->template->request = $this->requestModel->getRequest($id);
+
+    }
 
     public function createComponentRequestGrid($name)
     {
@@ -56,13 +61,13 @@ class RequestPresenter extends BasePresenter
         $grid->setRememberState(FALSE);
 
 
-        $fluent = $this->requestModel->getRequests($this->getSession('sekcePromenna')->project,$this->id);
+        $fluent = $this->requestModel->getRequests($this->getSession('sekcePromenna')->project, $this->id);
 
 
         $grid->setDataSource($fluent);
 
 
-        $grid->addColumnLink('link', 'Název', '', 'name',  ['id' => 'id'])->setFilterText(['name', 'id']);
+        $grid->addColumnLink('link', 'Název', 'detail', 'name', ['id' => 'id'])->setFilterText(['name', 'id']);
 
         $grid->addColumnStatus('status', 'Status')
             ->setCaret(false)
@@ -86,9 +91,8 @@ class RequestPresenter extends BasePresenter
         $form->addProtection();
 
         $form->addText('name', 'Název:')->setRequired('Je nutné uvést název');
-        $form->addTextArea('description', 'Popis:',40,10);
-        $form->addSelect('project_id', 'Projekt', $this->projectModel->getProject()->fetchPairs('id', 'name'))
-            ->setDefaultValue($this->getSession('sekcePromenna')->project)->setDisabled(false);
+        $form->addTextArea('description', 'Popis:', 40, 10);
+        $form->addHidden("project_id")->setDefaultValue($this->getSession('sekcePromenna')->project);
 
         $form->addSubmit('add', 'Vložit')->getControlPrototype()->setClass('btn btn-primary btn-lg btn-block');
         $form->onSuccess[] = array($this, 'insertFormSucceeded');

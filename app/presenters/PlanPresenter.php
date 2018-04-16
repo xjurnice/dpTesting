@@ -58,8 +58,8 @@ class PlanPresenter extends BasePresenter
         $case = $this->planModel->getNameOfExecution($id);
         $this->template->labelsTime = $case;
         $this->template->seriesTime = $times;
-        $this->template->caseNumber= $this->planModel->getAssignCasesCount($id);
-        $this->template->processNumber= $this->planModel->getProcessCaseCount($id);
+        $this->template->caseNumber = $this->planModel->getAssignCasesCount($id);
+        $this->template->processNumber = $this->planModel->getProcessCaseCount($id);
 
     }
 
@@ -211,9 +211,8 @@ class PlanPresenter extends BasePresenter
         $form->addProtection();
 
         $form->addText('name', 'Název:')->setRequired('Je nutné uvést název');
-        $form->addSelect('project_id', 'Projekt', $this->projectModel->getProject()->fetchPairs('id', 'name'))
-            ->setDefaultValue($this->getSession('sekcePromenna')->project)->setDisabled(false);
-        $form->addSelect('assign_user_id', 'Určeno pro', $this->planModel->getUsers()->fetchPairs('id', 'username'));
+        $form->addHidden("project_id")->setDefaultValue($this->getSession('sekcePromenna')->project);
+        $form->addSelect('assign_user_id', 'Určeno pro', $this->planModel->getUsers()->where('role_id', 3)->fetchPairs('id', 'username'));
         $form->addText('planed_time', 'Plánovaný čas spuštění')->setType('date')->setRequired('Prosím zadejte datum k plánovanému spuštění');
 
         $form->addSubmit('add', 'Vložit')->getControlPrototype()->setClass('btn btn-primary btn-lg btn-block');

@@ -30,6 +30,11 @@ class RequestModel
         return $this->database->table('request')->where('project_id',$id);
     }
 
+    public function getRequest($id)
+    {
+        return $this->database->table('request')->where('id',$id)->fetch();
+    }
+
     public function addRequest($values)
     {
         return $this->database->table('request')->insert($values);

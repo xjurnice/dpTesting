@@ -1,0 +1,58 @@
+{block content}
+
+
+
+    <h2><i class="fa fa-cogs"> </i> Nastavení</h2>
+    <br>
+    <h3>Kategorie test. případů</h3>
+    <table id="table1" class="table table-striped w-50 align-self-center">
+
+        <tbody>
+        <tr>
+            {foreach $categoryes as $category}
+        <tr>
+
+            <td>  {$category->name}
+            </td>
+            <td><a n:href="edit! $category->id"
+                        class="ajax">
+                    <button type="button" class="btn btn-warning btn-sm"><i
+                                class="fa fa-edit "></i>
+                    </button>
+                </a></td>
+        </tr>
+        {/foreach}
+
+
+        </tbody>
+    </table>
+
+    <a n:href="add!"
+            class="ajax">
+        <button type="button" class="btn btn-success"><i
+                    class="fa fa-plus-circle "></i> Přidat testovací kategorii
+        </button>
+    </a>
+
+{/block}
+{define modal-add-title}
+    Nová testovací kategorie
+{/define}
+{define modal-add-body}
+
+    {control insertForm}
+
+{/define}
+{define modal-add-footer}
+{/define}
+
+{define modal-edit-title}
+    Editace testovací kategorie
+{/define}
+{define modal-edit-body}
+
+    {control editForm}
+
+{/define}
+{define modal-edit-footer}
+{/define}

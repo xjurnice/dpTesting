@@ -138,18 +138,29 @@ class ExecutionPresenter extends BasePresenter
 
         $grid = new DataGrid();
         $this->addComponent($grid, $name);
-
+        $grid->setRememberState(FALSE);
         $fluent = $this->executionModel->getAllExecutions($this->getSession('sekcePromenna')->project);
         $grid->setDataSource($fluent);
 
-        $grid->addColumnDateTime('start_time', 'Cas spusteni')
+        $grid->addColumnDateTime('start_time', 'Čas spusteni')
             ->setFormat('d.m.Y H:i:s')->setSortable();
-        $grid->addColumnDateTime('end_time', 'Cas ukonceni')
+        $grid->addColumnDateTime('end_time', 'Čas ukonceni')
             ->setFormat('d.m.Y H:i:s')->setSortable();
 
+        $set = [];
+        $set = ['' => 'Všechno'] + $this->caseModel->getSets($this->getSession('sekcePromenna')->project)->fetchPairs('id', 'name');
 
+        $category = [];
+        $category = ['' => 'Všechno'] + $this->caseModel->getCaseCategory()->fetchPairs('id', 'name');
+        $grid->addColumnText('set_id', 'Sada')
+            ->setReplacement($this->caseModel->getSets($this->getSession('sekcePromenna')->project)->fetchPairs('id', 'name'))
+            ->setFilterSelect($set);
+
+        $grid->addColumnText('category_id', 'Kategorie')
+            ->setReplacement($this->caseModel->getCaseCategory()->fetchPairs('id', 'name'))
+            ->setFilterSelect($category);
         try {
-            $grid->addColumnText('spend_time', 'Cas')
+            $grid->addColumnText('spend_time', 'Čas')
                 ->setSortable()->setRenderer(function ($item) {
                     if ($item->spend_time < 60) {
                         return ($item->spend_time) . ' sekund';
@@ -174,6 +185,9 @@ class ExecutionPresenter extends BasePresenter
             ->setIcon('dot-circle')
             ->setClass('btn-warning')
             ->endOption()->onChange[] = [$this, 'statusChange'];
+
+
+
         $grid->addColumnLink('link', 'Testovací případ', 'Case:detail', 'name', ['id' => 'case_id'])->setFilterText(['name', 'id']);
 
     }

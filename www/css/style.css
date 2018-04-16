@@ -73,16 +73,18 @@ body {
 }
 
 div.flash {
-    color: #1b1e21;
+    color: #fdfeff;
     font-weight: 600;
     font-size: 1.3em;
     width: 100%;
 
     font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-    background: #d0b218;
-    border: 4px solid rgba(226, 217, 21, 0.67);
-    padding: 1em;
+    background-color: #28a745;
+    background-image: -webkit-repeating-linear-gradient(135deg, transparent, transparent 35px, rgba(255, 255, 255, .06) 35px, rgba(255, 255, 255, .06) 70px);
+
+    border: 2px solid rgba(192, 193, 194, 0.67);
+    padding: 0.5em;
     margin: 1em 0;
     text-align: center;
 }

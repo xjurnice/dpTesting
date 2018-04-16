@@ -113,14 +113,14 @@
                     </li>
 
                 </div>
-            </nav><div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
+            </nav>   <div  n:foreach="$flashes as $flash" n:class="flash, $flash->type"><i class="fa fa-check-circle"></i> {$flash->message}</div>
             <div class="col pt-3 px-3">
                 {include content}
             </div>
         </div> </div>
 
     {else}
-    <div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
+    <div n:foreach="$flashes as $flash" n:class="flash, $flash->type"><i class="fa fa-check-circle"></i>  {$flash->message}</div>
 
 
     {include content}
