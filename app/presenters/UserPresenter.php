@@ -54,6 +54,12 @@ class UserPresenter extends BasePresenter
         parent::handleModal('delete');
     }
 
+    public function handleEditPass()
+    {
+
+        parent::handleModal('editPass');
+    }
+
 
     public function createComponentAssignToProjectGrid($name)
     {
@@ -191,11 +197,12 @@ class UserPresenter extends BasePresenter
 
         $form = new Form;
         $form->setRenderer(new AlesWita\FormRenderer\BootstrapV4Renderer);
+        $form->addProtection();
 
         $form->addHidden('create_time')->setDefaultValue($this->data['create_time']);
         $form->addText('username', 'Login')->setDefaultValue($this->data['username'])->setRequired('Prosím zadejte login');
-        $form->addText('name', 'Name')->setDefaultValue($this->data['name']);
-        $form->addText('surname', 'Surname')->setDefaultValue($this->data['surname']);
+        $form->addText('name', 'Jméno')->setDefaultValue($this->data['name']);
+        $form->addText('surname', 'Příjmení')->setDefaultValue($this->data['surname']);
         $form->addText('email', 'E-mail')->setDefaultValue($this->data['email'])->addRule(Form::EMAIL, 'E-mail format is incorrect.')->setRequired('Prosím zadejte email');
         $form->addHidden('id')->setDefaultValue($this->data['id']);
         $form->addSubmit('edit', 'Editovat')->getControlPrototype()->setClass('btn btn-primary btn-lg btn-block');
@@ -211,6 +218,38 @@ class UserPresenter extends BasePresenter
 
 
         $this->userModel->updateUser($values);
+
+        $this->flashMessage('Úspěšně změněny údaje.');
+        $this->redirect('User:edit');
+
+    }
+
+
+    protected function createComponentEditPassForm()
+    {
+        $form = new Form;
+        $form->setRenderer(new AlesWita\FormRenderer\BootstrapV4Renderer);
+        $form->addProtection();
+
+        $form->addPassword('password', 'Nové heslo', 20)
+            ->setOption('description', 'Alespoň 6 znaků')
+            ->addRule(Form::FILLED, 'Vyplňte Vaše heslo')
+            ->addRule(Form::MIN_LENGTH, 'Heslo musí mít alespoň %d znaků.', 6);
+        $form->addPassword('password2', 'Nové heslo znovu', 20)
+            ->addConditionOn($form['password'], Form::VALID)
+            ->addRule(Form::FILLED, 'Heslo znovu')
+            ->addRule(Form::EQUAL, 'Hesla se neshodují.', $form['password']);
+
+        $form->addHidden('id')->setDefaultValue($this->getUser()->getIdentity()->id);
+        $form->addSubmit('edit', 'Editovat')->getControlPrototype()->setClass('btn btn-primary btn-lg btn-block');
+        $form->onSuccess[] = [$this, 'editPassSuccess'];
+        return $form;
+    }
+
+    public function editPassSuccess(Form $form, $values)
+    {
+
+        $this->userModel->editPass($values);
 
         $this->flashMessage('Úspěšně změněny údaje.');
         $this->redirect('User:edit');

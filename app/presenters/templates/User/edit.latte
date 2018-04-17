@@ -1,8 +1,21 @@
 {block content}
 
-                <h1 n:block=title class="display-4">Editace profilu</h1>
+                <h1 n:block=title>Editace profilu</h1>
 
-Poslední přihlášení:             {$userdata->last_login_time|date:'d.m.Y H:i:s'}
-
+<hr>
+    <a n:href="editPass!" class="ajax"><span class=" btn btn-primary btn-sm"><i
+                    class="fa fa-lock "></i> Změna hesla</span></a>
     {control editMemberForm}
+
 {/block}
+
+{define modal-editPass-title}
+    Změna hesla
+{/define}
+{define modal-editPass-body}
+
+    {control editPassForm}
+
+{/define}
+{define modal-editPass-footer}
+{/define}

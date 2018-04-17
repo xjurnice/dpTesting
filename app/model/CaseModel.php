@@ -164,6 +164,8 @@ class CaseModel
 
     public function deleteCase($id)
     {
+        $event_type =[2,3];
+        $this->database->table('event')->where('event_type_id IN (?) AND object_id=?', $event_type,$id)->delete();
         $this->database->table('test_plan_has_case')->where('case_id', $id)->delete();
         $this->database->table('execution')->where('case_id', $id)->delete();
         $this->database->table('step')->where('case_id', $id)->delete();

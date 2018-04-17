@@ -103,6 +103,14 @@ class UserModel
         }
     }
 
+    public function editPass($data) {
+        unset($data["password2"]);
+
+        $data["password"] = Passwords::hash($data["password"]);
+        return $this->database->query("UPDATE user SET password=?
+              WHERE id=?", $data['password'], $data['id']);
+    }
+
     public function setToken($token,$id){
         return $this->database->query("UPDATE user SET token=?
               WHERE ", $token, $id);

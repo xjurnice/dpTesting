@@ -16,17 +16,12 @@
                     class="fa fa-play-circle"></i> Spustit test</span></a>
     <a n:href="Case:edit $case->id" class="btn btn-xs btn-primary"><i
                 class="fa fa-pencil-alt"></i> Editovat</a>
-    <button id="pdf">PDF</button>
+   {* <button id="pdf">PDF</button>*}
     <br><br>
     <table id="table1" class="table table-striped w-75 align-self-center">
 
         <tbody>
-        <tr>
-            <th scope="row">ID</th>
-            <td>  {$case->id}
-            </td>
 
-        </tr>
         <tr>
             <th scope="row">Popis</th>
             <td>  {$case->description}
@@ -69,11 +64,7 @@
             <td><a n:href="User:profile $id">{$author->username}</a>
             </td>
         </tr>
-        <tr>
-            <th scope="row">Status</th>
-            <td>
-            </td>
-        </tr>
+
         {if $exeCount>=1}
             <tr>
                 <th scope="row">Počet spuštění testu</th>

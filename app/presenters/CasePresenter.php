@@ -433,7 +433,7 @@ class CasePresenter extends BasePresenter
         $form->addSelect('priority', 'Priorita', $priority)->setRequired('Uvedte prioritu');
         $form->addSelect('category_id', 'Case category', $this->caseModel->getCaseCategory()->fetchPairs('id', 'name'))
             ->setPrompt('Zvolte', null);
-        $form->addSelect('project_id', 'Projekt', $this->caseModel->getProject()->fetchPairs('id', 'name'))
+        $form->addSelect('project_id', 'Projekt', $this->caseModel->getProject($this->getUser()->getIdentity()->id)->fetchPairs('id', 'name'))
             ->setDefaultValue($this->getSession('sekcePromenna')->project)->setDisabled(false);
         $form->addSelect('set_id', 'Testovací sada', $this->caseModel->getSets($this->getSession('sekcePromenna')->project)->fetchPairs('id', 'name'))->setPrompt('Zvolte', null)->setRequired('Testovací sada musí být zvolena');
 
@@ -488,7 +488,7 @@ class CasePresenter extends BasePresenter
         $form->addSelect('priority', 'Priorita', $priority)->setRequired('Uvedte prioritu')->setDefaultValue($this->data['priority']);
         $form->addSelect('category_id', 'Case category', $this->caseModel->getCaseCategory()->fetchPairs('id', 'name'))
             ->setDefaultValue($this->data['category_id']);
-        $form->addSelect('project_id', 'Projekt', $this->caseModel->getProject()->fetchPairs('id', 'name'))
+        $form->addSelect('project_id', 'Projekt', $this->caseModel->getProject($this->getUser()->getIdentity()->id)->fetchPairs('id', 'name'))
             ->setDefaultValue($this->data['project_id'])->setDisabled(false);
         $form->addSelect('set_id', 'Testovací sada', $this->caseModel->getSets($this->getSession('sekcePromenna')->project)->
         fetchPairs('id', 'name'))->setDefaultValue($this->data['set_id'])->setRequired('Testovací sada musí být zvolena');
