@@ -190,7 +190,7 @@ class SetPresenter extends BasePresenter
 
 
         $grid->addAction('edit', '', 'edit!', ['id'])
-            ->setIcon('edit')->setClass('ajax');;
+            ->setIcon('edit')->setClass('ajax');
 
 
     }

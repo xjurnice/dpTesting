@@ -81,8 +81,11 @@ class PlanModel
 
     public function getAssignCases($id)
     {
-        return $this->database->query("SELECT * FROM `case` JOIN test_plan_has_case ON case.id=test_plan_has_case.case_id WHERE test_plan_has_case.test_plan_id=? 
-ORDER BY sequence", $id)->fetchAll();
+        return $this->database->query("SELECT DISTINCT case.id, case.name, case.set_id, a.id as exe_id  FROM `case` JOIN test_plan_has_case ON case.id=test_plan_has_case.case_id 
+LEFT JOIN (SELECT execution.id, execution.case_id as ids FROM execution JOIN `test_plan_has_case` ON execution.test_plan_id=test_plan_has_case.test_plan_id WHERE execution.test_plan_id=?)
+ AS a ON case_id=a.ids
+WHERE test_plan_has_case.test_plan_id=? 
+ORDER BY sequence",$id, $id)->fetchAll();
     }
     public function getAssignCasesCount($id)
     {

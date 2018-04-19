@@ -9,6 +9,7 @@ use Nette,
 use Ublaboo\DataGrid\DataGrid;
 use App\Model\PlanModel;
 use AlesWita;
+use Ublaboo\DataGrid\Row;
 
 
 class PlanPresenter extends BasePresenter
@@ -139,6 +140,21 @@ class PlanPresenter extends BasePresenter
             ->setFilterSelect($set);
 
         $grid->addGroupAction('Odebrat')->onSelect[] = [$this, 'deleteSelectedCase'];
+
+        $grid->addColumnText('exe_id', 'Výsledek testu')
+            ->setRenderer(function ($item) {
+                if($item->exe_id==null){
+                    return null;
+                }
+                else {
+
+                    return ($item->exe_id);
+
+                }
+
+
+            })->addAttributes(['class' => 'text-center font-weight-bold']);
+            $grid->addAction('exe_id', 'Detail', 'Execution:detail', ['id' => 'exe_id'])->setIcon('lemon');
 
 
     }

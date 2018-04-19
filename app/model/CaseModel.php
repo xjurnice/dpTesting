@@ -123,6 +123,7 @@ class CaseModel
 
     public function deleteStep($id)
     {
+        $this->database->table('execution_step')->where('step_id',$id)->delete();
         return $this->database->table('step')->where('id', $id)->delete();
 
     }
@@ -138,6 +139,17 @@ class CaseModel
         return $this->database->query("SELECT test_plan.* FROM `test_plan` JOIN `test_plan_has_case` on test_plan.id=test_plan_has_case.test_plan_id WHERE case_id=? AND project_id=?", $id, $project)->fetchAll();
 
     }
+
+    public function getTestPlan($id)
+    {
+        return $this->database->table('test_plan')->where('project_id', $id);
+    }
+
+    public function getUsers($id)
+    {
+        return $this->database->query('SELECT username, user.id FROM user JOIN project_has_user on user.id=project_has_user.user_id WHERE project_id=?',$id);
+    }
+
 
     public function getExecutions($id)
     {

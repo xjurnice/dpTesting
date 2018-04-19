@@ -57,7 +57,44 @@ class ExecutionPresenter extends BasePresenter
         $sessionSection->promenna = new \Nette\Utils\DateTime();
     }
 
+    public function handleDefect($id, $case_id)
+    {
 
+        $this->case_id = $case_id;
+
+
+        parent::handleModal('defect');
+
+    }
+
+    protected function createComponentDefectForm()
+    {
+
+        $form = new Form;
+        $form->getElementPrototype()->class('ajax');
+        $form->setRenderer(new AlesWita\FormRenderer\BootstrapV4Renderer);
+
+
+        $form->addHidden("step_id")->setDefaultValue($this->id);
+        $form->addHidden("case_id")->setDefaultValue($this->case_id);
+        $form->addTextArea('description', 'Popis', 70, 5)->setRequired('Prosím zadejte popis defektu');
+        $form->addSubmit('edit', 'Odeslat')->getControlPrototype()->setClass('btn btn-primary btn-lg btn-block');
+        $form->onSuccess[] = [$this, 'saveDefect'];
+
+        return $form;
+    }
+
+    public function SaveDefect(Form $form, $values)
+    {
+
+        if ($this->isAjax()) {
+            $values = $form->getValues();
+            $this->executionModel->addDefect($values);
+            $this->redrawControl('modal');
+        }
+
+
+    }
     public function renderRun($case_id, $plan_id)
     {
         $this->plan_id = $plan_id;
@@ -70,6 +107,21 @@ class ExecutionPresenter extends BasePresenter
     {
 
         $this->id = $id;
+
+    }
+    public function renderDetail($id)
+    {
+        $this->template->exe = $this->executionModel->getExecutionByID($id);
+        $this->template->author = $this->executionModel->getExecutionAuthor($id);
+
+        $this->template->plan = $this->executionModel->getExecutionPlan($id);
+
+        $succes = $this->executionModel->getExecutionPass($id);
+        $fail = $this->executionModel->getExecutionFail($id);
+        $skip = $this->executionModel->getExecutionSkip($id);
+        $this->template->labels = ["Úspěšný", "Neúspěšný", "Vynechaný"];
+        $this->template->series = [$succes, $fail, $skip];
+       $this->template->steps = $this->executionModel->getDefects($id);
 
     }
 
@@ -139,26 +191,16 @@ class ExecutionPresenter extends BasePresenter
         $grid = new DataGrid();
         $this->addComponent($grid, $name);
         $grid->setRememberState(FALSE);
+
         $fluent = $this->executionModel->getAllExecutions($this->getSession('sekcePromenna')->project);
         $grid->setDataSource($fluent);
+        $grid->setDefaultSort(['start_time' => 'DESC']);
 
+        $grid->addColumnLink('link', 'Testovací případ', 'Case:detail', 'name', ['id' => 'case_id'])->setFilterText(['name', 'id']);
         $grid->addColumnDateTime('start_time', 'Čas spusteni')
             ->setFormat('d.m.Y H:i:s')->setSortable();
         $grid->addColumnDateTime('end_time', 'Čas ukonceni')
             ->setFormat('d.m.Y H:i:s')->setSortable();
-
-        $set = [];
-        $set = ['' => 'Všechno'] + $this->caseModel->getSets($this->getSession('sekcePromenna')->project)->fetchPairs('id', 'name');
-
-        $category = [];
-        $category = ['' => 'Všechno'] + $this->caseModel->getCaseCategory()->fetchPairs('id', 'name');
-        $grid->addColumnText('set_id', 'Sada')
-            ->setReplacement($this->caseModel->getSets($this->getSession('sekcePromenna')->project)->fetchPairs('id', 'name'))
-            ->setFilterSelect($set);
-
-        $grid->addColumnText('category_id', 'Kategorie')
-            ->setReplacement($this->caseModel->getCaseCategory()->fetchPairs('id', 'name'))
-            ->setFilterSelect($category);
         try {
             $grid->addColumnText('spend_time', 'Čas')
                 ->setSortable()->setRenderer(function ($item) {
@@ -171,6 +213,33 @@ class ExecutionPresenter extends BasePresenter
                 })->setSortable();
         } catch (DataGridException $e) {
         };
+
+        $set = [];
+        $set = ['' => 'Všechno'] + $this->caseModel->getSets($this->getSession('sekcePromenna')->project)->fetchPairs('id', 'name');
+
+        $plan = [];
+        $plan = ['' => 'Všechno'] + $this->caseModel->getTestPlan($this->getSession('sekcePromenna')->project)->fetchPairs('id', 'name');
+        $plan2 = [];
+        $plan2 = ['' => '-'] + $this->caseModel->getTestPlan($this->getSession('sekcePromenna')->project)->fetchPairs('id', 'name');
+        $grid->addColumnText('test_plan_id', 'Test Plán')
+            ->setReplacement($plan2)
+            ->setFilterSelect($plan);
+        $category = [];
+        $category = ['' => 'Všechno'] + $this->caseModel->getCaseCategory()->fetchPairs('id', 'name');
+        $grid->addColumnText('set_id', 'Sada')
+            ->setReplacement($this->caseModel->getSets($this->getSession('sekcePromenna')->project)->fetchPairs('id', 'name'))
+            ->setFilterSelect($set);
+
+        $grid->addColumnText('category_id', 'Kategorie')
+            ->setReplacement($this->caseModel->getCaseCategory()->fetchPairs('id', 'name'))
+            ->setFilterSelect($category);
+
+        $users = [];
+        $users = ['' => 'Všechno']  + $this->caseModel->getUsers($this->getSession('sekcePromenna')->project)->fetchPairs('id', 'username');
+        $grid->addColumnText('run_by', 'Vykonáno')
+            ->setReplacement($this->caseModel->getUsers($this->getSession('sekcePromenna')->project)->fetchPairs('id', 'username'))
+            ->setFilterSelect($users);
+
         $grid->addColumnStatus('status', 'Status')
             ->setCaret(false)
             ->addOption(1, 'Úspěšný')
@@ -188,8 +257,9 @@ class ExecutionPresenter extends BasePresenter
 
 
 
-        $grid->addColumnLink('link', 'Testovací případ', 'Case:detail', 'name', ['id' => 'case_id'])->setFilterText(['name', 'id']);
-
+        $grid->addAction('detail', '')
+            ->setIcon('lemon')
+            ->setTitle('Edit row');
     }
 
 

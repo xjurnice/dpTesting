@@ -1,59 +1,179 @@
-
-
 {block content}
-
-
-
-				<h2>{$case->name}</h2>
-    <table class="table">
+    <h2>Podrobnosti spouštěného testu</h2>
+    <hr>
+    <h3><b>Status:</b> {switch $exe->status}
+            {case 1}
+            <span class="text-success">Úspěšný</span>
+        {case 2}
+            <span class="text-danger">Neúspěšný</span>
+        {case 3}
+            <span class="text-warning">Vynechaný</span>
+        {default}
+            Neznámý
+        {/switch}</h3>
+    <table id="table1" class="table table-striped w-50 align-self-center">
 
         <tbody>
-        <tr>
-            <th scope="row">ID</th>
-            <td>  {$case->id}
-            </td>
 
-        </tr>
         <tr>
-            <th scope="row">Popis</th>
-            <td>  {$case->description}
+            <th scope="row">Čas spuštění</th>
+            <td>  {$exe->start_time|date:'d.m.Y H:i:s'}
             </td>
         </tr>
         <tr>
-            <th scope="row">Datum vytvoření</th>
-            <td>  {$case->create_time|date:'d.m.Y H:i:s'}
+            <th scope="row">Čas ukončení</th>
+            <td>      {$exe->end_time|date:'d.m.Y H:i:s'}
+            </td>
+        </tr>
+
+        <tr>
+            <th scope="row">Strávený čas</th>
+            <td>
+                {if $exe->spend_time>60}
+
+                    {var cas = ($exe->spend_time/60)}
+                    {$cas|number:3:',':' '} minut
+                {else}
+                    {$exe->spend_time} sekund
+                {/if}
             </td>
         </tr>
         <tr>
-            <th scope="row">Kategorie</th>
-            <td>  {$category->name}
-            </td>
+            <th scope="row">Vykonáno</th>
+            <td><a n:href="User:profile $author->id"> {$author->username}</a></td>
         </tr>
         <tr>
-            <th scope="row">Vytvořeno uživatelem</th>
-            {var $id = $author->id}
-            <td> <a n:href="User:profile $id">{$author->username}</a>
-            </td>
-        </tr>
-        <tr>
-            <th scope="row">Status</th>
-            <td>  {switch $case->status}
-                    {case 1}
-                    Navžený
-                    {case 2}
-                    Schválený
-                    {case 3}
-                    Archivovaný
-                    {default}
-                    Neznámý
-                {/switch}
-            </td>
+            {if $plan==null}
+            {else}
+                <th scope="row">Test plán</th>
+                <td><a n:href="Plan:detail $plan->id"> {$plan->name}</a></td>
+            {/if}
         </tr>
         </tbody>
     </table>
 
 
+    <div class="col-6 col-md-4 col-xl-4">
+        <div class="card box shadow" style="position: relative;padding: 1em;  width:400px">
+            <div class="h5 chartjs-title align-self-center">Úspěšnost kroků</div>
+            <canvas id="myChart"></canvas>
+        </div>
+    </div>
+    <h2>Kroky s popisem defektu</h2>
+    <table class="table table-striped">
+
+        <thead>
+        </thead>
+        <tbody>
+        <tr>
+
+            <div class="row">
+                <div class="col-lg-2 col-sm-1 col-md-1 col-xl-1">
+                    <b>Krok</b>
+                </div>
+                <div class="col-lg-4 col-sm-6 col-md-5 col-xl-4">
+                    <b>Akce</b>
+                </div>
+                <div class="col-lg-4 col-sm-6 col-md-5 col-xl-4">
+                    <b>Očekávaný výstup</b>
+                </div>
+                <div class="col-lg-2 col-sm-1 col-md-1 col-xl-3">
+
+                    <b>Popis defektu</b>
+                </div>
+
+            </div>
+        </tr>
+        {foreach $steps as $step}
+            <tr>
+                <td class="td_steps">
+                    <div class="row">
+                        <div class="col-lg-2 col-sm-1 col-md-1 col-xl-1">
+                            <dt class="step_id primary">{$iterator->counter}. krok</dt>
+                        </div>
+                        <div class="col-lg-4 col-sm-6 col-md-5 col-xl-4">
+                            <div class="card shadow">
+                                <div class="card-body">
+
+                                    <p class="card-text">    {$step->action}</p>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-sm-6 col-md-5 col-xl-4">
+                            <div class="card shadow">
+                                <div class="card-body">
+
+                                    <p class="card-text">    {$step->result}</p>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-sm-1 col-md-1 col-xl-3">
+                            {if $step->description==null}
+                            {else}
+                                <div class="card bg-danger text-white shadow">
+                                    <div class="card-body">
+
+                                        <p class="card-text">    {$step->description}</p>
+
+                                    </div>
+                                </div>
+                            {/if}
+                        </div>
+
+
+                    </div>
+
+
+                </td>
+            </tr>
+
+        {/foreach}
+        </tbody>
+    </table>
 
 {/block}
 
+{block scripts}
+    {include parent}
+    <script src="{$basePath}/js/dashboard-graphs.js"></script>
 
+    <script>
+
+
+        var ctx = document.getElementById('myChart').getContext('2d');
+
+        var chart = new Chart(ctx, {
+            // The type of chart we want to create
+            type: 'doughnut',
+
+            // The data for our dataset
+            data: {
+
+                labels: JSON.parse({json_encode($labels)}),
+                datasets: [{
+                    label: "Počet kroků",
+                    backgroundColor: ['rgba(40,167,69,0.8)', "rgba(220, 53, 69,0.8)", "rgba(255, 193, 7,0.8)"],
+
+                    data: JSON.parse({json_encode($series)})
+
+                }]
+            },
+
+            // Configuration options go here
+            options: {
+                responsive: false,
+                maintainAspectRatio: true,
+                title: {
+                    display: false,
+
+                }, legend: {
+                    display: false,
+                }
+            }
+        });
+
+
+    </script>
+{/block}

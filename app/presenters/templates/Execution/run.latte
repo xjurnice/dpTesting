@@ -64,6 +64,7 @@
                             </div>
                         </div>
                     </a>
+                    <span id="defect" class="def hidden"> <a n:href="defect! $step->id" class="btn btn-light text-danger shadow ajax"><i class="fa fa-bug"></i> Popsat defekt</a></span>
 
                 </td>
             </tr>
@@ -115,3 +116,14 @@
     <script src="{$basePath}/js/run_test.js"></script>
 
 {/block}
+
+{define modal-defect-title}
+    Popis defektu
+{/define}
+{define modal-defect-body}
+
+{control defectForm}
+
+{/define}
+{define modal-defect-footer}
+{/define}

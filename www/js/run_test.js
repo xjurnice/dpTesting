@@ -42,35 +42,37 @@ $(document).ready(function () {
         $('#number_pass').val($('.step').size());
     });
 
+
     // Function for reset test progress - default on first step
     function startAgain() {
         $('#pass').addClass('hidden');
         $('.td_steps').removeClass('active-step').removeClass('fail').removeClass('step').removeClass('skip');
         $(".td_steps:first").addClass("active-step");
+        $('.def').addClass('hidden');
         scrollToactive('.active-step');
     }
 
     // Function for current fail step
     function failStep() {
         showButton();
-        if (!$('.active-step').closest('tr').next().length){
+        if (!$('.active-step').closest('tr').next().length) {
             // alert('last fail');
-
+            $('.active-step').find('#defect').addClass('hidden');
             $('.steps').parents('td.active-step').removeClass('fail step skip').addClass('active-step');
 
         } else {
+            $('.active-step').find('#defect').removeClass('hidden');
             $('.steps').parents('td.active-step').removeClass('active-step').removeClass('fail').removeClass('skip').addClass('fail').closest('tr').next().find('td').addClass('active-step');
 
 
         }
         scrollToactive('.active-step');
 
-
     }
 
     //function for shown exe button when you have active-step last step
     function showButton() {
-        if (!$('.active-step').closest('tr').next().next().length){
+        if (!$('.active-step').closest('tr').next().next().length) {
             $('#pass').removeClass('hidden');
 
 
@@ -81,13 +83,14 @@ $(document).ready(function () {
     function passStep() {
         showButton();
 
-        if (!$('.active-step').closest('tr').next().length){
+        if (!$('.active-step').closest('tr').next().length) {
             // alert('last');
 
-
+            $('.active-step').find('#defect').addClass('hidden');
             $('.steps').parents('td.active-step').removeClass('fail step skip').addClass('active-step');
 
         } else {
+            $('.active-step').find('#defect').addClass('hidden');
             $('.steps').parents('td.active-step').removeClass('active-step').removeClass('fail').removeClass('skip').addClass('step').closest('tr').next().find('td').addClass('active-step');
         }
         scrollToactive('.active-step');
@@ -95,11 +98,14 @@ $(document).ready(function () {
 
     // Function for back previous
     function previousStep() {
-        if (!$('.active-step').closest('tr').prev().prev().length){
+        if (!$('.active-step').closest('tr').prev().prev().length) {
             //alert('first');
+            $('.active-step').find('#defect').addClass('hidden');
         }
         else {
+
             $('.steps').parents('td.active-step').removeClass('active-step').removeClass('fail step skip').closest('tr').prev().find('td').removeClass('fail step skip').addClass('active-step');
+            $('.active-step').find('#defect').addClass('hidden');
         }
         scrollToactive('.active-step');
     }
@@ -107,12 +113,13 @@ $(document).ready(function () {
     // Function for skip step
     function skipStep() {
         showButton();
-        if (!$('.active-step').closest('tr').next().length){
+        if (!$('.active-step').closest('tr').next().length) {
             //alert('last skip');
-
+            $('.active-step').find('#defect').addClass('hidden');
             $('.steps').parents('td.active-step').removeClass('fail step skip').addClass('active-step');
 
         } else {
+            $('.active-step').find('#defect').addClass('hidden');
             $('.steps').parents('td.active-step').removeClass('active-step').removeClass('fail').addClass('skip').closest('tr').next().find('td').addClass('active-step');
         }
         scrollToactive('.active-step');
