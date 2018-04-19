@@ -1,14 +1,74 @@
 {block content}
 
     <h2 n:block=title>Profil - {$userdata->username}</h2>
+    <table id="table1" class="table table-striped w-75 align-self-center">
 
-    Poslední přihlášení:             {$userdata->last_login_time|date:'d.m.Y H:i:s'}
+        <tbody>
 
-    <hr>
-    Účet vytvořen:             {$userdata->create_time|date:'d.m.Y H:i:s'}
-    <hr>
-    Jméno:             {$userdata->name}
-    <hr>
-    Příjmení:             {$userdata->surname}
-    <hr>
+        <tr>
+            <th scope="row">Poslední přihlášení</th>
+            <td>  {$userdata->last_login_time|date:'d.m.Y H:i:s'}
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">Účet vytvořen</th>
+            <td>  {$userdata->create_time|date:'d.m.Y H:i:s'}
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">Uživatelská role</th>
+            <td>  <b> {switch $userdata->role_id}
+                    {case 1}
+                    <span class="text-info">registrovanný uživatel</span>
+                {case 2}
+                    <span class="text-info">projektový manažer</span>
+                {case 3}
+                    <span class="text-info">tester</span>
+                {case 4}
+                    <span class="text-info">zákazník</span>
+                    {default}
+                    Neznámý
+                {/switch}
+                </b> </td>
+        </tr>
+        <tr>
+            <th scope="row">Jméno</th>
+            <td>  {$userdata->name}
+            </td>
+        </tr>
+
+        <tr>
+            <th scope="row">Příjmení</th>
+            <td>  {$userdata->surname}
+            </td>
+        </tr>
+        <tr class="bg-info text-white">
+            <th>Statistiky účtu</th>
+            <td></td>
+
+        </tr>
+        <tr>
+            <th scope="row">Počet vytvořených testovacích případů</th>
+            <td>  {$caseCount}
+            </td>
+        </tr>
+
+        <tr>
+            <th scope="row">Počet vykonaných testů</th>
+            <td>  {$exeCount}
+            </td>
+        </tr>
+
+        <tr>
+            <th scope="row">Přiřazen k projektům</th>
+            <td>
+                {foreach $projects as $pr}
+                    {$pr->name},
+                {/foreach}
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+
 {/block}

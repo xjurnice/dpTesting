@@ -28,6 +28,17 @@ class UserModel
     {
         return $this->database->table('user')->where('id',$id)->fetch();
     }
+
+    public function getUserCaseCount($id)
+    {
+        return $this->database->table('case')->where('author_id',$id)->count();
+    }
+
+    public function getUserExeCount($id)
+    {
+        return $this->database->table('execution')->where('run_by',$id)->count();
+    }
+
     public function getUsers()
     {
         return $this->database->table('user');
@@ -73,6 +84,11 @@ class UserModel
     public function getAssignProjectToUser($id)
     {
         return $this->database->query('SELECT name from project JOIN project_has_user ON project.id=project_has_user.project_id WHERE user_id=?',$id)->fetchPairs();
+    }
+
+    public function getProjectToUser($id)
+    {
+        return $this->database->query('SELECT * from project JOIN project_has_user ON project.id=project_has_user.project_id WHERE user_id=?',$id)->fetchAll();
     }
 
     public function updateUser($values)

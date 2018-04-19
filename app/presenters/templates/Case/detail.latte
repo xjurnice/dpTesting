@@ -1,14 +1,15 @@
 {block content}
 
     <h2>{$case->name}</h2>
-    <h3 class="lead"><b>Status:     {switch $case->status}
+    <h3 class="lead"><b>Status:
+            {switch $case->status}
                 {case 0}
                 <span class="text-danger">K přepracování</span>
-                {case 1}
+            {case 1}
                 <span class="text-info">Navžený</span>
-                {case 2}
+            {case 2}
                 <span class="text-success">Schválený</span>
-                {default}
+            {default}
                 Neznámý
             {/switch}</b></h3>
 

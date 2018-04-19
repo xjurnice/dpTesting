@@ -32,7 +32,12 @@ class UserPresenter extends BasePresenter
     public function renderProfile($id)
     {
         $this->id = $id;
+
         $this->template->userdata = $this->userModel->getUserInfo($id);
+        $this->template->caseCount = $this->userModel->getUserCaseCount($id);
+        $this->template->exeCount = $this->userModel->getUserExeCount($id);
+        $this->template->projects = $this->userModel->getProjectToUser($id);
+
 
     }
 

@@ -141,21 +141,11 @@ class PlanPresenter extends BasePresenter
 
         $grid->addGroupAction('Odebrat')->onSelect[] = [$this, 'deleteSelectedCase'];
 
-        $grid->addColumnText('exe_id', 'Výsledek testu')
-            ->setRenderer(function ($item) {
-                if($item->exe_id==null){
-                    return null;
-                }
-                else {
 
-                    return ($item->exe_id);
-
-                }
-
-
-            })->addAttributes(['class' => 'text-center font-weight-bold']);
-            $grid->addAction('exe_id', 'Detail', 'Execution:detail', ['id' => 'exe_id'])->setIcon('lemon');
-
+        $grid->addAction('exe_id', 'Výsledek', 'Execution:detail', ['id' => 'exe_id'])->setIcon('angle-double-right')->setClass('btn btn-info text-white');
+        $grid->allowRowsAction('exe_id', function($item) {
+            return $item->exe_id <> '';
+        });
 
     }
 

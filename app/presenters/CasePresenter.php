@@ -338,6 +338,9 @@ class CasePresenter extends BasePresenter
             ->setClass('btn-warning');
         $grid->addColumnLink('link', 'Uživatelem', 'User:profile', 'username', ['id' => 'ide'])->setSortable();
 
+        $grid->addAction('detail', '','Execution:detail')
+            ->setIcon('lemon')
+            ->setTitle('Detail');
 
     }
 

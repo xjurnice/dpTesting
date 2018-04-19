@@ -259,7 +259,7 @@ class ExecutionPresenter extends BasePresenter
 
         $grid->addAction('detail', '')
             ->setIcon('lemon')
-            ->setTitle('Edit row');
+            ->setTitle('Detail');
     }
 
 
@@ -271,7 +271,7 @@ class ExecutionPresenter extends BasePresenter
         }
 
 
-        $this->flashMessage("Status of category [$id] was updated.");
+        $this->flashMessage("Status testovacího případu byl změněn.");
         $this->redirect("this");
 
     }
