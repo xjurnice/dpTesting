@@ -2,7 +2,9 @@
 
 {block content}
 <h2><i class="fa fa-map"> </i> Přehled test plánů</h2>
+{if $user->getIdentity()->role_id == 2}
 	<a n:href="addPlan!" class="ajax"><span class=" btn btn-success btn-sm"><i class="fa fa-plus-circle"></i> Přidat test plán</span></a>
+	{/if}
 				<div class="card">
 					<h5 class="card-header"></h5>
 					<div class="card-body">

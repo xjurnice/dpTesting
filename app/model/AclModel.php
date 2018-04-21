@@ -43,6 +43,18 @@ class AclModel {
 
         $this->acl->allow(self::ROLE_MEMBER, "user", array("edit"));
 
+        $this->acl->allow(self::ROLE_CUSTOMER, "request", array("detail", "default"));
+        $this->acl->allow(self::ROLE_CUSTOMER, "case", array("detail", "approval"));
+        $this->acl->allow(self::ROLE_CUSTOMER, "user", array("profile", "edit"));
+
+
+        $this->acl->allow(self::ROLE_TESTER, "user", array("profile", "edit"));
+        $this->acl->allow(self::ROLE_TESTER, "case", array("add", "default","detail","edit"));
+        $this->acl->allow(self::ROLE_TESTER, "execution", array("default","detail","run"));
+        $this->acl->allow(self::ROLE_TESTER, "plan", array("default","detail"));
+        $this->acl->allow(self::ROLE_TESTER, "set", array("add","default","detail","edit"));
+        $this->acl->allow(self::ROLE_TESTER, "request", array("detail", "default"));
+
 
         $this->acl->allow(self::ROLE_ADMIN, "dashboard", array("all", "default"));
         $this->acl->allow(self::ROLE_ADMIN, "case", array("add", "approval","default","detail","edit"));

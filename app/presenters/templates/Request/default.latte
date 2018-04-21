@@ -3,8 +3,9 @@
 
 
     <h2><i class="fa fa-clipboard"> </i> Požadavky</h2>
-    <a n:href="addRequest!" class="ajax"><span class=" btn btn-success btn-sm"><i class="fa fa-plus-circle"></i> Přidat nový požadavek</span></a>
-
+    {if $user->getIdentity()->role_id == 4}
+        <a n:href="addRequest!" class="ajax"><span class=" btn btn-success btn-sm"><i class="fa fa-plus-circle"></i> Přidat nový požadavek</span></a>
+    {/if}
 
     {control requestGrid}
 

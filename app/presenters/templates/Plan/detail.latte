@@ -5,14 +5,19 @@
 
             <h2><i class="fa fa-map"></i> {$plan->name}</h2>
 
-            <h3 class="lead"><b>Status: {switch $plan->status}
+            <h3 class="lead">
+                {if $user->getIdentity()->role_id == 2}
+                <a n:href="edit! id=>$plan->id" class="ajax" ><span class=" btn btn-warning btn-sm"><i
+                                class="fa fa-pencil-alt"></i></span></a>
+                {/if}
+                <b>Status: {switch $plan->status}
                 {case 0}
                 Upravený
                 {case 1}
                 <span class="text-success">Dokončený</span>
                 {default}
                 Vytvořený
-                {/switch}</b></h3>
+                {/switch}</b>     </h3>
             {if $caseNumber>0}
                 <div class="progress w-100">
                     <div class="progress-bar progress-bar-striped bg-success font-weight-bold" role="progressbar" aria-valuenow="{$processNumber/$caseNumber*100 |number:0}" aria-valuemin="0" aria-valuemax="100" style="width: {$processNumber/$caseNumber*100 |number:0:',':' '}%">{$processNumber/$caseNumber*100 |number:0:',':' '} %</div>
@@ -44,14 +49,16 @@
     <table class="table table-striped w-75">
 
         <tbody>
+        {if $plan->description <> null}
         <tr>
-            <th scope="row">ID</th>
-            <td>  {$plan->id}
+            <th scope="row">Popis</th>
+            <td>  {$plan->description}
             </td>
 
         </tr>
+        {/if}
         <tr>
-            <th scope="row">Pro uzivatele</th>
+            <th scope="row">Pro uživatele</th>
             <td>  <a n:href="User:profile $assign_user->id">{$assign_user->username}</a>
             </td>
         </tr>
@@ -94,7 +101,7 @@
 
 {/block}
 {define modal-addcase-title}
-    Pridani casu
+    Přiřazení nového testovacího případu
 {/define}
 {define modal-addcase-body}
 
@@ -102,6 +109,17 @@
 
 {/define}
 {define modal-addcase-footer}
+{/define}
+
+{define modal-edit-title}
+    Editace Test plánu
+{/define}
+{define modal-edit-body}
+
+    {control editPlanForm}
+
+{/define}
+{define modal-edit-footer}
 {/define}
 
 {block scripts}

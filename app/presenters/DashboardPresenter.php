@@ -83,7 +83,7 @@ class DashboardPresenter extends BasePresenter
         $form->setRenderer(new AlesWita\FormRenderer\BootstrapV4Renderer);
         $form->addProtection(); // Add "Reload form for safe submit, Form was expired."
         $project = [];
-        $project = ['' => 'zadny'] + $this->caseModel->getProject($this->getUser()->getIdentity()->id)->fetchPairs('id', 'name');
+        $project = ['' => 'Zvolte'] + $this->caseModel->getProject($this->getUser()->getIdentity()->id)->fetchPairs('id', 'name');
         $form->addSelect('id', '', $project )->setDefaultValue($this->getSession('sekcePromenna')->project);
         $form->addSubmit('edit', 'Vyber')->getControlPrototype()->setClass('btn btn-primary btn-lg btn-block');
 

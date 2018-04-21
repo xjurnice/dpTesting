@@ -23,6 +23,7 @@ class PlanPresenter extends BasePresenter
 
     /** @var CaseModel */
     private $caseModel;
+
     private $data = null;
 
     /** @persistent */
@@ -84,6 +85,14 @@ class PlanPresenter extends BasePresenter
         parent::handleModal('addcase');
     }
 
+    public function handleEdit($id)
+    {
+        $this->id = $id;
+        $this->data = $this->planModel->getPlan($id);
+        parent::handleModal('edit');
+    }
+
+
 
     public function createComponentCaseGrid($name)
     {
@@ -97,7 +106,7 @@ class PlanPresenter extends BasePresenter
 
 
         $grid->setDataSource($fluent);
-
+        $grid->setDefaultSort(['create_time' => 'DESC']);
 
         $grid->addColumnLink('link', 'Testovací případ', 'Case:detail', 'name', ['id' => 'id'])->setFilterText(['name', 'id']);
         $set = [];
@@ -128,7 +137,7 @@ class PlanPresenter extends BasePresenter
 
 
         $grid->setDataSource($fluent);
-
+        $grid->setDefaultSort(['sequence' => 'DESC']);
 
         $grid->addColumnLink('link', 'Testovací případ', 'Case:detail', 'name', ['id' => 'id'])->setFilterText(['name', 'id']);
         $set = [];
@@ -143,7 +152,7 @@ class PlanPresenter extends BasePresenter
 
 
         $grid->addAction('exe_id', 'Výsledek', 'Execution:detail', ['id' => 'exe_id'])->setIcon('angle-double-right')->setClass('btn btn-info text-white');
-        $grid->allowRowsAction('exe_id', function($item) {
+        $grid->allowRowsAction('exe_id', function ($item) {
             return $item->exe_id <> '';
         });
 
@@ -158,7 +167,7 @@ class PlanPresenter extends BasePresenter
 
 
         $fluent = $this->planModel->getPlans($this->getSession('sekcePromenna')->project);
-
+        $grid->setDefaultSort(['create_time' => 'DESC']);
 
         $grid->setDataSource($fluent);
 
@@ -217,6 +226,7 @@ class PlanPresenter extends BasePresenter
         $form->addProtection();
 
         $form->addText('name', 'Název:')->setRequired('Je nutné uvést název');
+        $form->addTextArea('description', 'Popis', 70, 5);
         $form->addHidden("project_id")->setDefaultValue($this->getSession('sekcePromenna')->project);
         $form->addSelect('assign_user_id', 'Určeno pro', $this->planModel->getUsers()->where('role_id', 3)->fetchPairs('id', 'username'));
         $form->addText('planed_time', 'Plánovaný čas spuštění')->setType('date')->setRequired('Prosím zadejte datum k plánovanému spuštění');
@@ -235,4 +245,32 @@ class PlanPresenter extends BasePresenter
 
         $this->redirect('Plan:default');
     }
+
+    protected function createComponentEditPlanForm()
+    {
+        $form = new Form;
+        $form->setRenderer(new AlesWita\FormRenderer\BootstrapV4Renderer);
+        $form->addProtection();
+        $form->addHidden('id',$this->id);
+        $form->addText('name', 'Název:')->setRequired('Je nutné uvést název')->setDefaultValue($this->data['name']);
+        $form->addTextArea('description', 'Popis', 70, 5)->setDefaultValue($this->data['description']);;
+        $form->addSelect('assign_user_id', 'Určeno pro', $this->planModel->getUsers()->where('role_id', 3)->fetchPairs('id', 'username'))->setDefaultValue($this->data['assign_user']);;
+        $form->addText('planed_time', 'Plánovaný čas spuštění')->setDefaultValue($this->data['planed_time'])->setRequired('Prosím zadejte datum k plánovanému spuštění');
+
+        $form->addSubmit('add', 'Upravit')->getControlPrototype()->setClass('btn btn-primary btn-lg btn-block');
+        $form->onSuccess[] = array($this, 'editFormSucceeded');
+        return $form;
+    }
+
+
+    public function editFormSucceeded(Form $form, $values)
+    {
+        $values["planed_time"] = new \Nette\Utils\DateTime($values["planed_time"]);
+        //dump($values['planed_time']);
+        $this->planModel->editPlan($values);
+        $this->flashMessage('Záznam byl úspěšně upraven.');
+
+        $this->redirect('this');
+    }
+
 }

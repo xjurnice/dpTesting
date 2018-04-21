@@ -34,9 +34,7 @@
     <!-- Include this css when using FilterMultiSelect (silviomoreto.github.io/bootstrap-select) -->
     <link rel="stylesheet" type="text/css"
           href="{$basePath}/bower_components/bootstrap-select/dist/css/bootstrap-select.css">
-    <script language="javascript" type="text/javascript" src="{$basePath}/bower_components/jspdf-customfonts/jspdf.customfonts.min.js"></script>
 
-    <script language="javascript" type="text/javascript" src="{$basePath}/bower_components/jspdf-customfonts/default_vfs.js"></script>
 {/block}
 
 </head>
@@ -70,7 +68,7 @@
 <div class="se-pre-con"></div>
 
 {if $user->loggedIn}
-
+{var $role = $user->getIdentity()->role_id}
 
 <div class="container-fluid">
     <div class="row">
@@ -79,7 +77,7 @@
             </div>
             <div class="list-group">
                 {if $project==0}
-               Je třeba vybrat nějaký projekt
+              <span class="text-white  bg-danger shadow fail" style="padding: 1em"> Je třeba vybrat nějaký projekt!</span>
                 {else}
                 {include components/menu.latte}
 {/if}
@@ -106,6 +104,9 @@
                             <span class="fa fa-user-circle"></span> Přihlášen jako {$user->getIdentity()->username}
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" n:href="User:profile $user->getIdentity()->id">Zobrazit profil</a>
+                            <div class="dropdown-divider"></div>
+
                             <a class="dropdown-item" n:href="User:edit">Editace profilu</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" n:href="Sign:out"><i class="fas fa-sign-out-alt"></i> Odhlásit se</a>
@@ -161,7 +162,7 @@
 
         <script src="{$basePath}/bower_components/flipclock/compiled/flipclock.js"></script>
         <script src="{$basePath}/bower_components/chart.js/dist/Chart.min.js"></script>
-        <script src="{$basePath}/bower_components/jspdf/dist/jspdf.min.js"></script>
+
 
 
         <script>

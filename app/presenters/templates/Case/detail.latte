@@ -1,5 +1,5 @@
 {block content}
-
+{var $role = $user->getIdentity()->role_id}
     <h2>{$case->name}</h2>
     <h3 class="lead"><b>Status:
             {switch $case->status}
@@ -12,12 +12,12 @@
             {default}
                 Neznámý
             {/switch}</b></h3>
-
+    {if $role==2 OR $role==3}
     <a n:href="Execution:run $case->id" ><span class=" btn btn-success"><i
                     class="fa fa-play-circle"></i> Spustit test</span></a>
-    <a n:href="Case:edit $case->id" class="btn btn-xs btn-primary"><i
-                class="fa fa-pencil-alt"></i> Editovat</a>
-   {* <button id="pdf">PDF</button>*}
+    <a n:href="Case:edit $case->id" class="btn btn-warning btn-sm"><i
+                class="fa fa-edit"></i></a>
+{/if}
     <br><br>
     <table id="table1" class="table table-striped w-75 align-self-center">
 
@@ -158,11 +158,15 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-2 col-sm-1 col-md-1 col-xl-1"><a n:href="editStep!  id_step=>$step->id"
+                        <div class="col-lg-2 col-sm-1 col-md-1 col-xl-1">
+                            {if $role==2 OR $role==3}
+                            <a n:href="editStep!  id_step=>$step->id"
                                     class="ajax"><span
                                         class=" btn btn-warning btn-sm"><i class="fa fa-edit"></i></span></a>
                             <a n:href="deleteStep! id_step=>$step->id"><span class=" btn btn-danger btn-sm"><i
                                             class="fa fa-trash "></i></span></a>
+
+                            {/if}
                         </div>
                         <div class="col-lg-2 col-sm-1 col-md-1 col-xl-1">
 
@@ -187,9 +191,12 @@
         {/foreach}
         </tbody>
     </table>
+    <div class="empty-block"></div>
+    {if $role==2 OR $role==3}
     <a n:href="addStep!" class="ajax"><span class=" btn btn-success"><i
                     class="fa fa-plus-circle"></i> Přidat krok</span></a>
     <div class="empty-block"></div>
+
     <h2>Výskyt se v testplánech</h2>
 
     <table class="table table-striped w-50 align-self-center">
@@ -220,7 +227,7 @@
     <h2>Záznamy spuštění testu</h2>
 
     {control exeGrid}
-
+{/if}
 
 {/block}
 
@@ -257,38 +264,3 @@
 {define modal-note-footer}
 {/define}
 
-{block scripts}
-    {include parent}
-
-    <script>
-        $(document).ready(function () {
-            var doc = new jsPDF()
-            doc.addFont('arial.ttf', 'Arial', 'normal');
-
-            doc.text('Projekt:' + {$projectName}, 10, 10);
-
-            doc.text({$case->name}, 110, 10);
-            doc.line(20, 20, 180, 12); // horizontal line
-
-            {foreach $steps as $step}
-
-            doc.setFont('Arial');
-            doc.addFont('NotoSansCJKtc-Regular.ttf', 'NotoSansCJKtc', 'normal');
-            doc.setFont('NotoSansCJKtc');
-            doc.text(15, 100, '早上好。 很高兴见到你');
-            doc.setFontSize('12');
-            doc.text({$iterator->counter}9, {$iterator->counter}9, JSON.parse({json_encode($step->action)}))
-            {/foreach}
-
-
-            doc.text(20, 80, 'This is times italic.');
-            $('#pdf').click(function (e) {
-
-                doc.save('a4.pdf');
-            });
-
-
-        });
-    </script>
-
-{/block}

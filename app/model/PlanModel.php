@@ -35,6 +35,14 @@ class PlanModel
         return $this->database->table('test_plan')->insert($values);
     }
 
+
+
+    public function editPlan($values)
+    {
+        return $this->database->table('test_plan')->where('id=?',$values['id'])->update($values);
+    }
+
+
     public function getPlans($id)
     {
         return $this->database->table('test_plan')->where('project_id', $id)->fetchAll();

@@ -70,7 +70,7 @@ class SetPresenter extends BasePresenter
         $grid->setDataSource($fluent);
 
 
-        $grid->addColumnText('name', 'Jméno test. případu');
+        $grid->addColumnLink('link', 'Testovací případ', 'Case:detail', 'name')->setFilterText(['name', 'id']);
         $grid->addColumnText('description', 'Popis');
         $grid->addColumnText('id', 'Id');
         $grid->addColumnDateTime('create_time', 'Přidáno')
@@ -94,9 +94,7 @@ class SetPresenter extends BasePresenter
             ->setIcon('question')
             ->setClass('btn-');
 
-        //$grid->addAction('edit', '', 'edit')->setIcon('edit');
-        $grid->addAction('detail', '', 'Case:detail')
-            ->setIcon('lemon');
+
 
 
     }

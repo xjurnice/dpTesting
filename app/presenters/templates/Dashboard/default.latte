@@ -5,8 +5,10 @@
 {/block}
 
 {block content}
+    {var $role = $user->getIdentity()->role_id}
 
     <div class="row">
+
         <div class="col-lg-4 col-sm-3 col-md-6 col-xl-4 ">
             <div class="card box shadow">
                 <h5 class="card-header">Výběr projektu</h5>
@@ -20,7 +22,7 @@
                 </div>
             </div>
         </div>
-        {if $user->isInRole('2')}
+        {if $role==2 OR $role==3}
         <div class="col-lg-4 col-sm-6 col-md-7 col-xl-4">
 
             <div class="card box shadow" style="padding: 1em">
@@ -29,7 +31,7 @@
             </div>
 
         </div>
-{/if}
+
         <div class="col-lg-4 col-sm-6 col-md-7 col-xl-4">
             <div class="card box shadow" style="padding: 1em">
                 <div class="h5 chartjs-title align-self-center">Spuštených testů dle uživatele</div>
@@ -37,6 +39,8 @@
             </div>
 
         </div>
+
+        {/if}
     </div>
         <div class="row">
 
@@ -86,7 +90,7 @@
         <div class="row">
 
 
-
+            {if $role==2 OR $role==3}
         <div class="col-lg-4 col-sm-6 col-md-7 col-xl-4">
             <div class="card box shadow" style="padding: 1em">
                 <div class="h5 chartjs-title align-self-center">Celkový čas strávený testováním dle uživatele</div><hr>
@@ -125,6 +129,7 @@
                 </div>
             </div>
         </div>
+            {/if}
 
     </div>
 {/block}

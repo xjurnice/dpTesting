@@ -1,6 +1,6 @@
 {block content}
-
-    <h2 n:block=title>Profil - {$userdata->username}</h2>
+    {var $role = $user->getIdentity()->role_id}
+    <h2 n:block=title><i class="fa fa-user-circle"> </i> Profil - {$userdata->username}</h2>
     <table id="table1" class="table table-striped w-75 align-self-center">
 
         <tbody>
@@ -45,7 +45,7 @@
         <tr class="bg-info text-white">
             <th>Statistiky účtu</th>
             <td></td>
-
+{if $role==2 OR $role==3}
         </tr>
         <tr>
             <th scope="row">Počet vytvořených testovacích případů</th>
@@ -58,6 +58,8 @@
             <td>  {$exeCount}
             </td>
         </tr>
+
+      {/if}
 
         <tr>
             <th scope="row">Přiřazen k projektům</th>

@@ -405,7 +405,7 @@ class CasePresenter extends BasePresenter
         $form->setRenderer(new AlesWita\FormRenderer\BootstrapV4Renderer);
         $form->addHidden("id")->setDefaultValue($this->datastep['id']);
         $form->addHidden("case_id")->setDefaultValue($this->id);
-        $form->addTextArea('note', 'Poznámka', 70, 7)->setDefaultValue($this->datastep['note']);
+        $form->addTextArea('note', 'Poznámka', 80, 10)->setDefaultValue($this->datastep['note']);
         $form->addSubmit('edit', 'Přidat')->getControlPrototype()->setClass('btn btn-primary btn-lg btn-block');
         $form->onSuccess[] = [$this, 'editStepSuccess'];
 
