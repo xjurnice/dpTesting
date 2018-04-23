@@ -47,26 +47,33 @@ class DashboardPresenter extends BasePresenter
     public function renderDefault()
     {
         $project =$this->getSession('sekcePromenna')->project;
-        $names = $this->projectModel->getProjectNameCaseInProject();
 
-        $this->template->labels = $names;
+        if($project==0)
+        {
 
-        $number = $this->projectModel->getCountCaseInProject();
+        $project='';
+        }
+            $names = $this->projectModel->getProjectNameCaseInProject();
+
+            $this->template->labels = $names;
+
+            $number = $this->projectModel->getCountCaseInProject();
 //dump($number);
-        $this->template->series = $number;
+            $this->template->series = $number;
 
-        $this->template->events = $this->eventModel->getEvents();
+            $this->template->events = $this->eventModel->getEvents();
 
-        $this->template->defect = $this->projectModel->getFailedTestToProject($project);
-        $this->template->sucess = $this->projectModel->getPassTestToProject($project);
-        $this->template->skip = $this->projectModel->getSkipeedTestToProject($project);
+            $this->template->defect = $this->projectModel->getFailedTestToProject($project);
+            $this->template->sucess = $this->projectModel->getPassTestToProject($project);
+            $this->template->skip = $this->projectModel->getSkipeedTestToProject($project);
 
-        $this->template->plan = $this->projectModel->getNumberTestPlan($project);
-        $this->template->sumTime = $this->projectModel->getSumTimByProject($project);
+            $this->template->plan = $this->projectModel->getNumberTestPlan($project);
+            $this->template->sumTime = $this->projectModel->getSumTimByProject($project);
 
-        $this->template->seriesTesters = $this->projectModel->getNumberExecutionByTester($project);
-        $this->template->sumTimeTesters = $this->projectModel->getSumTimeTesterByExe($project);
-        $this->template->labelsTesters = $this->projectModel->getNameTesterByExe($project);
+            $this->template->seriesTesters = $this->projectModel->getNumberExecutionByTester($project);
+            $this->template->sumTimeTesters = $this->projectModel->getSumTimeTesterByExe($project);
+            $this->template->labelsTesters = $this->projectModel->getNameTesterByExe($project);
+
 
     }
 
@@ -83,7 +90,7 @@ class DashboardPresenter extends BasePresenter
         $form->setRenderer(new AlesWita\FormRenderer\BootstrapV4Renderer);
         $form->addProtection(); // Add "Reload form for safe submit, Form was expired."
         $project = [];
-        $project = ['' => 'Zvolte'] + $this->caseModel->getProject($this->getUser()->getIdentity()->id)->fetchPairs('id', 'name');
+        $project = [0 => 'Zvolte'] + $this->caseModel->getProject($this->getUser()->getIdentity()->id)->fetchPairs('id', 'name');
         $form->addSelect('id', '', $project )->setDefaultValue($this->getSession('sekcePromenna')->project);
         $form->addSubmit('edit', 'Vyber')->getControlPrototype()->setClass('btn btn-primary btn-lg btn-block');
 
@@ -99,8 +106,7 @@ class DashboardPresenter extends BasePresenter
         $session = $this->getSession();
         $sessionSection = $session->getSection('sekcePromenna');
         $sessionSection->project = $values['id'];
-        $name = $this->projectModel->getProjectById($values['id'])->toArray();
-        $sessionSection->projectName = $name['name'];
+
         $this->flashMessage('Úspěšně jste zvolili projekt.');
 
 
