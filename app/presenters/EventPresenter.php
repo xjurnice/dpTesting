@@ -19,7 +19,7 @@ class EventPresenter extends BasePresenter
     private $planModel;
 
     /** @var ProjectModel */
-    private $projectModel;
+    public $projectModel;
 
     /** @var CaseModel */
     private $caseModel;

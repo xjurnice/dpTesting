@@ -152,7 +152,7 @@ class UserPresenter extends BasePresenter
             ->setIcon('users')
             ->setClass('btn-success')
             ->endOption()
-            ->addOption(2, 'administrátor')
+            ->addOption(2, 'projektový manažer')
             ->setIcon('users')
             ->setClass('btn-danger')
             ->endOption()

@@ -24,7 +24,7 @@ class DashboardPresenter extends BasePresenter
     public $eventModel;
 
     /** @var ProjectModel */
-    private $projectModel;
+    public $projectModel;
     /** @var Nette\Http\Session */
     private $session;
 

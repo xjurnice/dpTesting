@@ -23,7 +23,7 @@ class RequestPresenter extends BasePresenter
     private $caseModel;
 
     /** @var ProjectModel */
-    private $projectModel;
+    public $projectModel;
 
     private $data = null;
     /** @persistent */

@@ -17,7 +17,7 @@ class ProjectPresenter extends BasePresenter
 {
 
     /** @var ProjectModel */
-    private $projectModel;
+    public $projectModel;
     private $data = null;
     public $id;
 
@@ -40,8 +40,8 @@ class ProjectPresenter extends BasePresenter
         $form->addProtection();
 
         $form->addText('name', 'Název:')->setRequired('Je nutné uvést název');
-
-
+        $form->addText('start_date', 'Plánovaný začátek projektu')->setType('date')->setRequired('Prosím zadejte datum k plánovanému začátku projektu');
+        $form->addText('end_date', 'Plánovaný konec projektu')->setType('date')->setRequired('Prosím zadejte datum k plánovanému konci projektu');
 
         $form->addSubmit('add', 'Vložit')->getControlPrototype()->setClass('btn btn-primary btn-lg btn-block');
         $form->onSuccess[] = array($this, 'insertFormSucceeded');
