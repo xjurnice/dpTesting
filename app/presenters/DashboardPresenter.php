@@ -66,6 +66,7 @@ class DashboardPresenter extends BasePresenter
             $this->template->defect = $this->projectModel->getFailedTestToProject($project);
             $this->template->sucess = $this->projectModel->getPassTestToProject($project);
             $this->template->skip = $this->projectModel->getSkipeedTestToProject($project);
+            $this->template->users = $this->projectModel->getUsersToProject($project);
 
             $this->template->plan = $this->projectModel->getNumberTestPlan($project);
             $this->template->sumTime = $this->projectModel->getSumTimByProject($project);

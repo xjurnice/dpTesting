@@ -189,6 +189,7 @@ a, a:hover, a:active, a:visited {
 
     background-color: #28a745;
     background-image: -webkit-repeating-linear-gradient(135deg, transparent, transparent 35px, rgba(255, 255, 255, .06) 35px, rgba(255, 255, 255, .06) 100px);
+    background-image: -moz-linear-gradient(135deg, transparent, transparent 35px, rgba(255, 255, 255, .06) 35px, rgba(255, 255, 255, .06) 100px);
 
 }
 .active-step{
@@ -199,6 +200,7 @@ a, a:hover, a:active, a:visited {
     font-weight: 500;
 
     background-image: -webkit-repeating-linear-gradient(135deg, transparent, transparent 35px, rgba(255, 255, 255, .06) 35px, rgba(255, 255, 255, .06) 100px);
+    background-image: -moz-linear-gradient(135deg, transparent, transparent 35px, rgba(255, 255, 255, .06) 35px, rgba(255, 255, 255, .06) 100px);
 
 }
 
@@ -207,15 +209,16 @@ a, a:hover, a:active, a:visited {
 
     background-color: #dc3545;
     background-image: -webkit-repeating-linear-gradient(135deg, transparent, transparent 35px, rgba(255, 255, 255, .06) 35px, rgba(255, 255, 255, .06) 100px);
+    background-image: -moz-linear-gradient(135deg, transparent, transparent 35px, rgba(255, 255, 255, .06) 35px, rgba(255, 255, 255, .06) 100px);
+
 
 }
-.skip{
+.skip {
 
     background-color: #ffc107;
     background-image: -webkit-repeating-linear-gradient(135deg, transparent, transparent 35px, rgba(255, 255, 255, .06) 35px, rgba(255, 255, 255, .06) 100px);
 
 }
-
 .step_id{
     color: whitesmoke;
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.9);
@@ -295,3 +298,4 @@ border-bottom: 1px solid #fdfeff;
     background-color: #4d1a76;
     border-color: #631aae;
 }
+

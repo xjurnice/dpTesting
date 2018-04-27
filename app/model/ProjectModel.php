@@ -56,6 +56,12 @@ class ProjectModel
         return $this->database->query('SELECT execution.id FROM `case`JOIN `execution` on case.id = execution.case_id WHERE execution.status=? AND case.project_id=?', $skip, $id)->getRowCount();
     }
 
+    public function getUsersToProject($id)
+    {
+
+        return $this->database->query('SELECT id FROM USER JOIN project_has_user ON user.id=project_has_user.user_id WHERE project_id=?', $id)->getRowCount();
+    }
+
     public function getFailedTestToProject($id)
     {
         $fail = 2;
