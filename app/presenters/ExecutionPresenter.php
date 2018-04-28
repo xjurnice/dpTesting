@@ -160,8 +160,9 @@ class ExecutionPresenter extends BasePresenter
     {
         $values = $form->getValues();
         $id = $values["case_id"];
+        $project = $this->getSession('sekcePromenna')->project;
         $plan_id = $values["test_plan_id"];
-        $this->executionModel->addExecution($values);
+        $this->executionModel->addExecution($values,$project);
 
         if ($plan_id <> 0) {
 

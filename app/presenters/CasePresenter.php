@@ -252,7 +252,9 @@ class CasePresenter extends BasePresenter
     public function changeTo0Project(array $ids)
     {
         $status = 0;
-        $this->caseModel->updateCaseStatus($ids, $status);
+        $user = $this->user->getIdentity()->id;
+        $project =$this->getSession('sekcePromenna')->project;
+        $this->caseModel->updateCaseStatus($ids, $status,$user,$project);
         $this->flashMessage('Záznam byl úspěšně upraven.');
         $this['approvalCaseGrid']->reload();
         $this->redirect('this');
@@ -263,7 +265,9 @@ class CasePresenter extends BasePresenter
     public function changeTo1Project(array $ids)
     {
         $status = 1;
-        $this->caseModel->updateCaseStatus($ids, $status);
+        $user = $this->user->getIdentity()->id;
+        $project =$this->getSession('sekcePromenna')->project;
+        $this->caseModel->updateCaseStatus($ids, $status,$user,$project);
         $this->flashMessage('Záznam byl úspěšně upraven.');
         $this['approvalCaseGrid']->reload();
         $this->redirect('this');
@@ -273,7 +277,9 @@ class CasePresenter extends BasePresenter
     public function changeTo2Project(array $ids)
     {
         $status = 2;
-        $this->caseModel->updateCaseStatus($ids, $status);
+        $user = $this->user->getIdentity()->id;
+        $project =$this->getSession('sekcePromenna')->project;
+        $this->caseModel->updateCaseStatus($ids, $status,$user,$project);
         $this->flashMessage('Záznam byl úspěšně upraven.');
         $this['approvalCaseGrid']->reload();
         $this->redirect('this');
@@ -285,6 +291,9 @@ class CasePresenter extends BasePresenter
         if (in_array($new_status, [0, 1, 2])) {
             $this->caseModel->getCase($id)
                 ->update(['status' => $new_status]);
+            $user = $this->user->getIdentity()->id;
+            $project =$this->getSession('sekcePromenna')->project;
+            $this->caseModel->caseUpdateEvent($user,$id,$project);
         }
 
         $this->flashMessage('Záznam byl úspěšně upraven.');

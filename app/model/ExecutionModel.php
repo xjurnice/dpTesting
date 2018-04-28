@@ -24,7 +24,7 @@ class ExecutionModel
         $this->database = $database;
     }
 
-    public function addExecution($values)
+    public function addExecution($values, $project)
     {
 
         if ($values['test_plan_id'] == null) {
@@ -36,6 +36,7 @@ class ExecutionModel
 
         //event
         $val = [];
+        $val['project_id'] = $project;
         $val['user_id'] = $values['run_by'];
         $val['object_id'] = $values['case_id'];
         $val['event_type_id'] = 3;

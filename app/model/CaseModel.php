@@ -40,6 +40,7 @@ class CaseModel
         //event
         $val = [];
         $val['user_id'] = $values['author_id'];
+        $val['project_id'] = $values['project_id'];
         $val['object_id'] = $lastId;
         $val['event_type_id'] = 2;
         $val['event_time'] = new \Nette\Utils\DateTime();
@@ -176,7 +177,7 @@ class CaseModel
 
     public function deleteCase($id)
     {
-        $event_type =[2,3];
+        $event_type =[2,3,4];
         $this->database->table('event')->where('event_type_id IN (?) AND object_id=?', $event_type,$id)->delete();
         $this->database->table('test_plan_has_case')->where('case_id', $id)->delete();
         $this->database->table('execution')->where('case_id', $id)->delete();
@@ -190,13 +191,26 @@ class CaseModel
     }
 
 
-    public function updateCaseStatus($ids, $status)
+    public function updateCaseStatus($ids, $status, $user, $project)
     {
 
         foreach ($ids as $i) {
             $this->database->query("UPDATE `case` SET status=? WHERE id=?", $status, $i);
+
+            $event_type = 4;
+
+            $this->database->query('INSERT into event (user_id,object_id,event_type_id,project_id) VALUES (?,?,?,?)',$user,$i,$event_type,$project);
+
         }
 
+    }
+
+    public function caseUpdateEvent($user,$i,$project){
+
+
+        $event_type = 4;
+
+        $this->database->query('INSERT into event (user_id,object_id,event_type_id,project_id) VALUES (?,?,?,?)',$user,$i,$event_type,$project);
     }
 
 }

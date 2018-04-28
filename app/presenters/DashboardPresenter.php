@@ -2,16 +2,14 @@
 
 namespace App\Presenters;
 
+use AlesWita;
+use App\Model;
 use App\Model\CaseModel;
 use App\Model\EventModel;
 use App\Model\ProjectModel;
-use Composer\IO\NullIO;
-use Nette,
-    App\Model,
-    Nette\Application\UI\Form;
-
+use Nette;
+use Nette\Application\UI\Form;
 use WebChemistry\Forms;
-use AlesWita;
 
 class DashboardPresenter extends BasePresenter
 {
@@ -34,7 +32,7 @@ class DashboardPresenter extends BasePresenter
     private $data = null;
 
 
-    public function __construct(CaseModel $caseModel, ProjectModel $projectModel, Nette\Http\Session $session,Model\EventModel $eventModel)
+    public function __construct(CaseModel $caseModel, ProjectModel $projectModel, Nette\Http\Session $session, Model\EventModel $eventModel)
     {
         parent::__construct($eventModel);
 
@@ -46,34 +44,33 @@ class DashboardPresenter extends BasePresenter
 
     public function renderDefault()
     {
-        $project =$this->getSession('sekcePromenna')->project;
+        $project = $this->getSession('sekcePromenna')->project;
 
-        if($project==0)
-        {
+        if ($project == 0) {
 
-        $project='';
+            $project = '';
         }
-            $names = $this->projectModel->getProjectNameCaseInProject();
+        $names = $this->projectModel->getProjectNameCaseInProject();
 
-            $this->template->labels = $names;
+        $this->template->labels = $names;
 
-            $number = $this->projectModel->getCountCaseInProject();
+        $number = $this->projectModel->getCountCaseInProject();
 //dump($number);
-            $this->template->series = $number;
+        $this->template->series = $number;
 
-            $this->template->events = $this->eventModel->getEvents();
+        $this->template->events = $this->eventModel->getEvents($project);
 
-            $this->template->defect = $this->projectModel->getFailedTestToProject($project);
-            $this->template->sucess = $this->projectModel->getPassTestToProject($project);
-            $this->template->skip = $this->projectModel->getSkipeedTestToProject($project);
-            $this->template->users = $this->projectModel->getUsersToProject($project);
+        $this->template->defect = $this->projectModel->getFailedTestToProject($project);
+        $this->template->sucess = $this->projectModel->getPassTestToProject($project);
+        $this->template->skip = $this->projectModel->getSkipeedTestToProject($project);
+        $this->template->users = $this->projectModel->getUsersToProject($project);
 
-            $this->template->plan = $this->projectModel->getNumberTestPlan($project);
-            $this->template->sumTime = $this->projectModel->getSumTimByProject($project);
+        $this->template->plan = $this->projectModel->getNumberTestPlan($project);
+        $this->template->sumTime = $this->projectModel->getSumTimByProject($project);
 
-            $this->template->seriesTesters = $this->projectModel->getNumberExecutionByTester($project);
-            $this->template->sumTimeTesters = $this->projectModel->getSumTimeTesterByExe($project);
-            $this->template->labelsTesters = $this->projectModel->getNameTesterByExe($project);
+        $this->template->seriesTesters = $this->projectModel->getNumberExecutionByTester($project);
+        $this->template->sumTimeTesters = $this->projectModel->getSumTimeTesterByExe($project);
+        $this->template->labelsTesters = $this->projectModel->getNameTesterByExe($project);
 
 
     }
@@ -81,9 +78,10 @@ class DashboardPresenter extends BasePresenter
     public function renderAll()
     {
 
-        $this->template->events = $this->eventModel->getAllEvents();
+        $this->template->events = $this->eventModel->getAllEvents($this->getSession('sekcePromenna')->project);
 
     }
+
     public function createComponentSelectProjectForm()
     {
 
@@ -92,7 +90,7 @@ class DashboardPresenter extends BasePresenter
         $form->addProtection(); // Add "Reload form for safe submit, Form was expired."
         $project = [];
         $project = [0 => 'Zvolte'] + $this->caseModel->getProject($this->getUser()->getIdentity()->id)->fetchPairs('id', 'name');
-        $form->addSelect('id', '', $project )->setDefaultValue($this->getSession('sekcePromenna')->project);
+        $form->addSelect('id', '', $project)->setDefaultValue($this->getSession('sekcePromenna')->project);
         $form->addSubmit('edit', 'Vyber')->getControlPrototype()->setClass('btn btn-primary btn-lg btn-block');
 
 

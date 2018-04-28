@@ -191,6 +191,10 @@ class PlanPresenter extends BasePresenter
         $grid->addAction('delete', '', 'deletePlan!')
             ->setIcon('trash')->setConfirm('Opravdu chcete smazat testovací plán "%s?"', 'name');
 
+        $grid->allowRowsAction('delete', function($item) {
+            return $this->user->getIdentity()->role_id== 2;
+        });
+
 
     }
 

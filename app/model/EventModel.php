@@ -33,14 +33,14 @@ class EventModel
     {
         return $this->database->table('event')->insert($values);
     }
-    public function getEvents()
+    public function getEvents($project)
     {
-        return $this->database->query('SELECT event.*, user.username FROM event JOIN user on event.user_id=user.id ORDER BY event_time DESC LIMIT 10')->fetchAll();
+        return $this->database->query('SELECT event.*, user.username FROM event JOIN user on event.user_id=user.id WHERE project_id=? ORDER BY event_time DESC LIMIT 10',$project)->fetchAll();
     }
 
-    public function getAllEvents()
+    public function getAllEvents($project)
     {
-        return $this->database->query('SELECT event.*, user.username FROM event JOIN user on event.user_id=user.id ORDER BY event_time DESC')->fetchAll();
+        return $this->database->query('SELECT event.*, user.username FROM event JOIN user on event.user_id=user.id WHERE project_id=? ORDER BY event_time DESC',$project)->fetchAll();
     }
 
 

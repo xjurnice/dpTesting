@@ -106,7 +106,7 @@
                 <canvas id="sumTime" width="600" height="400"></canvas>
             </div>
         </div>
-
+            {/if}
         <div class="col-lg-4 col-md-5 col-xl-4 ">
             <div class="card box shadow">
                 <h5 class="card-header">Poslední aktivity</h5>
@@ -116,14 +116,15 @@
                         <p class="card-text">
 
                             {switch $event->event_type_id}
-                                {case 1}
-                                <i class="fa fa-user-circle"></i> Přihlášení uživatele
+
                             {case 2}
                                 <i class="fa fa-plus-circle"></i><a n:href="Case:detail $event->object_id"> Vytvořené
                                 test. případu </a>
                             {case 3}
                                 <i class="fa fa-play-circle"></i><a n:href="Case:detail $event->object_id"> Spuštění
                                 test. případu</a>
+                            {case 4}
+                                <i class="fa fa-arrow-alt-circle-left"></i><a n:href="Case:detail $event->object_id"> Změna statusu test. případu</a>
 
                                 {default}
                                 Neznámý
@@ -138,7 +139,7 @@
                 </div>
             </div>
         </div>
-            {/if}
+
 
     </div>
 {/block}
