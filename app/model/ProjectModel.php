@@ -114,4 +114,16 @@ class ProjectModel
 
     }
 
+    public function getTestPlanForUser($project, $user)
+    {
+        return $this->database->table('test_plan')->where('project_id=? AND assign_user_id=?', $project,$user)->order('planed_time DESC')->limit('10')->fetchAll();
+
+    }
+
+    public function getRequests($project)
+    {
+        return $this->database->table('request')->where('project_id=?', $project)->order('create_time DESC')->limit('10')->fetchAll();
+
+    }
+
 }

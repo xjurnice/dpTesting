@@ -72,6 +72,8 @@ class DashboardPresenter extends BasePresenter
         $this->template->seriesTesters = $this->projectModel->getNumberExecutionByTester($project);
         $this->template->sumTimeTesters = $this->projectModel->getSumTimeTesterByExe($project);
         $this->template->labelsTesters = $this->projectModel->getNameTesterByExe($project);
+        $this->template->plansUser = $this->projectModel->getTestPlanForUser($project,$this->getUser()->getIdentity()->id);
+        $this->template->request = $this->projectModel->getRequests($project);
 
 
     }

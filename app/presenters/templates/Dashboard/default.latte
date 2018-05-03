@@ -25,22 +25,23 @@
                     {/switch}
 
                     <p class="card-text">Vyberte projekt. {control selectProjectForm}</p>
+                    {if $role==2}
                     <a n:href="Project:add">
                         <button type="button" class="btn btn-success"><i class="fa fa-plus-circle"></i> Přidat nový
                             projekt
                         </button>
+                        {/if}
                     </a>
                 </div>
             </div>
         </div>
-        {if $role==2 OR $role==3}
+        {if $project<>0}
+             {if $role==2 OR $role==3}
         <div class="col-lg-4 col-sm-6 col-md-7 col-xl-4">
-
             <div class="card box shadow" style="padding: 1em">
-                <div class="h5 chartjs-title align-self-center">Počet test. případů na projekt</div>
-                <canvas id="myChart" width="600" height="400"></canvas>
+                <div class="h5 chartjs-title align-self-center">Celkový čas strávený testováním dle uživatele</div><hr>
+                <canvas id="sumTime" width="600" height="400"></canvas>
             </div>
-
         </div>
 
         <div class="col-lg-4 col-sm-6 col-md-7 col-xl-4">
@@ -50,8 +51,8 @@
             </div>
 
         </div>
+{/if}
 
-        {/if}
     </div>
         <div class="row">
 
@@ -110,14 +111,7 @@
         <div class="row">
 
 
-            {if $role==2 OR $role==3}
-        <div class="col-lg-4 col-sm-6 col-md-7 col-xl-4">
-            <div class="card box shadow" style="padding: 1em">
-                <div class="h5 chartjs-title align-self-center">Celkový čas strávený testováním dle uživatele</div><hr>
-                <canvas id="sumTime" width="600" height="400"></canvas>
-            </div>
-        </div>
-            {/if}
+{if  $role==3 OR $role==4 OR $role==2}
         <div class="col-lg-4 col-md-5 col-xl-4 ">
             <div class="card box shadow">
                 <h5 class="card-header">Poslední aktivity</h5>
@@ -149,15 +143,72 @@
 
                 </div>
             </div>
+            {/if}
         </div>
+{if  $role==3 OR $role==4 OR $role==2}
+            <div class="col-lg-4 col-md-5 col-xl-4 ">
+                <div class="card box shadow">
+                    <h5 class="card-header">Požadavky</h5>
+                    <div class="card-body">
 
+                        {foreach $request as $r}
+                            <p class="card-text">
+                                <a n:href="Request:detail $r->id"> {$r->name}</a>
+                                {$r->create_time|date:'d.m.Y H:i:s'} - Status:
+                                <b>{switch $r->status}
+                                    {case 0}
+                                        <span class="text-info">zadaný</span>
+                                    {case 1}
+                                        <span class="text-success">splněný</span>
+                                    {default}
+                                        Vytvořený
+                                    {/switch}</b>
+
+                            </p>
+                        {/foreach}
+
+
+                    </div>
+                </div>
+            </div>
+    {/if}
+{if  $role==3}
+            <div class="col-lg-4 col-md-5 col-xl-4 ">
+                <div class="card box shadow">
+                    <h5 class="card-header">Mé test plány</h5>
+                    <div class="card-body">
+
+                        {foreach $plansUser as $pl}
+                            <p class="card-text">
+
+
+                                <a n:href="Plan:detail $pl->id">{$pl->name}</a> | {$pl->planed_time|date:'d.m.Y H:i:s'} |
+                                <b>Status: {switch $pl->status}
+                                        {case 0}
+                                        Upravený
+                                        {case 1}
+                                        <span class="text-success">Dokončený</span>
+                                    {default}
+                                        Vytvořený
+                                    {/switch}</b>
+
+                            </p>
+                        {/foreach}
+
+
+                    </div>
+                </div>
+            </div>
+    {/if}
 
     </div>
+        {/if}
 {/block}
 {block scripts}
     {include parent}
 
     <script src="{$basePath}/js/dashboard-graphs.js"></script>
+{if $project<>0}
     <script>
         $('.count').each(function () {
             $(this).prop('Counter', 0).animate({
@@ -294,5 +345,5 @@
         });
 
     </script>
-
+{/if}
 {/block}

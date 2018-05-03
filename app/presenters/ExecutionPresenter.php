@@ -258,9 +258,9 @@ class ExecutionPresenter extends BasePresenter
 
 
 
-        $grid->addAction('detail', '')
-            ->setIcon('lemon')
-            ->setTitle('Detail');
+        $grid->addAction('detail', 'Detail')
+            ->setIcon('')
+            ->setTitle('Detail')->setClass('btn btn-info text-white');
     }
 
 

@@ -59,7 +59,9 @@
         </tbody>
     </table>
 
+{if  $steps==null}
 
+ {else}
     <div class="col-6 col-md-4 col-xl-4">
         <div class="card box shadow" style="position: relative;padding: 1em;  width:400px">
             <div class="h5 chartjs-title align-self-center">Úspěšnost kroků</div>
@@ -139,7 +141,7 @@
         {/foreach}
         </tbody>
     </table>
-
+{/if}
 {/block}
 
 {block scripts}
@@ -183,4 +185,5 @@
 
 
     </script>
+
 {/block}
