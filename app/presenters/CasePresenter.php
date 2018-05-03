@@ -189,7 +189,23 @@ class CasePresenter extends BasePresenter
         $grid->addColumnDateTime('update_time', 'Poslední změna')
             ->setFormat('d.m.Y H:i:s')->setSortable();
         $grid->addExportCsv('Exportovat do CSV', 'all.csv', 'windows-1250', ';');
+        $grid->addColumnText('status', 'Status')
+            ->setRenderer(function ($item) {
+                switch ($item->status) {
+                    case 0:
+                        return "K přepracování";
+                        break;
+                    case 1:
+                        return "Navržený";
+                        break;
 
+                    case 2:
+                        return "Schválený";
+                        break;
+
+
+                }
+            })->addAttributes(['class' => 'text-center font-weight-bold']);
 
         $grid->addAction('delete', '', 'delete!')
             ->setIcon('trash')->setConfirm('Opravdu chcete smazat testovací případ "%s?"', 'name');
@@ -253,8 +269,8 @@ class CasePresenter extends BasePresenter
     {
         $status = 0;
         $user = $this->user->getIdentity()->id;
-        $project =$this->getSession('sekcePromenna')->project;
-        $this->caseModel->updateCaseStatus($ids, $status,$user,$project);
+        $project = $this->getSession('sekcePromenna')->project;
+        $this->caseModel->updateCaseStatus($ids, $status, $user, $project);
         $this->flashMessage('Záznam byl úspěšně upraven.');
         $this['approvalCaseGrid']->reload();
         $this->redirect('this');
@@ -266,8 +282,8 @@ class CasePresenter extends BasePresenter
     {
         $status = 1;
         $user = $this->user->getIdentity()->id;
-        $project =$this->getSession('sekcePromenna')->project;
-        $this->caseModel->updateCaseStatus($ids, $status,$user,$project);
+        $project = $this->getSession('sekcePromenna')->project;
+        $this->caseModel->updateCaseStatus($ids, $status, $user, $project);
         $this->flashMessage('Záznam byl úspěšně upraven.');
         $this['approvalCaseGrid']->reload();
         $this->redirect('this');
@@ -278,8 +294,8 @@ class CasePresenter extends BasePresenter
     {
         $status = 2;
         $user = $this->user->getIdentity()->id;
-        $project =$this->getSession('sekcePromenna')->project;
-        $this->caseModel->updateCaseStatus($ids, $status,$user,$project);
+        $project = $this->getSession('sekcePromenna')->project;
+        $this->caseModel->updateCaseStatus($ids, $status, $user, $project);
         $this->flashMessage('Záznam byl úspěšně upraven.');
         $this['approvalCaseGrid']->reload();
         $this->redirect('this');
@@ -292,8 +308,8 @@ class CasePresenter extends BasePresenter
             $this->caseModel->getCase($id)
                 ->update(['status' => $new_status]);
             $user = $this->user->getIdentity()->id;
-            $project =$this->getSession('sekcePromenna')->project;
-            $this->caseModel->caseUpdateEvent($user,$id,$project);
+            $project = $this->getSession('sekcePromenna')->project;
+            $this->caseModel->caseUpdateEvent($user, $id, $project);
         }
 
         $this->flashMessage('Záznam byl úspěšně upraven.');
@@ -332,22 +348,26 @@ class CasePresenter extends BasePresenter
                 })->setSortable();
         } catch (DataGridException $e) {
         };
-        $grid->addColumnStatus('status', 'Status')
-            ->setCaret(false)
-            ->addOption(1, 'Úspěšný')
-            ->setIcon('check')
-            ->setClass('btn-success')
-            ->endOption()
-            ->addOption(2, 'Neúspěšný')
-            ->setIcon('times')
-            ->setClass('btn-danger')
-            ->endOption()
-            ->addOption(3, 'Vynechaný')
-            ->setIcon('dot-circle')
-            ->setClass('btn-warning');
+        $grid->addColumnText('status', 'Status')
+            ->setRenderer(function ($item) {
+                switch ($item->status) {
+                    case 0:
+                        return "K přepracování";
+                        break;
+                    case 1:
+                        return "Navržený";
+                        break;
+
+                    case 2:
+                        return "Schválený";
+                        break;
+
+
+                }
+            })->addAttributes(['class' => 'text-center font-weight-bold']);
         $grid->addColumnLink('link', 'Uživatelem', 'User:profile', 'username', ['id' => 'ide'])->setSortable();
 
-        $grid->addAction('detail', '','Execution:detail')
+        $grid->addAction('detail', '', 'Execution:detail')
             ->setIcon('lemon')
             ->setTitle('Detail');
 
@@ -445,11 +465,30 @@ class CasePresenter extends BasePresenter
         $form->addSelect('priority', 'Priorita', $priority)->setRequired('Uvedte prioritu');
         $form->addSelect('category_id', 'Case category', $this->caseModel->getCaseCategory()->fetchPairs('id', 'name'))
             ->setPrompt('Zvolte', null);
-        $form->addSelect('project_id', 'Projekt', $this->caseModel->getProject($this->getUser()->getIdentity()->id)->fetchPairs('id', 'name'))
-            ->setDefaultValue($this->getSession('sekcePromenna')->project)->setDisabled(false);
-        $form->addSelect('set_id', 'Testovací sada', $this->caseModel->getSets($this->getSession('sekcePromenna')->project)->fetchPairs('id', 'name'))->setPrompt('Zvolte', null)->setRequired('Testovací sada musí být zvolena');
+        $form->addSelect('project', 'Projekt', $this->caseModel->getProject($this->getUser()->getIdentity()->id)->fetchPairs('id', 'name'))
+            ->setDefaultValue($this->getSession('sekcePromenna')->project)->setDisabled(true);
+        $form->addHidden('project_id', 'Projekt')->setDefaultValue($this->getSession('sekcePromenna')->project);
+        $form->addSelect('set_id', 'Testovací sada', $this->caseModel->getSets($this->getSession('sekcePromenna')->project)
+            ->fetchPairs('id', 'name'))->setPrompt('Zvolte', null)->setRequired('Testovací sada musí být zvolena');
 
         $copies = 0;
+        $maxCopies = 100;
+
+        $multiplier = $form->addMultiplier('multiplier', function (Nette\Forms\Container $container, Nette\Forms\Form $form) {
+
+            $container->addTextArea("action", '#' . ((int)$container->getName() + 1) . ' krok' . ' Akce')
+                ->setDefaultValue('My value');
+            $container->addTextArea("result", 'Očekávaný výstup')
+                ->setDefaultValue('My value')->setOption('description', Html::el('p')
+                    ->setHtml(' <hr>')
+                );
+        }, $copies, $maxCopies);
+
+        $multiplier->addCreateButton('Přidat 1 krok', 1);
+        $multiplier->addCreateButton('Přidat 3 kroky', 3);
+        $multiplier->addCreateButton('Přidat 5 kroků', 5);
+
+        $multiplier->addRemoveButton('Odebrat krok'); $copies = 0;
         $maxCopies = 100;
 
         $multiplier = $form->addMultiplier('multiplier', function (Nette\Forms\Container $container, Nette\Forms\Form $form) {
@@ -500,8 +539,7 @@ class CasePresenter extends BasePresenter
         $form->addSelect('priority', 'Priorita', $priority)->setRequired('Uvedte prioritu')->setDefaultValue($this->data['priority']);
         $form->addSelect('category_id', 'Case category', $this->caseModel->getCaseCategory()->fetchPairs('id', 'name'))
             ->setDefaultValue($this->data['category_id']);
-        $form->addSelect('project_id', 'Projekt', $this->caseModel->getProject($this->getUser()->getIdentity()->id)->fetchPairs('id', 'name'))
-            ->setDefaultValue($this->data['project_id'])->setDisabled(false);
+
         $form->addSelect('set_id', 'Testovací sada', $this->caseModel->getSets($this->getSession('sekcePromenna')->project)->
         fetchPairs('id', 'name'))->setDefaultValue($this->data['set_id'])->setRequired('Testovací sada musí být zvolena');
 

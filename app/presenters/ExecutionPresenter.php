@@ -198,9 +198,9 @@ class ExecutionPresenter extends BasePresenter
         $grid->setDefaultSort(['start_time' => 'DESC']);
 
         $grid->addColumnLink('link', 'Testovací případ', 'Case:detail', 'name', ['id' => 'case_id'])->setFilterText(['name', 'id']);
-        $grid->addColumnDateTime('start_time', 'Čas spusteni')
+        $grid->addColumnDateTime('start_time', 'Čas spuštění')
             ->setFormat('d.m.Y H:i:s')->setSortable();
-        $grid->addColumnDateTime('end_time', 'Čas ukonceni')
+        $grid->addColumnDateTime('end_time', 'Čas ukončení')
             ->setFormat('d.m.Y H:i:s')->setSortable();
         try {
             $grid->addColumnText('spend_time', 'Čas')
@@ -256,6 +256,7 @@ class ExecutionPresenter extends BasePresenter
             ->setClass('btn-warning')
             ->endOption()->onChange[] = [$this, 'statusChange'];
 
+        $grid->addExportCsv('Exportovat do CSV', 'all.csv', 'windows-1250', ';');
 
 
         $grid->addAction('detail', 'Detail')

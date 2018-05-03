@@ -139,12 +139,6 @@ $(document).ready(function () {
         $window.scrollTop(scrollIt);
     }
 
-    //funkce na kliknuti na urcity prvek
-    $(".steps").click(function () {
-        $('.steps:first').parents('td').removeClass('active-step fail step skip');
-        $('.steps').parents('td').removeClass('active-step');
-        $(this).parents('td').removeClass('active-step fail step skip').addClass('active-step');
-    });
 
     // Keyboard control
 

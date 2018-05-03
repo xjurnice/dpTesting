@@ -176,17 +176,20 @@ class PlanPresenter extends BasePresenter
 
         $grid->addColumnDateTime('create_time', 'Vytvořeno')
             ->setFormat('d.m.Y H:i:s')->setSortable();
-        $grid->addColumnStatus('status', 'Status')
-            ->setCaret(false)
-            ->addOption(0, 'Upravený')
-            ->setIcon('check')
-            ->setClass('btn-info')
-            ->endOption()
-            ->addOption(1, 'Dokončený')
-            ->setIcon('check')
-            ->setClass('btn-success')
-            ->endOption();
 
+        $grid->addColumnText('status', 'Status')
+            ->setRenderer(function ($item) {
+                switch ($item->status) {
+                    case 0:
+                        return "Upravený";
+                        break;
+                    case 1:
+                        return "Dokončený";
+                        break;
+
+
+                }
+            })->addAttributes(['class' => 'text-center font-weight-bold']);
 
         $grid->addAction('delete', '', 'deletePlan!')
             ->setIcon('trash')->setConfirm('Opravdu chcete smazat testovací plán "%s?"', 'name');

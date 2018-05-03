@@ -71,28 +71,32 @@ class SetPresenter extends BasePresenter
 
 
         $grid->addColumnLink('link', 'Testovací případ', 'Case:detail', 'name')->setFilterText(['name', 'id']);
-        $grid->addColumnText('description', 'Popis');
-        $grid->addColumnText('id', 'Id');
-        $grid->addColumnDateTime('create_time', 'Přidáno')
-            ->setFormat('d.m.Y H:i:s')->setSortable()->setFilterDateRange();
+        $category = [];
+        $category = ['' => 'Všechno'] + $this->caseModel->getCaseCategory()->fetchPairs('id', 'name');
 
-        $grid->addColumnStatus('status', 'Status')
-            ->setCaret(false)
-            ->addOption(1, 'Navžený')
-            ->setIcon('check')
-            ->setClass('btn-success')
-            ->endOption()
-            ->addOption(2, 'Schválený')
-            ->setIcon('times')
-            ->setClass('btn-danger')
-            ->endOption()
-            ->addOption(3, 'Archivovaný')
-            ->setIcon('dot-circle')
-            ->setClass('btn-warning')
-            ->endOption()
-            ->addOption(0, 'Neznámý')
-            ->setIcon('question')
-            ->setClass('btn-');
+
+        $grid->addColumnText('category_id', 'Kategorie')
+            ->setReplacement($this->caseModel->getCaseCategory()->fetchPairs('id', 'name'))
+            ->setFilterSelect($category);
+        $grid->addColumnDateTime('create_time', 'Vytvořeno')
+            ->setFormat('d.m.Y H:i:s')->setSortable()->setFilterDateRange();
+        $grid->addColumnText('status', 'Status')
+            ->setRenderer(function ($item) {
+            switch ($item->status) {
+                case 0:
+                    return "K přepracování";
+                    break;
+                case 1:
+                    return "Navržený";
+                    break;
+
+                case 2:
+                    return "Schválený";
+                    break;
+
+
+            }
+            })->addAttributes(['class' => 'text-center font-weight-bold']);
 
 
 
