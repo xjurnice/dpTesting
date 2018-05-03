@@ -39,6 +39,20 @@ class ProjectModel
         return $this->database->table('project')->select('name')->where('id', $id)->fetch();
     }
 
+    public function updateProject($values)
+    {
+        return $this->database->table('project')->where('id', $values['id'])->update($values);
+    }
+
+    public function isProjectActive($id){
+        if (!empty($this->database->query("SELECT * FROM project WHERE id=? AND DATEDIFF(start_date,CURRENT_DATE)<=0 AND DATEDIFF(end_date,CURRENT_DATE)>=0",$id)->fetch())) {
+
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
     public function getCountCaseInProject()
     {
         return $this->database->query('SELECT count(case.id) AS c FROM `project`JOIN `case` on project.id = case.project_id group by project.id')->fetchPairs();

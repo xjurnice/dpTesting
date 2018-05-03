@@ -13,6 +13,17 @@
             <div class="card box shadow">
                 <h5 class="card-header">Výběr projektu</h5>
                 <div class="card-body">
+                    {switch $projectActive}
+                        {case 1}
+
+                        {case 0}
+                        {if $project<>0}
+                        <p class="bg-danger fail text-white font-weight-bold" style="padding: 1em"><i class="fa fa-exclamation-circle"></i> Projekt je neaktivní.</p>
+                        {/if}
+                        {default}
+
+                    {/switch}
+
                     <p class="card-text">Vyberte projekt. {control selectProjectForm}</p>
                     <a n:href="Project:add">
                         <button type="button" class="btn btn-success"><i class="fa fa-plus-circle"></i> Přidat nový

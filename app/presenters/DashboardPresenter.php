@@ -58,6 +58,7 @@ class DashboardPresenter extends BasePresenter
 //dump($number);
         $this->template->series = $number;
 
+        $this->template->projectActive = $this->projectModel->isProjectActive($project);
         $this->template->events = $this->eventModel->getEvents($project);
 
         $this->template->defect = $this->projectModel->getFailedTestToProject($project);
