@@ -10,6 +10,7 @@ use App\Model\CaseModel;
 use App\Model\ExecutionModel;
 use AlesWita;
 use Ublaboo\DataGrid\DataGrid;
+use App\Model;
 
 
 class ExecutionPresenter extends BasePresenter
@@ -41,8 +42,10 @@ class ExecutionPresenter extends BasePresenter
     public $plan_id;
 
 
-    public function __construct(CaseModel $caseModel, ExecutionModel $executionModel, PlanModel $planModel, Nette\Http\Session $session)
+    public function __construct(CaseModel $caseModel, ExecutionModel $executionModel, PlanModel $planModel, Nette\Http\Session $session, Model\EventModel $eventModel)
     {
+        parent::__construct($eventModel);
+
         $this->planModel = $planModel;
         $this->caseModel = $caseModel;
         $this->executionModel = $executionModel;

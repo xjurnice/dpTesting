@@ -6,7 +6,7 @@ use App\Model\ProjectModel;
 use Latte\Runtime\Template;
 use Nette,
     Nette\Application\UI\Form;
-
+use App\Model;
 use Ublaboo\DataGrid\DataGrid;
 use AlesWita;
 
@@ -21,8 +21,9 @@ class ProjectPresenter extends BasePresenter
     private $data = null;
     public $id;
 
-    public function __construct(projectModel $projectModel)
+    public function __construct(projectModel $projectModel, Model\EventModel $eventModel)
     {
+        parent::__construct($eventModel);
         $this->projectModel = $projectModel;
     }
 

@@ -8,34 +8,34 @@
     <meta charset="utf-8">
 
     <title>{ifset title}{include title|stripHtml} | {/ifset}TestOne - testovací nástroj</title>
-{block style}
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="{$basePath}/images/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="{$basePath}/images/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="{$basePath}/bower_components/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{$basePath}/bower_components/flipclock/compiled/flipclock.css">
-    <link rel="stylesheet" type="text/css"
-          href="{$basePath}/bower_components/ublaboo-datagrid/assets/dist/datagrid.css">
-    <link rel="stylesheet" href="{$basePath}/css/style.css">
-    <!-- Fontawseome -->
-    <link href="{$basePath}/fonts/fontawesome/fontawesome-all.css" rel="stylesheet">
+    {block style}
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="shortcut icon" href="{$basePath}/images/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="{$basePath}/images/favicon.ico" type="image/x-icon">
+        <link rel="stylesheet" href="{$basePath}/bower_components/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="{$basePath}/bower_components/flipclock/compiled/flipclock.css">
+        <link rel="stylesheet" type="text/css"
+              href="{$basePath}/bower_components/ublaboo-datagrid/assets/dist/datagrid.css">
+        <link rel="stylesheet" href="{$basePath}/css/style.css">
+        <!-- Fontawseome -->
+        <link href="{$basePath}/fonts/fontawesome/fontawesome-all.css" rel="stylesheet">
 
 
-    <!-- Use this css for that pretty checkboxes (https://github.com/paveljanda/happy) -->
-    <link rel="stylesheet" type="text/css" href="{$basePath}/bower_components/happy/dist/happy.css">
-    <link rel="stylesheet" type="text/css"
-          href="{$basePath}/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css">
+        <!-- Use this css for that pretty checkboxes (https://github.com/paveljanda/happy) -->
+        <link rel="stylesheet" type="text/css" href="{$basePath}/bower_components/happy/dist/happy.css">
+        <link rel="stylesheet" type="text/css"
+              href="{$basePath}/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css">
 
 
-    <!-- Use this css for ajax spinners -->
-    <link rel="stylesheet" type="text/css"
-          href="{$basePath}/bower_components/ublaboo-datagrid/assets/dist/datagrid-spinners.css">
+        <!-- Use this css for ajax spinners -->
+        <link rel="stylesheet" type="text/css"
+              href="{$basePath}/bower_components/ublaboo-datagrid/assets/dist/datagrid-spinners.css">
 
-    <!-- Include this css when using FilterMultiSelect (silviomoreto.github.io/bootstrap-select) -->
-    <link rel="stylesheet" type="text/css"
-          href="{$basePath}/bower_components/bootstrap-select/dist/css/bootstrap-select.css">
+        <!-- Include this css when using FilterMultiSelect (silviomoreto.github.io/bootstrap-select) -->
+        <link rel="stylesheet" type="text/css"
+              href="{$basePath}/bower_components/bootstrap-select/dist/css/bootstrap-select.css">
 
-{/block}
+    {/block}
 
 </head>
 
@@ -73,23 +73,56 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-2 d-none d-md-block bg-light">
-            <div id="sidebar">        <a n:href="Dashboard:default"> <h1 class="sign-logo  "> Test<i class="fas fa-lemon fa-1x"></i>ne</h1></a>
+            <div id="sidebar">
+
+                <a n:href="Dashboard:default"><h1 class="sign-logo  "> Test<i class="fas fa-lemon fa-1x"></i>ne</h1></a>
             </div>
+
+
+            <div class="card-body">
+
+                {switch $projectActive}
+                    {case 1}
+
+                    {case 0}
+                    {if $project<>0}
+                        <p class="bg-danger fail text-white font-weight-bold" style="padding: 1em"><i
+                                    class="fa fa-exclamation-circle"></i> Projekt je neaktivní.</p>
+                    {/if}
+                    {default}
+
+                {/switch}
+                <form n:name=selectProjectForm class=form-inline>
+                    <div class="form-group">
+                        <label for="staticEmail2" class="sr-only">Email</label>
+                        <select n:name=id class="form-control"></select>
+                    </div>
+
+                    <div class="form-group">
+                        <input n:name=edit class="btn btn-primary">
+                    </div>
+                </form>
+
+
+            </div>
+
+
             <div class="list-group">
                 {if $project==0}
-              <span class="text-white  bg-danger shadow fail" style="padding: 1em"> Je třeba vybrat nějaký projekt!</span>
+                    <div class="empty-block"></div>
                 {else}
-                {include components/menu.latte}
-{/if}
-            <br>
+                    {include components/menu.latte}
+                {/if}
+                <br>
             </div>
 
         </div>
         <div class="col-md-9 ml-sm-auto col-lg-10 px-3">
             <nav class="navbar navbar-expand-lg navbar-light bg-light shadow">
-                <a href="javascript:history.back()"><i class="fa fa-backward"></i>  ZPĚT</a>
+                <a href="javascript:history.back()"><i class="fa fa-backward"></i> ZPĚT</a>
 
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent"
                         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -111,19 +144,33 @@
 
                             <a class="dropdown-item" n:href="User:edit">Editace profilu</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" n:href="Sign:out"><i class="fas fa-sign-out-alt"></i> Odhlásit se</a>
+                            <a class="dropdown-item" n:href="Sign:out"><i class="fas fa-sign-out-alt"></i> Odhlásit
+                                se</a>
                         </div>
                     </li>
 
                 </div>
-            </nav>   <div  n:foreach="$flashes as $flash" n:class="flash, $flash->type"><i class="fa fa-check-circle"></i> {$flash->message}</div>
+            </nav>
+            <br>
+            {if $project==0}
+                <center>
+                    <div class="fail shadow text-white align-self-center" style="padding: 1em; font-size: 1.2em; font-weight: bold"><i class="fa fa-exclamation-circle"></i> Je
+                        třeba vybrat nějaký projekt!
+                    </div>
+                </center>
+            {/if}
+            <div n:foreach="$flashes as $flash" n:class="flash, $flash->type"><i
+                        class="fa fa-check-circle"></i> {$flash->message}</div>
             <div class="col pt-3 px-3">
+
                 {include content}
             </div>
-        </div> </div>
+        </div>
+    </div>
 
     {else}
-    <div n:foreach="$flashes as $flash" n:class="flash, $flash->type"><i class="fa fa-check-circle"></i>  {$flash->message}</div>
+    <div n:foreach="$flashes as $flash" n:class="flash, $flash->type"><i
+                class="fa fa-check-circle"></i> {$flash->message}</div>
 
 
     {include content}

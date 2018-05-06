@@ -465,8 +465,6 @@ class CasePresenter extends BasePresenter
         $form->addSelect('priority', 'Priorita', $priority)->setRequired('Uvedte prioritu');
         $form->addSelect('category_id', 'Case category', $this->caseModel->getCaseCategory()->fetchPairs('id', 'name'))
             ->setPrompt('Zvolte', null);
-        $form->addSelect('project', 'Projekt', $this->caseModel->getProject($this->getUser()->getIdentity()->id)->fetchPairs('id', 'name'))
-            ->setDefaultValue($this->getSession('sekcePromenna')->project)->setDisabled(true);
         $form->addHidden('project_id', 'Projekt')->setDefaultValue($this->getSession('sekcePromenna')->project);
         $form->addSelect('set_id', 'Testovací sada', $this->caseModel->getSets($this->getSession('sekcePromenna')->project)
             ->fetchPairs('id', 'name'))->setPrompt('Zvolte', null)->setRequired('Testovací sada musí být zvolena');
@@ -491,21 +489,7 @@ class CasePresenter extends BasePresenter
         $multiplier->addRemoveButton('Odebrat krok'); $copies = 0;
         $maxCopies = 100;
 
-        $multiplier = $form->addMultiplier('multiplier', function (Nette\Forms\Container $container, Nette\Forms\Form $form) {
-
-            $container->addTextArea("action", '#' . ((int)$container->getName() + 1) . ' krok' . ' Akce')
-                ->setDefaultValue('My value');
-            $container->addTextArea("result", 'Očekávaný výstup')
-                ->setDefaultValue('My value')->setOption('description', Html::el('p')
-                    ->setHtml(' <hr>')
-                );
-        }, $copies, $maxCopies);
-
-        $multiplier->addCreateButton('Přidat 1 krok', 1);
-        $multiplier->addCreateButton('Přidat 3 kroky', 3);
-        $multiplier->addCreateButton('Přidat 5 kroků', 5);
-
-        $multiplier->addRemoveButton('Odebrat krok');
+     
 
 
         $form->addSubmit('add', 'Vložit')->getControlPrototype()->setClass('btn btn-primary btn-lg btn-block');

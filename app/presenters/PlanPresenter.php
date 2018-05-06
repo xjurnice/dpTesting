@@ -10,7 +10,7 @@ use Ublaboo\DataGrid\DataGrid;
 use App\Model\PlanModel;
 use AlesWita;
 use Ublaboo\DataGrid\Row;
-
+use App\Model;
 
 class PlanPresenter extends BasePresenter
 {
@@ -29,8 +29,10 @@ class PlanPresenter extends BasePresenter
     /** @persistent */
     public $id;
 
-    public function __construct(PlanModel $planModel, ProjectModel $projectModel, CaseModel $caseModel)
+    public function __construct(PlanModel $planModel, ProjectModel $projectModel, CaseModel $caseModel, Model\EventModel $eventModel)
     {
+        parent::__construct($eventModel);
+
         $this->planModel = $planModel;
         $this->caseModel = $caseModel;
         $this->projectModel = $projectModel;

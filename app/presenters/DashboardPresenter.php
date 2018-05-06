@@ -50,11 +50,11 @@ class DashboardPresenter extends BasePresenter
 
             $project = '';
         }
-        $names = $this->projectModel->getProjectNameCaseInProject();
+        $names = $this->projectModel->getProjectNameCaseInProject($this->getUser()->getIdentity()->id);
 
         $this->template->labels = $names;
 
-        $number = $this->projectModel->getCountCaseInProject();
+        $number = $this->projectModel->getCountCaseInProject($this->getUser()->getIdentity()->id);
 //dump($number);
         $this->template->series = $number;
 
@@ -85,32 +85,5 @@ class DashboardPresenter extends BasePresenter
 
     }
 
-    public function createComponentSelectProjectForm()
-    {
 
-        $form = new Form();
-        $form->setRenderer(new AlesWita\FormRenderer\BootstrapV4Renderer);
-        $form->addProtection(); // Add "Reload form for safe submit, Form was expired."
-        $project = [];
-        $project = [0 => 'Zvolte'] + $this->caseModel->getProject($this->getUser()->getIdentity()->id)->fetchPairs('id', 'name');
-        $form->addSelect('id', '', $project)->setDefaultValue($this->getSession('sekcePromenna')->project);
-        $form->addSubmit('edit', 'Vyber')->getControlPrototype()->setClass('btn btn-primary btn-lg btn-block');
-
-
-        $form->onSuccess[] = array($this, "changeProjectSuccess");
-
-        return $form;
-    }
-
-    public function changeProjectSuccess(Form $form, $values)
-    {
-        $values = $form->getValues();
-        $session = $this->getSession();
-        $sessionSection = $session->getSection('sekcePromenna');
-        $sessionSection->project = $values['id'];
-
-        $this->flashMessage('Úspěšně jste zvolili projekt.');
-
-
-    }
 }

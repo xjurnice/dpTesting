@@ -78,6 +78,7 @@ class CaseModel
         return $this->database->query('SELECT project.id, project.name FROM project JOIN project_has_user ON project.id=project_has_user.project_id WHERE user_id=?',$user_id);
     }
 
+
     public function getCase($id)
     {
         return $this->database->table('case')->where('id', $id)->fetch();

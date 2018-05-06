@@ -60,6 +60,8 @@ class EventPresenter extends BasePresenter
 
     }
 
+
+
     public function handleDeletePlan($id){
 
 

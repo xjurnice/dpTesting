@@ -8,52 +8,44 @@
     {var $role = $user->getIdentity()->role_id}
 
     <div class="row">
+    {if $project<>0}
 
-        <div class="col-lg-4 col-sm-3 col-md-6 col-xl-4 ">
-            <div class="card box shadow">
-                <h5 class="card-header">Výběr projektu</h5>
-                <div class="card-body">
-                    {switch $projectActive}
-                        {case 1}
+        {if $role==2}
+            <div class="col-lg-4 col-sm-6 col-md-7 col-xl-4">
 
-                        {case 0}
-                        {if $project<>0}
-                        <p class="bg-danger fail text-white font-weight-bold" style="padding: 1em"><i class="fa fa-exclamation-circle"></i> Projekt je neaktivní.</p>
-                        {/if}
-                        {default}
+                <div class="card box shadow" style="padding: 1em">
+                    <div class="h5 chartjs-title align-self-center">Počet test. případů na projekt</div>
+                    <canvas id="myChart" width="600" height="400"></canvas>
 
-                    {/switch}
-
-                    <p class="card-text">Vyberte projekt. {control selectProjectForm}</p>
-                    {if $role==2}
                     <a n:href="Project:add">
-                        <button type="button" class="btn btn-success"><i class="fa fa-plus-circle"></i> Přidat nový
-                            projekt
+                        <button type="button" class="btn btn-success btn-sm"><i class="fa fa-plus-circle"></i>
+                            Přidat nový projekt
                         </button>
-                        {/if}
                     </a>
                 </div>
-            </div>
-        </div>
-        {if $project<>0}
-             {if $role==2 OR $role==3}
-        <div class="col-lg-4 col-sm-6 col-md-7 col-xl-4">
-            <div class="card box shadow" style="padding: 1em">
-                <div class="h5 chartjs-title align-self-center">Celkový čas strávený testováním dle uživatele</div><hr>
-                <canvas id="sumTime" width="600" height="400"></canvas>
-            </div>
-        </div>
 
-        <div class="col-lg-4 col-sm-6 col-md-7 col-xl-4">
-            <div class="card box shadow" style="padding: 1em">
-                <div class="h5 chartjs-title align-self-center">Spuštených testů dle uživatele</div>
-                <canvas id="runByTester" width="600" height="400"></canvas>
+            </div>
+        {/if}
+
+        {if $role==2 OR $role==3}
+            <div class="col-lg-4 col-sm-6 col-md-7 col-xl-4">
+                <div class="card box shadow" style="padding: 1em">
+                    <div class="h5 chartjs-title align-self-center">Celkový čas strávený testováním dle uživatele</div>
+                    <hr>
+                    <canvas id="sumTime" width="600" height="400"></canvas>
+                </div>
             </div>
 
-        </div>
-{/if}
+            <div class="col-lg-4 col-sm-6 col-md-7 col-xl-4">
+                <div class="card box shadow" style="padding: 1em">
+                    <div class="h5 chartjs-title align-self-center">Spuštených testů dle uživatele</div>
+                    <canvas id="runByTester" width="600" height="400"></canvas>
+                </div>
 
-    </div>
+            </div>
+        {/if}
+
+        </div>
         <div class="row">
 
             <div class="col-lg-4 col-md-5 col-xl-4 ">
@@ -94,7 +86,8 @@
 
 
                 <div class="card text-white bg-warning box shadow fail" style="padding: 1em">
-                    <h4 style=" text-align: center"><i class="fa fa-angle-double-right fa-2x"></i> Počet vynechaných testů: <span class="count">{$skip}</span></h4>
+                    <h4 style=" text-align: center"><i class="fa fa-angle-double-right fa-2x"></i> Počet vynechaných
+                        testů: <span class="count">{$skip}</span></h4>
                 </div>
 
             </div>
@@ -103,7 +96,8 @@
 
 
                 <div class="card text-white bg-dark box shadow fail" style="padding: 1em">
-                    <h4 style=" text-align: center"><i class="fa fa-users fa-2x"></i> Počet uživatelů: <span class="count">{$users}</span></h4>
+                    <h4 style=" text-align: center"><i class="fa fa-users fa-2x"></i> Počet uživatelů: <span
+                                class="count">{$users}</span></h4>
                 </div>
 
             </div>
@@ -111,239 +105,242 @@
         <div class="row">
 
 
-{if  $role==3 OR $role==4 OR $role==2}
-        <div class="col-lg-4 col-md-5 col-xl-4 ">
-            <div class="card box shadow">
-                <h5 class="card-header">Poslední aktivity</h5>
-                <div class="card-body">
-
-                    {foreach $events as $event}
-                        <p class="card-text">
-
-                            {switch $event->event_type_id}
-
-                            {case 2}
-                                <i class="fa fa-plus-circle"></i><a n:href="Case:detail $event->object_id"> Vytvořené
-                                test. případu </a>
-                            {case 3}
-                                <i class="fa fa-play-circle"></i><a n:href="Case:detail $event->object_id"> Spuštění
-                                test. případu</a>
-                            {case 4}
-                                <i class="fa fa-arrow-alt-circle-left"></i><a n:href="Case:detail $event->object_id"> Změna statusu test. případu</a>
-
-                                {default}
-                                Neznámý
-                            {/switch}
-                            ({$event->event_time|date:'d.m.Y H:i:s'}) -
-                            <a n:href="User:profile $event->user_id">{$event->username}</a></p>
-                    {/foreach}
-                    <a n:href="all">
-                        <button type="button" class="btn btn-primary">Zobrazit všechny aktivity</button>
-                    </a>
-
-                </div>
-            </div>
-            {/if}
-        </div>
-{if  $role==3 OR $role==4 OR $role==2}
+            {if  $role==3 OR $role==4 OR $role==2}
             <div class="col-lg-4 col-md-5 col-xl-4 ">
                 <div class="card box shadow">
-                    <h5 class="card-header">Požadavky</h5>
+                    <h5 class="card-header">Poslední aktivity</h5>
                     <div class="card-body">
 
-                        {foreach $request as $r}
+                        {foreach $events as $event}
                             <p class="card-text">
-                                <a n:href="Request:detail $r->id"> {$r->name}</a>
-                                {$r->create_time|date:'d.m.Y H:i:s'} - Status:
-                                <b>{switch $r->status}
-                                    {case 0}
-                                        <span class="text-info">zadaný</span>
-                                    {case 1}
-                                        <span class="text-success">splněný</span>
+
+                                {switch $event->event_type_id}
+
+                                    {case 2}
+                                    <i class="fa fa-plus-circle"></i><a n:href="Case:detail $event->object_id">
+                                    Vytvořené
+                                    test. případu </a>
+                                {case 3}
+                                    <i class="fa fa-play-circle"></i><a n:href="Case:detail $event->object_id"> Spuštění
+                                    test. případu</a>
+                                {case 4}
+                                    <i class="fa fa-arrow-alt-circle-left"></i>
+                                    <a n:href="Case:detail $event->object_id"> Změna statusu test. případu</a>
+
                                     {default}
-                                        Vytvořený
-                                    {/switch}</b>
-
-                            </p>
+                                    Neznámý
+                                {/switch}
+                                ({$event->event_time|date:'d.m.Y H:i:s'}) -
+                                <a n:href="User:profile $event->user_id">{$event->username}</a></p>
                         {/foreach}
-
+                        <a n:href="all">
+                            <button type="button" class="btn btn-primary">Zobrazit všechny aktivity</button>
+                        </a>
 
                     </div>
                 </div>
+                {/if}
             </div>
-    {/if}
-{if  $role==3}
-            <div class="col-lg-4 col-md-5 col-xl-4 ">
-                <div class="card box shadow">
-                    <h5 class="card-header">Mé test plány</h5>
-                    <div class="card-body">
+            {if  $role==3 OR $role==4 OR $role==2}
+                <div class="col-lg-4 col-md-5 col-xl-4 ">
+                    <div class="card box shadow">
+                        <h5 class="card-header">Požadavky</h5>
+                        <div class="card-body">
 
-                        {foreach $plansUser as $pl}
-                            <p class="card-text">
-
-
-                                <a n:href="Plan:detail $pl->id">{$pl->name}</a> | {$pl->planed_time|date:'d.m.Y H:i:s'} |
-                                <b>Status: {switch $pl->status}
+                            {foreach $request as $r}
+                                <p class="card-text">
+                                    <a n:href="Request:detail $r->id"> {$r->name}</a>
+                                    {$r->create_time|date:'d.m.Y H:i:s'} - Status:
+                                    <b>{switch $r->status}
                                         {case 0}
-                                        Upravený
+                                            <span class="text-info">zadaný</span>
                                         {case 1}
-                                        <span class="text-success">Dokončený</span>
-                                    {default}
-                                        Vytvořený
-                                    {/switch}</b>
+                                            <span class="text-success">splněný</span>
+                                        {default}
+                                            Vytvořený
+                                        {/switch}</b>
 
-                            </p>
-                        {/foreach}
+                                </p>
+                            {/foreach}
 
 
+                        </div>
                     </div>
                 </div>
-            </div>
-    {/if}
+            {/if}
+            {if  $role==3}
+                <div class="col-lg-4 col-md-5 col-xl-4 ">
+                    <div class="card box shadow">
+                        <h5 class="card-header">Mé test plány</h5>
+                        <div class="card-body">
 
-    </div>
-        {/if}
+                            {foreach $plansUser as $pl}
+                                <p class="card-text">
+
+
+                                    <a n:href="Plan:detail $pl->id">{$pl->name}</a>
+                                    | {$pl->planed_time|date:'d.m.Y H:i:s'} |
+                                    <b>Status: {switch $pl->status}
+                                            {case 0}
+                                            Upravený
+                                            {case 1}
+                                            <span class="text-success">Dokončený</span>
+                                        {default}
+                                            Vytvořený
+                                        {/switch}</b>
+
+                                </p>
+                            {/foreach}
+
+
+                        </div>
+                    </div>
+                </div>
+            {/if}
+
+        </div>
+    {/if}
 {/block}
 {block scripts}
     {include parent}
 
     <script src="{$basePath}/js/dashboard-graphs.js"></script>
-{if $project<>0}
-    <script>
-        $('.count').each(function () {
-            $(this).prop('Counter', 0).animate({
-                Counter: $(this).text()
-            }, {
-                duration: 1000,
-                easing: 'swing',
-                step: function (now) {
-                    $(this).text(Math.ceil(now));
+    {if $project<>0}
+        <script>
+            $('.count').each(function () {
+                $(this).prop('Counter', 0).animate({
+                    Counter: $(this).text()
+                }, {
+                    duration: 1000,
+                    easing: 'swing',
+                    step: function (now) {
+                        $(this).text(Math.ceil(now));
+                    }
+                });
+            });
+
+
+            Chart.defaults.global.responsive = true;
+
+
+            var ctx = document.getElementById('runByTester').getContext('2d');
+
+            var chart = new Chart(ctx, {
+                // The type of chart we want to create
+                type: 'doughnut',
+
+                // The data for our dataset
+                data: {
+
+                    labels: JSON.parse({json_encode($labelsTesters)}),
+                    datasets: [{
+                        label: "Testovací případy",
+                        backgroundColor: color,
+
+                        data: JSON.parse({json_encode($seriesTesters)})
+
+                    }]
+                },
+
+                // Configuration options go here
+                options: {
+                    animation: {
+                        easing: "easeInOutBack"
+                    },
+                    responsive: true,
+
+                    legend: {
+                        display: true,
+                    }
                 }
             });
-        });
 
+            var ctx = document.getElementById('sumTime').getContext('2d');
 
-        Chart.defaults.global.responsive = true;
+            var chart = new Chart(ctx, {
+                // The type of chart we want to create
+                type: 'bar',
 
+                // The data for our dataset
+                data: {
 
-        var ctx = document.getElementById('runByTester').getContext('2d');
+                    labels: JSON.parse({json_encode($labelsTesters)}),
+                    datasets: [{
+                        label: "Strávený čas v minutách",
+                        backgroundColor: color2,
 
-        var chart = new Chart(ctx, {
-            // The type of chart we want to create
-            type: 'doughnut',
+                        data: JSON.parse({json_encode($sumTimeTesters)})
 
-            // The data for our dataset
-            data: {
-
-                labels: JSON.parse({json_encode($labelsTesters)}),
-                datasets: [{
-                    label: "Testovací případy",
-                    backgroundColor: color,
-
-                    data: JSON.parse({json_encode($seriesTesters)})
-
-                }]
-            },
-
-            // Configuration options go here
-            options: {
-                animation: {
-                    easing: "easeInOutBack"
-                },
-                responsive: true,
-
-                legend: {
-                    display: true,
-                }
-            }
-        });
-
-        var ctx = document.getElementById('sumTime').getContext('2d');
-
-        var chart = new Chart(ctx, {
-            // The type of chart we want to create
-            type: 'bar',
-
-            // The data for our dataset
-            data: {
-
-                labels: JSON.parse({json_encode($labelsTesters)}),
-                datasets: [{
-                    label: "Strávený čas v minutách",
-                    backgroundColor: color2,
-
-                    data: JSON.parse({json_encode($sumTimeTesters)})
-
-                }]
-            },
-
-            // Configuration options go here
-            options: {
-                animation: {
-                    easing: "easeInOutBack"
-                },
-                responsive: true,
-                scales: {
-                    xAxes: [{
-                        stacked: true,
-                        beginAtZero: true,
-
-                        ticks: {
-                            stepSize: 1,
-                            min: 0,
-                            autoSkip: false
-                        }
                     }]
                 },
-                legend: {
-                    display: false,
+
+                // Configuration options go here
+                options: {
+                    animation: {
+                        easing: "easeInOutBack"
+                    },
+                    responsive: true,
+                    scales: {
+                        xAxes: [{
+                            stacked: true,
+                            beginAtZero: true,
+
+                            ticks: {
+                                stepSize: 1,
+                                min: 0,
+                                autoSkip: false
+                            }
+                        }]
+                    },
+                    legend: {
+                        display: false,
+                    }
                 }
-            }
-        });
+            });
 
-        var ctx = document.getElementById('myChart').getContext('2d');
+            var ctx = document.getElementById('myChart').getContext('2d');
 
-        var chart = new Chart(ctx, {
-            // The type of chart we want to create
-            type: 'bar',
+            var chart = new Chart(ctx, {
+                // The type of chart we want to create
+                type: 'bar',
 
-            // The data for our dataset
-            data: {
+                // The data for our dataset
+                data: {
 
-                labels: JSON.parse({json_encode($labels)}),
-                datasets: [{
-                    label: "Testovací případy",
-                    backgroundColor: color3,
+                    labels: JSON.parse({json_encode($labels)}),
+                    datasets: [{
+                        label: "Testovací případy",
+                        backgroundColor: color3,
 
-                    data: JSON.parse({json_encode($series)})
+                        data: JSON.parse({json_encode($series)})
 
-                }]
-            },
-
-            // Configuration options go here
-            options: {
-                animation: {
-                    easing: "easeInOutBack"
-                },
-                responsive: true,
-                scales: {
-                    xAxes: [{
-                        stacked: true,
-                        beginAtZero: true,
-
-                        ticks: {
-                            stepSize: 1,
-                            min: 0,
-                            autoSkip: false
-                        }
                     }]
                 },
-                legend: {
-                    display: false,
-                }
-            }
-        });
 
-    </script>
-{/if}
+                // Configuration options go here
+                options: {
+                    animation: {
+                        easing: "easeInOutBack"
+                    },
+                    responsive: true,
+                    scales: {
+                        xAxes: [{
+                            stacked: true,
+                            beginAtZero: true,
+
+                            ticks: {
+                                stepSize: 1,
+                                min: 0,
+                                autoSkip: false
+                            }
+                        }]
+                    },
+                    legend: {
+                        display: false,
+                    }
+                }
+            });
+
+        </script>
+    {/if}
 {/block}

@@ -8,7 +8,7 @@ use App\Model\SetModel;
 use App\Model\CaseModel;
 use Nette,
     Nette\Application\UI\Form;
-
+use App\Model;
 use Ublaboo\DataGrid\DataGrid;
 use AlesWita;
 
@@ -31,8 +31,10 @@ class RequestPresenter extends BasePresenter
     /** @persistent */
     public $parent_id;
 
-    public function __construct(requestModel $requestModel, caseModel $caseModel, projectModel $projectModel)
+    public function __construct(requestModel $requestModel, caseModel $caseModel, projectModel $projectModel, Model\EventModel $eventModel)
     {
+        parent::__construct($eventModel);
+
         $this->requestModel = $requestModel;
         $this->caseModel = $caseModel;
         $this->projectModel = $projectModel;

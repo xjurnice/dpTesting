@@ -7,7 +7,7 @@ use Nette,
 use App\Model\UserModel;
 use Ublaboo\DataGrid\DataGrid;
 use AlesWita;
-
+use App\Model;
 
 class UserPresenter extends BasePresenter
 {
@@ -18,8 +18,10 @@ class UserPresenter extends BasePresenter
     /** @persistent */
     public $id;
 
-    public function __construct(UserModel $userModel)
+    public function __construct(UserModel $userModel, Model\EventModel $eventModel)
     {
+        parent::__construct($eventModel);
+
         $this->userModel = $userModel;
     }
 

@@ -1,34 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/app/presenters/CasePresenter.php" line="271" />
+    <bookmark url="file://$PROJECT_DIR$/app/presenters/CasePresenter.php" line="291" />
     <bookmark url="file://$PROJECT_DIR$/app/presenters/templates/Case/detail.latte" line="174" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4a9216df-12c4-426c-a988-e68ead5aad1d" name="Default" comment="vendor update">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/app/presenters/DashboardPresenter.php" afterPath="$PROJECT_DIR$/app/presenters/DashboardPresenter.php" />
-      <change beforePath="$PROJECT_DIR$/app/presenters/EventPresenter.php" afterPath="$PROJECT_DIR$/app/presenters/EventPresenter.php" />
-      <change beforePath="$PROJECT_DIR$/app/presenters/PlanPresenter.php" afterPath="$PROJECT_DIR$/app/presenters/PlanPresenter.php" />
-      <change beforePath="$PROJECT_DIR$/app/presenters/ProjectPresenter.php" afterPath="$PROJECT_DIR$/app/presenters/ProjectPresenter.php" />
-      <change beforePath="$PROJECT_DIR$/app/presenters/RequestPresenter.php" afterPath="$PROJECT_DIR$/app/presenters/RequestPresenter.php" />
-      <change beforePath="$PROJECT_DIR$/app/presenters/UserPresenter.php" afterPath="$PROJECT_DIR$/app/presenters/UserPresenter.php" />
-      <change beforePath="$PROJECT_DIR$/app/presenters/templates/@layout.latte" afterPath="$PROJECT_DIR$/app/presenters/templates/@layout.latte" />
-      <change beforePath="$PROJECT_DIR$/app/presenters/templates/Sign/in.latte" afterPath="$PROJECT_DIR$/app/presenters/templates/Sign/in.latte" />
-      <change beforePath="$PROJECT_DIR$/log/.htaccess" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/log/web.config" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/temp/.htaccess" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/temp/cache/Nette.Configurator/Container_0f83cc5e01.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/temp/cache/Nette.Configurator/Container_0f83cc5e01.php.lock" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/temp/cache/Nette.Configurator/Container_0f83cc5e01.php.meta" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/temp/cache/Nette.RobotLoader/cab45b533f61134d20a4f2f24cb42572.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/temp/cache/_Nette.Database.13f24f0b827b22d386775828cb24a445/_7f2faac262554bcd9e990ba228c6856f" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/temp/cache/_Nette.Database.Structure.13f24f0b827b22d386775828cb24a445/_07414f4e15ca943e6cde032dec85d92f" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/temp/cache/latte/presenters-templates-@layout.latte--5ccb120599.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/temp/cache/latte/templates-Homepage-default.latte--8428e35ac5.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/temp/cache/latte/templates-Sign-in.latte--238d75f845.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/temp/cache/latte/templates-Sign-up.latte--a4d570c57a.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/temp/web.config" afterPath="" />
+    <list default="true" id="4a9216df-12c4-426c-a988-e68ead5aad1d" name="Default" comment="case presenter update">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/model/CaseModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/model/CaseModel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/model/EventModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/model/EventModel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/model/ProjectModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/model/ProjectModel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/presenters/BasePresenter.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/presenters/BasePresenter.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/presenters/CasePresenter.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/presenters/CasePresenter.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/presenters/DashboardPresenter.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/presenters/DashboardPresenter.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/presenters/EventPresenter.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/presenters/EventPresenter.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/presenters/ExecutionPresenter.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/presenters/ExecutionPresenter.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/presenters/PlanPresenter.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/presenters/PlanPresenter.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/presenters/ProjectPresenter.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/presenters/ProjectPresenter.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/presenters/RequestPresenter.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/presenters/RequestPresenter.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/presenters/SetPresenter.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/presenters/SetPresenter.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/presenters/SettingPresenter.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/presenters/SettingPresenter.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/presenters/UserPresenter.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/presenters/UserPresenter.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/presenters/templates/@layout.latte" beforeDir="false" afterPath="$PROJECT_DIR$/app/presenters/templates/@layout.latte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/presenters/templates/Dashboard/default.latte" beforeDir="false" afterPath="$PROJECT_DIR$/app/presenters/templates/Dashboard/default.latte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/presenters/templates/Setting/default.latte" beforeDir="false" afterPath="$PROJECT_DIR$/app/presenters/templates/Setting/default.latte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/temp/.htaccess" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/temp/cache/Nette.Configurator/Container_0f83cc5e01.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/temp/cache/Nette.Configurator/Container_0f83cc5e01.php.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/temp/cache/Nette.Configurator/Container_0f83cc5e01.php.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/temp/cache/Nette.RobotLoader/cab45b533f61134d20a4f2f24cb42572.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/temp/cache/_Nette.Database.13f24f0b827b22d386775828cb24a445/_7f2faac262554bcd9e990ba228c6856f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/temp/cache/_Nette.Database.Structure.13f24f0b827b22d386775828cb24a445/_07414f4e15ca943e6cde032dec85d92f" beforeDir="false" afterPath="$PROJECT_DIR$/temp/cache/_Nette.Database.Structure.13f24f0b827b22d386775828cb24a445/_07414f4e15ca943e6cde032dec85d92f" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/temp/cache/latte/presenters-templates-@layout.latte--5ccb120599.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/temp/cache/latte/templates-Homepage-default.latte--8428e35ac5.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/temp/cache/latte/templates-Sign-in.latte--238d75f845.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/temp/cache/latte/templates-Sign-up.latte--a4d570c57a.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/temp/web.config" beforeDir="false" />
     </list>
     <ignored path="C:\xampp\htdocs\dp-testing\.idea\shelf/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -44,62 +51,65 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="@layout.latte" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/presenters/templates/@layout.latte">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="89" column="0" lean-forward="false" selection-start-line="89" selection-start-column="0" selection-end-line="89" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="in.latte" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/presenters/templates/Sign/in.latte">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="7" column="16" lean-forward="false" selection-start-line="7" selection-start-column="16" selection-end-line="7" selection-end-column="16" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RequestPresenter.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/presenters/RequestPresenter.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="25" column="10" lean-forward="false" selection-start-line="25" selection-start-column="10" selection-end-line="25" selection-end-column="10" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UserPresenter.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/presenters/UserPresenter.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="154" column="37" lean-forward="false" selection-start-line="154" selection-start-column="37" selection-end-line="154" selection-end-column="37" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ExecutionPresenter.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/presenters/ExecutionPresenter.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3264">
-              <caret line="198" column="0" lean-forward="false" selection-start-line="198" selection-start-column="0" selection-end-line="198" selection-end-column="132" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="CasePresenter.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/presenters/CasePresenter.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-68">
-              <caret line="38" column="37" lean-forward="false" selection-start-line="38" selection-start-column="37" selection-end-line="38" selection-end-column="37" />
-              <folding />
+            <state relative-caret-position="546">
+              <caret line="466" column="40" selection-start-line="466" selection-start-column="40" selection-end-line="466" selection-end-column="40" />
+              <folding>
+                <element signature="e#34#47#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="default.latte" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/presenters/templates/Setting/default.latte">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="126">
+              <caret line="6" selection-start-line="6" selection-end-line="6" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="add.latte" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/presenters/templates/Case/add.latte">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="210">
+              <caret line="10" selection-start-line="10" selection-end-line="20" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="@layout.latte" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/presenters/templates/@layout.latte">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1342">
+              <caret line="101" column="65" selection-start-line="101" selection-start-column="65" selection-end-line="101" selection-end-column="65" />
+              <folding>
+                <element signature="n#style#0;n#div#0;n#center#0;n#div#1;n#div#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CaseModel.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/model/CaseModel.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="768">
+              <caret line="79" selection-start-line="79" selection-end-line="79" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DashboardPresenter.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/presenters/DashboardPresenter.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="214">
+              <caret line="52" column="101" selection-start-line="52" selection-start-column="101" selection-end-line="52" selection-end-column="101" />
+              <folding>
+                <element signature="e#34#47#0#PHP" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -107,8 +117,8 @@
       <file leaf-file-name="BasePresenter.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/presenters/BasePresenter.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="36" column="60" lean-forward="false" selection-start-line="36" selection-start-column="60" selection-end-line="36" selection-end-column="60" />
+            <state relative-caret-position="75">
+              <caret line="59" column="27" lean-forward="true" selection-start-line="59" selection-start-column="27" selection-end-line="59" selection-end-column="27" />
               <folding>
                 <element signature="e#34#59#0#PHP" expanded="true" />
               </folding>
@@ -116,32 +126,32 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SetPresenter.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/presenters/SetPresenter.php">
+      <file leaf-file-name="default.latte" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/presenters/templates/Dashboard/default.latte">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1122">
-              <caret line="72" column="78" lean-forward="false" selection-start-line="72" selection-start-column="78" selection-end-line="72" selection-end-column="78" />
-              <folding />
+            <state relative-caret-position="483">
+              <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="25" />
+              <folding>
+                <element signature="e#298#318#0#HTML" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SettingPresenter.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/presenters/SettingPresenter.php">
+      <file leaf-file-name="EventModel.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/model/EventModel.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="765">
-              <caret line="50" column="0" lean-forward="false" selection-start-line="50" selection-start-column="0" selection-end-line="55" selection-end-column="5" />
-              <folding />
+            <state relative-caret-position="852">
+              <caret line="57" column="5" selection-start-line="57" selection-start-column="5" selection-end-line="57" selection-end-column="5" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SignPresenter.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/presenters/SignPresenter.php">
+      <file leaf-file-name="ProjectModel.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/model/ProjectModel.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2482">
-              <caret line="154" column="36" lean-forward="false" selection-start-line="154" selection-start-column="36" selection-end-line="154" selection-end-column="36" />
-              <folding />
+            <state relative-caret-position="457">
+              <caret line="63" column="59" selection-start-line="63" selection-start-column="59" selection-end-line="63" selection-end-column="59" />
             </state>
           </provider>
         </entry>
@@ -150,18 +160,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>flash</find>
-      <find>aja</find>
-      <find>ajax</find>
-      <find>plus</find>
-      <find>delete</find>
-      <find>edit</find>
-      <find>set</find>
-      <find>Cas</find>
-      <find>catego</find>
-      <find>hidden</find>
-      <find>grid</find>
-      <find>identity</find>
       <find>heslo</find>
       <find>identit</find>
       <find>GetProject</find>
@@ -171,7 +169,7 @@
       <find>Grid</find>
       <find>Addaction</find>
       <find>detail</find>
-      <find>status of</find>
+      <find />
       <find>create</find>
       <find>data</find>
       <find>name</find>
@@ -179,7 +177,19 @@
       <find>datastep</find>
       <find>Note</find>
       <find>zadny</find>
-      <find>private $projectModel</find>
+      <find />
+      <find>skip</find>
+      <find>updateCaseStatus</find>
+      <find />
+      <find>event</find>
+      <find>project</find>
+      <find>addExecution</find>
+      <find>status</find>
+      <find>selectProjectForm</find>
+      <find>getProject</find>
+      <find>isProjectActive</find>
+      <find>vzbra</find>
+      <find>IN</find>
     </findStrings>
     <replaceStrings>
       <replace>users</replace>
@@ -192,19 +202,13 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/presenters/templates/Dashboard/all.latte" />
-        <option value="$PROJECT_DIR$/app/model/EventModel.php" />
-        <option value="$PROJECT_DIR$/app/model/ProjectModel.php" />
         <option value="$PROJECT_DIR$/www/js/dashboard-graphs.js" />
         <option value="$PROJECT_DIR$/app/model/UserManager.php" />
         <option value="$PROJECT_DIR$/www/js/main.js" />
-        <option value="$PROJECT_DIR$/www/css/style.css" />
         <option value="$PROJECT_DIR$/app/config/config.neon" />
         <option value="$PROJECT_DIR$/app/model/SettingModel.php" />
-        <option value="$PROJECT_DIR$/app/presenters/SettingPresenter.php" />
         <option value="$PROJECT_DIR$/app/presenters/templates/User/management.latte" />
         <option value="$PROJECT_DIR$/app/presenters/templates/Case/approval.latte" />
-        <option value="$PROJECT_DIR$/app/presenters/templates/Setting/default.latte" />
         <option value="$PROJECT_DIR$/app/presenters/templates/Set/default.latte" />
         <option value="$PROJECT_DIR$/app/presenters/templates/Set/detail.latte" />
         <option value="$PROJECT_DIR$/app/presenters/templates/Case/default.latte" />
@@ -213,16 +217,10 @@
         <option value="$PROJECT_DIR$/app/presenters/templates/User/edit.latte" />
         <option value="$PROJECT_DIR$/app/presenters/templates/Sign/up.latte" />
         <option value="$PROJECT_DIR$/www/js/run_test.js" />
-        <option value="$PROJECT_DIR$/app/presenters/templates/Execution/run.latte" />
-        <option value="$PROJECT_DIR$/app/model/CaseModel.php" />
-        <option value="$PROJECT_DIR$/app/model/ExecutionModel.php" />
-        <option value="$PROJECT_DIR$/app/presenters/templates/Execution/detail.latte" />
-        <option value="$PROJECT_DIR$/app/presenters/ExecutionPresenter.php" />
         <option value="$PROJECT_DIR$/app/model/UserModel.php" />
         <option value="$PROJECT_DIR$/app/presenters/templates/Execution/default.latte" />
         <option value="$PROJECT_DIR$/app/presenters/templates/Sign/out.latte" />
         <option value="$PROJECT_DIR$/app/model/PlanModel.php" />
-        <option value="$PROJECT_DIR$/app/presenters/SetPresenter.php" />
         <option value="$PROJECT_DIR$/app/presenters/templates/Case/edit.latte" />
         <option value="$PROJECT_DIR$/app/presenters/templates/components/menu.latte" />
         <option value="$PROJECT_DIR$/app/model/AclModel.php" />
@@ -230,19 +228,31 @@
         <option value="$PROJECT_DIR$/app/presenters/templates/Plan/default.latte" />
         <option value="$PROJECT_DIR$/app/presenters/templates/Plan/detail.latte" />
         <option value="$PROJECT_DIR$/app/presenters/templates/Case/detail.latte" />
-        <option value="$PROJECT_DIR$/app/presenters/CasePresenter.php" />
         <option value="$PROJECT_DIR$/app/presenters/templates/User/profile.latte" />
-        <option value="$PROJECT_DIR$/app/presenters/templates/Dashboard/default.latte" />
         <option value="$PROJECT_DIR$/app/presenters/SignPresenter.php" />
-        <option value="$PROJECT_DIR$/app/presenters/DashboardPresenter.php" />
+        <option value="$PROJECT_DIR$/app/presenters/templates/Sign/in.latte" />
+        <option value="$PROJECT_DIR$/app/presenters/templates/Execution/detail.latte" />
+        <option value="$PROJECT_DIR$/app/presenters/templates/Execution/run.latte" />
+        <option value="$PROJECT_DIR$/www/css/style.css" />
+        <option value="$PROJECT_DIR$/app/model/ExecutionModel.php" />
+        <option value="$PROJECT_DIR$/app/presenters/templates/Dashboard/all.latte" />
         <option value="$PROJECT_DIR$/app/presenters/EventPresenter.php" />
         <option value="$PROJECT_DIR$/app/presenters/PlanPresenter.php" />
+        <option value="$PROJECT_DIR$/app/presenters/ExecutionPresenter.php" />
+        <option value="$PROJECT_DIR$/app/presenters/SettingPresenter.php" />
+        <option value="$PROJECT_DIR$/app/presenters/SetPresenter.php" />
         <option value="$PROJECT_DIR$/app/presenters/ProjectPresenter.php" />
         <option value="$PROJECT_DIR$/app/presenters/RequestPresenter.php" />
-        <option value="$PROJECT_DIR$/app/presenters/BasePresenter.php" />
-        <option value="$PROJECT_DIR$/app/presenters/templates/@layout.latte" />
-        <option value="$PROJECT_DIR$/app/presenters/templates/Sign/in.latte" />
         <option value="$PROJECT_DIR$/app/presenters/UserPresenter.php" />
+        <option value="$PROJECT_DIR$/app/model/EventModel.php" />
+        <option value="$PROJECT_DIR$/app/presenters/BasePresenter.php" />
+        <option value="$PROJECT_DIR$/app/presenters/templates/Setting/default.latte" />
+        <option value="$PROJECT_DIR$/app/presenters/CasePresenter.php" />
+        <option value="$PROJECT_DIR$/app/model/CaseModel.php" />
+        <option value="$PROJECT_DIR$/app/presenters/templates/@layout.latte" />
+        <option value="$PROJECT_DIR$/app/presenters/templates/Dashboard/default.latte" />
+        <option value="$PROJECT_DIR$/app/model/ProjectModel.php" />
+        <option value="$PROJECT_DIR$/app/presenters/DashboardPresenter.php" />
       </list>
     </option>
   </component>
@@ -261,7 +271,7 @@
     <handled-path value="$PROJECT_DIR$/node_modules" />
     <handled-path value="$PROJECT_DIR$/www/bower_components/flipclock/node_modules" />
   </component>
-  <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" interpreter_name="PHP">
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP">
     <include_path>
       <path value="$PROJECT_DIR$/vendor/tracy/tracy" />
       <path value="$PROJECT_DIR$/vendor/nette/forms" />
@@ -301,175 +311,113 @@
     </include_path>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="424" />
-    <option name="y" value="36" />
-    <option name="width" value="1400" />
-    <option name="height" value="1000" />
+    <option name="x" value="960" />
+    <option name="width" value="960" />
+    <option name="height" value="1040" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="" version="1">
-      <flattenPackages />
-      <showMembers />
-      <showModules />
-      <showLibraryContents />
-      <hideEmptyPackages />
-      <abbreviatePackageNames />
-      <autoscrollToSource />
-      <autoscrollFromSource />
-      <sortByType />
-      <manualOrder />
+    <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
-              <item name="dp-testing" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dp-testing" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="testing" type="b2602c69:ProjectViewProjectNode" />
+              <item name="testing" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
-              <item name="dp-testing" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dp-testing" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="testing" type="b2602c69:ProjectViewProjectNode" />
+              <item name="testing" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
-              <item name="dp-testing" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dp-testing" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="testing" type="b2602c69:ProjectViewProjectNode" />
+              <item name="testing" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="config" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
-              <item name="dp-testing" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dp-testing" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="testing" type="b2602c69:ProjectViewProjectNode" />
+              <item name="testing" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="model" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
-              <item name="dp-testing" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dp-testing" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="testing" type="b2602c69:ProjectViewProjectNode" />
+              <item name="testing" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="presenters" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
-              <item name="dp-testing" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dp-testing" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="testing" type="b2602c69:ProjectViewProjectNode" />
+              <item name="testing" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="presenters" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="templates" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
-              <item name="dp-testing" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dp-testing" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="testing" type="b2602c69:ProjectViewProjectNode" />
+              <item name="testing" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="presenters" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="templates" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="Case" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
-              <item name="dp-testing" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dp-testing" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="testing" type="b2602c69:ProjectViewProjectNode" />
+              <item name="testing" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="presenters" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="templates" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="components" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
-              <item name="dp-testing" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dp-testing" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="testing" type="b2602c69:ProjectViewProjectNode" />
+              <item name="testing" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="presenters" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="templates" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="Dashboard" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
-              <item name="dp-testing" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dp-testing" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="presenters" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="templates" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="Execution" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="dp-testing" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dp-testing" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="presenters" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="templates" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="Plan" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="dp-testing" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dp-testing" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="presenters" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="templates" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="Project" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="dp-testing" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dp-testing" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="presenters" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="templates" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="Request" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="dp-testing" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dp-testing" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="presenters" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="templates" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="Set" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="dp-testing" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dp-testing" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="testing" type="b2602c69:ProjectViewProjectNode" />
+              <item name="testing" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="presenters" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="templates" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="Setting" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
-              <item name="dp-testing" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dp-testing" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="presenters" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="templates" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="Sign" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="testing" type="b2602c69:ProjectViewProjectNode" />
+              <item name="testing" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="vendor" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
-              <item name="dp-testing" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dp-testing" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="presenters" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="templates" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="User" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="dp-testing" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dp-testing" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="testing" type="b2602c69:ProjectViewProjectNode" />
+              <item name="testing" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="www" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
-              <item name="dp-testing" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dp-testing" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="testing" type="b2602c69:ProjectViewProjectNode" />
+              <item name="testing" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="www" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="bower_components" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="adminer" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
-              <item name="dp-testing" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dp-testing" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="testing" type="b2602c69:ProjectViewProjectNode" />
+              <item name="testing" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="www" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="css" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
-              <item name="dp-testing" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dp-testing" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="testing" type="b2602c69:ProjectViewProjectNode" />
+              <item name="testing" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="www" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="js" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
@@ -477,14 +425,13 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Desktop" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="settings.editor.selected.configurable" value="Settings.JavaScript.Bower" />
-    <property name="last_opened_file_path" value="C:/Program Files (x86)/Git/cmd/git.exe" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -506,6 +453,11 @@
         </RuleState>
       </list>
     </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="model" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+      <TestRunner directory="$PROJECT_DIR$/app/model" />
+    </configuration>
   </component>
   <component name="ShelveChangesManager" show_recycled="true">
     <option name="remove_strategy" value="true" />
@@ -533,6 +485,10 @@
       <workItem from="1523616599172" duration="25837000" />
       <workItem from="1523877762367" duration="62834000" />
       <workItem from="1524315659299" duration="12593000" />
+      <workItem from="1524731816463" duration="20058000" />
+      <workItem from="1525095157888" duration="2877000" />
+      <workItem from="1525340258274" duration="3356000" />
+      <workItem from="1525537323820" duration="6653000" />
     </task>
     <task id="LOCAL-00001" summary="Init">
       <created>1520886855168</created>
@@ -688,11 +644,30 @@
       <option name="project" value="LOCAL" />
       <updated>1524481137773</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="user statistic to dashboard added">
+      <created>1524856717647</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1524856717649</updated>
+    </task>
+    <task id="LOCAL-00024" summary="events are demand on project">
+      <created>1524906475956</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1524906475956</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
+  <component name="TestHistory">
+    <history-entry file="model - 2018.04.27 at 14h 57m 13s.xml">
+      <configuration name="model" configurationId="PHPUnitRunConfigurationType" />
+    </history-entry>
+  </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="272522000" />
+    <option name="totallyTimeSpent" value="305466000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -704,55 +679,55 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16822916" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32979852" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32873806" sideWeight="0.5171875" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32979852" sideWeight="0.49583334" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3319194" sideWeight="0.49478078" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32661718" sideWeight="0.49375" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32873806" sideWeight="0.4828125" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32979852" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="PHP-CGI Server" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Database Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info anchor="bottom" id="TODO" order="10" weight="0.32979852" />
+      <window_info anchor="bottom" id="Event Log" order="0" sideWeight="0.5171875" side_tool="true" weight="0.32873806" />
+      <window_info anchor="bottom" id="Database Changes" order="11" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="1" sideWeight="0.49478078" weight="0.3312102" />
+      <window_info anchor="bottom" id="Run" order="6" sideWeight="0.49375" weight="0.32590234" />
+      <window_info anchor="bottom" id="Terminal" order="2" sideWeight="0.4828125" weight="0.32873806" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.30260417" />
+      <window_info anchor="bottom" id="Docker" order="3" show_stripe_button="false" />
+      <window_info anchor="right" id="Database" order="0" />
+      <window_info anchor="bottom" id="Find" order="5" sideWeight="0.49583334" weight="0.32979852" />
+      <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" order="0" side_tool="true" />
+      <window_info anchor="bottom" id="Debug" order="7" weight="0.4" />
+      <window_info anchor="bottom" id="TypeScript" order="11" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="3" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
+      <window_info anchor="bottom" id="PHP-CGI Server" order="11" />
+      <window_info anchor="right" id="Commander" order="1" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Message" order="4" />
+      <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
+      <window_info anchor="bottom" id="Messages" order="11" weight="0.32979852" />
     </layout>
     <layout-to-restore>
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32979852" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32979852" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
-      <window_info id="PHP-CGI Server" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32873806" sideWeight="0.5171875" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Database Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32661718" sideWeight="0.49375" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3319194" sideWeight="0.49478078" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32873806" sideWeight="0.4828125" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16822916" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
-      <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32979852" sideWeight="0.49583334" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="3" weight="0.25" />
+      <window_info anchor="bottom" id="Docker" order="4" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Inspection" order="10" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="9" weight="0.25" />
+      <window_info anchor="bottom" id="PHP-CGI Server" order="12" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.16822916" />
+      <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
+      <window_info anchor="right" id="Commander" order="1" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="TODO" order="11" weight="0.32979852" />
+      <window_info anchor="bottom" id="TypeScript" order="13" />
+      <window_info anchor="bottom" id="Run" order="7" sideWeight="0.49375" weight="0.32661718" />
+      <window_info anchor="bottom" id="Find" order="6" sideWeight="0.49583334" weight="0.32979852" />
+      <window_info anchor="right" id="Database" order="0" />
+      <window_info anchor="bottom" id="Terminal" order="3" sideWeight="0.4828125" weight="0.32873806" />
+      <window_info anchor="bottom" id="Event Log" order="1" sideWeight="0.5171875" side_tool="true" weight="0.32873806" />
+      <window_info anchor="bottom" id="Database Changes" order="0" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="2" sideWeight="0.49478078" weight="0.3319194" />
+      <window_info anchor="bottom" id="Debug" order="8" weight="0.4" />
+      <window_info anchor="bottom" id="Message" order="5" />
+      <window_info anchor="bottom" id="Messages" order="14" weight="0.32979852" />
+      <window_info id="Favorites" order="0" side_tool="true" />
     </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -762,8 +737,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Init" />
-    <MESSAGE value="bower add" />
     <MESSAGE value="a lot of change - running test etc." />
     <MESSAGE value="vendors" />
     <MESSAGE value="bower components" />
@@ -786,260 +759,37 @@
     <MESSAGE value="user profile improve, some detail in grid improve" />
     <MESSAGE value="permission for role update" />
     <MESSAGE value="some permisison detail update" />
-    <option name="LAST_COMMIT_MESSAGE" value="some permisison detail update" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager />
-    <watches-manager />
+    <MESSAGE value="user statistic to dashboard added" />
+    <MESSAGE value="events are demand on project" />
+    <MESSAGE value="case presenter update" />
+    <option name="LAST_COMMIT_MESSAGE" value="case presenter update" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/www/css/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="305">
-          <caret line="84" column="0" lean-forward="true" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/model/SetModel.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="17" column="25" lean-forward="false" selection-start-line="17" selection-start-column="25" selection-end-line="17" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/config/config.local.neon">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/config/config.neon">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="708">
-          <caret line="50" column="28" lean-forward="false" selection-start-line="50" selection-start-column="28" selection-end-line="50" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/model/SettingModel.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="748">
-          <caret line="49" column="1" lean-forward="true" selection-start-line="49" selection-start-column="1" selection-end-line="49" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/presenters/templates/Case/approval.latte">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="36" lean-forward="false" selection-start-line="6" selection-start-column="36" selection-end-line="6" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/presenters/templates/Set/edit.latte" />
-    <entry file="file://$PROJECT_DIR$/app/presenters/templates/Setting/default.latte">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="79">
-          <caret line="16" column="16" lean-forward="true" selection-start-line="16" selection-start-column="16" selection-end-line="21" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/presenters/templates/Set/default.latte">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/presenters/templates/Case/default.latte">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="76" lean-forward="false" selection-start-line="7" selection-start-column="76" selection-end-line="7" selection-end-column="76" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/model/RequestModel.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="34" column="74" lean-forward="false" selection-start-line="34" selection-start-column="74" selection-end-line="34" selection-end-column="74" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/presenters/templates/Request/detail.latte">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="42" lean-forward="false" selection-start-line="8" selection-start-column="42" selection-end-line="8" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/model/ProjectModel.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="714">
-          <caret line="47" column="45" lean-forward="false" selection-start-line="47" selection-start-column="45" selection-end-line="47" selection-end-column="45" />
-          <folding>
-            <marker date="1523877426572" expanded="true" signature="814:918" ph="SELECT count... " />
-            <marker date="1523877426572" expanded="true" signature="1039:1141" ph="SELECT proje... project" />
-            <marker date="1523877426572" expanded="true" signature="1279:1404" ph="SELECT execu... case" />
-            <marker date="1523877426572" expanded="true" signature="1554:1679" ph="SELECT execu... case" />
-            <marker date="1523877426572" expanded="true" signature="1827:1952" ph="SELECT execu... case" />
-            <marker date="1523877426572" expanded="true" signature="2246:2386" ph="SELECT COUNT... execution" />
-            <marker date="1523877426572" expanded="true" signature="2505:2683" ph="SELECT DISTI... user" />
-            <marker date="1523877426572" expanded="true" signature="2805:2994" ph="SELECT SUM(s... user" />
-            <marker date="1523877426572" expanded="true" signature="3113:3226" ph="SELECT SUM(s... execution" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/presenters/templates/User/management.latte">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/presenters/templates/User/edit.latte">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="15" lean-forward="false" selection-start-line="12" selection-start-column="15" selection-end-line="12" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/presenters/templates/Sign/up.latte">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/presenters/templates/Set/detail.latte">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="612">
-          <caret line="36" column="0" lean-forward="false" selection-start-line="36" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/www/js/run_test.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="385">
-          <caret line="44" column="0" lean-forward="true" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/presenters/templates/Execution/run.latte">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1122">
-          <caret line="66" column="49" lean-forward="false" selection-start-line="66" selection-start-column="49" selection-end-line="66" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/model/CaseModel.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="417">
-          <caret line="149" column="156" lean-forward="false" selection-start-line="149" selection-start-column="156" selection-end-line="149" selection-end-column="156" />
-          <folding>
-            <marker date="1524133282323" expanded="true" signature="1636:1760" ph="SELECT * FRO... project" />
-            <marker date="1524133282323" expanded="true" signature="1984:2018" ph="SELECT * FRO... step" />
-            <marker date="1524133282323" expanded="true" signature="1984:2036" ph="SELECT * FRO... step" />
-            <marker date="1524133282323" expanded="true" signature="2968:3088" ph="SELECT execu... execution" />
-            <marker date="1524133282323" expanded="true" signature="3213:3355" ph="SELECT test_... test_plan" />
-            <marker date="1524133282323" expanded="true" signature="3601:3712" ph="SELECT usern... user" />
-            <marker date="1524133282323" expanded="true" signature="3948:4059" ph="SELECT case_... case" />
-            <marker date="1524133282323" expanded="true" signature="4172:4267" ph="SELECT user.... user" />
-            <marker date="1524133282323" expanded="true" signature="4377:4476" ph="SELECT set.n... set" />
-            <marker date="1524133282323" expanded="true" signature="5245:5282" ph="UPDATE `case`... " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/model/ExecutionModel.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="417">
-          <caret line="63" column="126" lean-forward="false" selection-start-line="63" selection-start-column="126" selection-end-line="63" selection-end-column="126" />
-          <folding>
-            <marker date="1524134225612" expanded="true" signature="1186:1284" ph="SELECT usern... user" />
-            <marker date="1524134225612" expanded="true" signature="1395:1510" ph="SELECT name,... test_plan" />
-            <marker date="1524134225612" expanded="true" signature="2149:2280" ph="SELECT execu... " />
-            <marker date="1524134225612" expanded="true" signature="2671:2991" ph="SELECT resul... " />
-            <marker date="1524134225612" expanded="true" signature="2671:2992" ph="SELECT * FRO... step" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/presenters/templates/Execution/detail.latte">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="799">
-          <caret line="47" column="41" lean-forward="false" selection-start-line="47" selection-start-column="41" selection-end-line="47" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/model/UserModel.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1394">
-          <caret line="88" column="36" lean-forward="false" selection-start-line="88" selection-start-column="20" selection-end-line="88" selection-end-column="36" />
-          <folding>
-            <marker date="1524140759152" expanded="true" signature="1570:1635" ph="INSERT INTO project_has_user... " />
-            <marker date="1524140759152" expanded="true" signature="1783:1844" ph="DELETE FROM project_has_user... " />
-            <marker date="1524140759152" expanded="true" signature="1965:2069" ph="SELECT name project" />
-            <marker date="1524140759152" expanded="true" signature="2185:2286" ph="SELECT * fro... project" />
-            <marker date="1524140759152" expanded="true" signature="2540:2576" ph="SELECT email... user" />
-            <marker date="1524140759152" expanded="true" signature="2755:2788" ph="SELECT id FR... user" />
-            <marker date="1524140759152" expanded="true" signature="2901:2937" ph="SELECT token... user" />
-            <marker date="1524140759152" expanded="true" signature="3220:3271" ph="UPDATE user... " />
-            <marker date="1524140759152" expanded="true" signature="3395:3438" ph="UPDATE user... " />
-            <marker date="1524140759152" expanded="true" signature="3542:3596" ph="UPDATE user... " />
-            <marker date="1524140759152" expanded="true" signature="3783:3837" ph="UPDATE user... " />
-            <marker date="1524140759152" expanded="true" signature="3968:4022" ph="SELECT usern... user" />
-            <marker date="1524140759152" expanded="true" signature="4205:4253" ph="SELECT email... user" />
-          </folding>
+          <caret line="88" column="36" selection-start-line="88" selection-start-column="20" selection-end-line="88" selection-end-column="36" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/presenters/templates/Sign/out.latte">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
-          <caret line="15" column="67" lean-forward="false" selection-start-line="15" selection-start-column="67" selection-end-line="15" selection-end-column="67" />
-          <folding />
+          <caret line="15" column="67" selection-start-line="15" selection-start-column="67" selection-end-line="15" selection-end-column="67" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/presenters/templates/Execution/default.latte">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
-          <caret line="6" column="42" lean-forward="false" selection-start-line="6" selection-start-column="8" selection-end-line="6" selection-end-column="42" />
-          <folding />
+          <caret line="6" column="42" selection-start-line="6" selection-start-column="8" selection-end-line="6" selection-end-column="42" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/model/PlanModel.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="459">
-          <caret line="41" column="79" lean-forward="false" selection-start-line="41" selection-start-column="79" selection-end-line="41" selection-end-column="79" />
-          <folding>
-            <marker date="1524322916376" expanded="true" signature="1371:1459" ph="INSERT INTO test_plan_has_case... " />
-            <marker date="1524322916376" expanded="true" signature="1579:1619" ph="UPDATE test_plan... " />
-            <marker date="1524322916376" expanded="true" signature="2063:2472" ph="SELECT DISTI... " />
-            <marker date="1524322916376" expanded="true" signature="2593:2734" ph="SELECT * FRO... case" />
-            <marker date="1524322916376" expanded="true" signature="3484:3534" ph="SELECT case_... execution" />
-            <marker date="1524322916376" expanded="true" signature="3818:3992" ph="SELECT id FR... case" />
-            <marker date="1524322916376" expanded="true" signature="4420:4480" ph="SELECT (spen... execution" />
-            <marker date="1524322916376" expanded="true" signature="4602:4693" ph="SELECT name execution" />
-            <marker date="1524322916376" expanded="true" signature="4815:4915" ph="SELECT user.... user" />
-            <marker date="1524322916376" expanded="true" signature="5405:5496" ph="SELECT name execution" />
-          </folding>
+          <caret line="41" column="79" selection-start-line="41" selection-start-column="79" selection-end-line="41" selection-end-column="79" />
         </state>
       </provider>
     </entry>
@@ -1047,201 +797,418 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="408">
           <caret line="43" column="68" lean-forward="true" selection-start-line="43" selection-start-column="68" selection-end-line="43" selection-end-column="68" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/presenters/templates/Request/default.latte">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
-          <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="43" />
-          <folding />
+          <caret line="5" selection-start-line="5" selection-end-line="5" selection-end-column="43" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/presenters/templates/Plan/default.latte">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
-          <caret line="6" column="8" lean-forward="false" selection-start-line="6" selection-start-column="8" selection-end-line="6" selection-end-column="8" />
-          <folding />
+          <caret line="6" column="8" selection-start-line="6" selection-start-column="8" selection-end-line="6" selection-end-column="8" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/presenters/templates/Plan/detail.latte">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
-          <caret line="11" column="20" lean-forward="false" selection-start-line="11" selection-start-column="20" selection-end-line="11" selection-end-column="20" />
-          <folding />
+          <caret line="11" column="20" selection-start-line="11" selection-start-column="20" selection-end-line="11" selection-end-column="20" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/presenters/templates/Case/edit.latte">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
-          <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/presenters/templates/components/menu.latte">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="43" />
-          <folding />
+          <caret line="12" selection-start-line="12" selection-end-line="12" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/presenters/templates/User/profile.latte">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
-          <caret line="1" column="47" lean-forward="false" selection-start-line="1" selection-start-column="47" selection-end-line="1" selection-end-column="47" />
-          <folding />
+          <caret line="1" column="47" selection-start-line="1" selection-start-column="47" selection-end-line="1" selection-end-column="47" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/presenters/templates/Case/detail.latte">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
-          <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/presenters/templates/Dashboard/default.latte">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="850">
-          <caret line="134" column="8" lean-forward="false" selection-start-line="134" selection-start-column="8" selection-end-line="134" selection-end-column="8" />
-          <folding />
+          <caret line="14" selection-start-line="14" selection-end-line="14" selection-end-column="29" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/model/UserManager.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="249">
-          <caret line="85" column="76" lean-forward="false" selection-start-line="85" selection-start-column="76" selection-end-line="85" selection-end-column="76" />
-          <folding />
+          <caret line="85" column="76" selection-start-line="85" selection-start-column="76" selection-end-line="85" selection-end-column="76" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/presenters/templates/Project/add.latte">
+    <entry file="file://$PROJECT_DIR$/app/presenters/templates/Sign/in.latte">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="147">
+          <caret line="7" column="16" selection-start-line="7" selection-start-column="16" selection-end-line="7" selection-end-column="16" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/presenters/DashboardPresenter.php">
+    <entry file="file://$PROJECT_DIR$/app/presenters/templates/Execution/detail.latte">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="283">
-          <caret line="84" column="5" lean-forward="true" selection-start-line="84" selection-start-column="5" selection-end-line="84" selection-end-column="5" />
-          <folding />
+        <state relative-caret-position="757">
+          <caret line="54" column="40" selection-start-line="54" selection-start-column="40" selection-end-line="54" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/presenters/templates/Execution/run.latte">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="182">
+          <caret line="66" column="27" selection-start-line="66" selection-start-column="27" selection-end-line="66" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="uml://PHP/C:/xampp/htdocs/testing/app/presenters">
+      <provider selected="true" editor-type-id="UmlEditorProvider">
+        <state>
+          <ID>PHP</ID>
+          <OriginalElement>$PROJECT_DIR$/app/presenters</OriginalElement>
+          <nodes>
+            <node x="" y="">\App\Presenters\UserPresenter</node>
+            <node x="" y="">\Nette\Application\UI\ISignalReceiver</node>
+            <node x="" y="">\Nette\ComponentModel\IComponent</node>
+            <node x="" y="">\App\Presenters\SettingPresenter</node>
+            <node x="" y="">\Nette\ComponentModel\IContainer</node>
+            <node x="" y="">\Nette\Application\UI\Presenter</node>
+            <node x="" y="">\App\Presenters\ProjectPresenter</node>
+            <node x="" y="">\Nette\Application\UI\IStatePersistent</node>
+            <node x="" y="">\App\Presenters\DashboardPresenter</node>
+            <node x="" y="">\Nette\Application\UI\IRenderable</node>
+            <node x="" y="">\App\Presenters\SetPresenter</node>
+            <node x="" y="">\Nette\Application\UI\Component</node>
+            <node x="" y="">\Nette\ComponentModel\Component</node>
+            <node x="" y="">\ArrayAccess</node>
+            <node x="" y="">\Nette\Application\IPresenter</node>
+            <node x="" y="">\App\Presenters\RequestPresenter</node>
+            <node x="" y="">\App\Presenters\EventPresenter</node>
+            <node x="" y="">\App\Presenters\CasePresenter</node>
+            <node x="" y="">\App\Presenters\BasePresenter</node>
+            <node x="" y="">\App\Presenters\Error4xxPresenter</node>
+            <node x="" y="">\App\Presenters\ExecutionPresenter</node>
+            <node x="" y="">\Nette\Application\UI\Control</node>
+            <node x="" y="">\App\Presenters\ErrorPresenter</node>
+            <node x="" y="">\App\Presenters\PlanPresenter</node>
+            <node x="" y="">\Nette\ComponentModel\Container</node>
+            <node x="" y="">\App\Presenters\SignPresenter</node>
+          </nodes>
+          <notes />
+          <edges />
+          <settings layout="Hierarchic Group" zoom="1.0" x="797.0" y="425.0" />
+          <SelectedNodes />
+          <Categories />
+          <SCOPE>All</SCOPE>
+          <VISIBILITY>private</VISIBILITY>
+        </state>
+      </provider>
+    </entry>
+    <entry file="uml://JavaScript-modules-diagram/C:/xampp/htdocs/testing/app/model">
+      <provider selected="true" editor-type-id="UmlEditorProvider">
+        <state>
+          <ID>JavaScript-modules-diagram</ID>
+          <OriginalElement>$PROJECT_DIR$/app/model</OriginalElement>
+          <nodes />
+          <notes />
+          <edges />
+          <settings layout="Hierarchic Group" zoom="1.0" x="817.0" y="445.0" />
+          <SelectedNodes />
+          <Categories>
+            <Category>All</Category>
+          </Categories>
+          <SCOPE>All</SCOPE>
+          <VISIBILITY>Details</VISIBILITY>
+        </state>
+      </provider>
+    </entry>
+    <entry file="uml://PHP/C:/xampp/htdocs/testing/app/model">
+      <provider selected="true" editor-type-id="UmlEditorProvider">
+        <state>
+          <ID>PHP</ID>
+          <OriginalElement>$PROJECT_DIR$/app/model</OriginalElement>
+          <nodes>
+            <node x="" y="">\App\Model\DuplicateNameException</node>
+            <node x="" y="">\App\Model\SetModel</node>
+            <node x="" y="">\App\Model\EventModel</node>
+            <node x="" y="">\App\Model\UserModel</node>
+            <node x="" y="">\AclModel</node>
+            <node x="" y="">\App\Model\CaseModel</node>
+            <node x="" y="">\App\Model\SettingModel</node>
+            <node x="" y="">\App\Model\UserManager</node>
+            <node x="" y="">\App\Model\RequestModel</node>
+            <node x="" y="">\Exception</node>
+            <node x="" y="">\Nette\Security\IAuthenticator</node>
+            <node x="" y="">\App\Model\PlanModel</node>
+            <node x="" y="">\App\Model\ExecutionModel</node>
+            <node x="" y="">\App\Model\ProjectModel</node>
+            <node x="" y="">\Throwable</node>
+          </nodes>
+          <notes />
+          <edges />
+          <settings layout="Hierarchic Group" zoom="1.0" x="209.0" y="242.0" />
+          <SelectedNodes />
+          <Categories />
+          <SCOPE>All</SCOPE>
+          <VISIBILITY>private</VISIBILITY>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../php/CompatInfo.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1638" />
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Temp/Temp1_prilohy.zip/prilohy/zdrojové kódy aplikace/test.cafeplus.cz/app/AdminModule/presenters/MasksReservationsPresenter.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-8820" />
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Temp/Temp1_prilohy.zip/prilohy/zdrojové kódy aplikace/test.cafeplus.cz/app/AdminModule/presenters/HomepagePresenter.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-223" />
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Temp/Temp1_prilohy.zip/prilohy/zdrojové kódy aplikace/test.cafeplus.cz/app/PublicModule/presenters/ReservationPresenter.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1591" />
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Temp/Temp1_xdorusko.zip/BP/app/presenters/OrderPresenter.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-891" />
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Temp/Temp1_xdorusko.zip/BP/app/presenters/LoginPresenter.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1197" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/css/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="601">
+          <caret line="219" lean-forward="true" selection-start-line="219" selection-end-line="219" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/presenters/templates/components/menu.latte">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/presenters/templates/Dashboard/all.latte">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="8" selection-start-line="8" selection-end-line="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/adminer/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="5" column="52" selection-start-line="5" selection-start-column="52" selection-end-line="5" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/config/config.neon">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="504">
+          <caret line="24" selection-start-line="24" selection-end-line="29" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/composer.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="525">
+          <caret line="25" column="29" selection-start-line="16" selection-start-column="4" selection-end-line="25" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/bower.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="483">
+          <caret line="23" column="3" selection-start-line="17" selection-start-column="2" selection-end-line="23" selection-end-column="3" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/presenters/EventPresenter.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="30" column="96" lean-forward="true" selection-start-line="30" selection-start-column="96" selection-end-line="30" selection-end-column="96" />
-          <folding />
+        <state relative-caret-position="576">
+          <caret line="62" selection-start-line="62" selection-end-line="62" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/presenters/PlanPresenter.php">
+    <entry file="file://$PROJECT_DIR$/app/model/ExecutionModel.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="22" column="0" lean-forward="true" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/presenters/ProjectPresenter.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="29" column="5" lean-forward="false" selection-start-line="29" selection-start-column="5" selection-end-line="29" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/presenters/RequestPresenter.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="25" column="10" lean-forward="false" selection-start-line="25" selection-start-column="10" selection-end-line="25" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/presenters/SetPresenter.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1122">
-          <caret line="72" column="78" lean-forward="false" selection-start-line="72" selection-start-column="78" selection-end-line="72" selection-end-column="78" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/presenters/SettingPresenter.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="765">
-          <caret line="50" column="0" lean-forward="false" selection-start-line="50" selection-start-column="0" selection-end-line="55" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/presenters/SignPresenter.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2482">
-          <caret line="154" column="36" lean-forward="false" selection-start-line="154" selection-start-column="36" selection-end-line="154" selection-end-column="36" />
-          <folding />
+        <state relative-caret-position="693">
+          <caret line="38" column="38" selection-start-line="38" selection-start-column="38" selection-end-line="38" selection-end-column="38" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/presenters/ExecutionPresenter.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3264">
-          <caret line="198" column="0" lean-forward="false" selection-start-line="198" selection-start-column="0" selection-end-line="198" selection-end-column="132" />
-          <folding />
+        <state relative-caret-position="252">
+          <caret line="12" column="14" selection-start-line="12" selection-start-column="14" selection-end-line="12" selection-end-column="14" />
+          <folding>
+            <element signature="e#35#59#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/presenters/CasePresenter.php">
+    <entry file="file://$PROJECT_DIR$/app/presenters/PlanPresenter.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-68">
-          <caret line="38" column="37" lean-forward="false" selection-start-line="38" selection-start-column="37" selection-end-line="38" selection-end-column="37" />
-          <folding />
+        <state relative-caret-position="693">
+          <caret line="33" column="41" lean-forward="true" selection-start-line="31" selection-start-column="102" selection-end-line="33" selection-end-column="41" />
+          <folding>
+            <element signature="e#34#58#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/presenters/SettingPresenter.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="602">
+          <caret line="31" lean-forward="true" selection-start-line="31" selection-end-line="31" />
+          <folding>
+            <element signature="e#35#62#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/presenters/SetPresenter.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="441">
+          <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
+          <folding>
+            <element signature="e#34#57#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/presenters/SignPresenter.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3066">
+          <caret line="154" column="36" selection-start-line="154" selection-start-column="36" selection-end-line="154" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/presenters/ProjectPresenter.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="8" column="14" selection-start-line="8" selection-start-column="14" selection-end-line="8" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/presenters/RequestPresenter.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="10" column="14" selection-start-line="10" selection-start-column="14" selection-end-line="10" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/presenters/UserPresenter.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="9" column="14" selection-start-line="9" selection-start-column="14" selection-end-line="9" selection-end-column="14" />
+          <folding>
+            <element signature="e#34#75#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/presenters/templates/Case/add.latte">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="10" selection-start-line="10" selection-end-line="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/model/EventModel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="852">
+          <caret line="57" column="5" selection-start-line="57" selection-start-column="5" selection-end-line="57" selection-end-column="5" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/presenters/BasePresenter.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="36" column="60" lean-forward="false" selection-start-line="36" selection-start-column="60" selection-end-line="36" selection-end-column="60" />
+        <state relative-caret-position="75">
+          <caret line="59" column="27" lean-forward="true" selection-start-line="59" selection-start-column="27" selection-end-line="59" selection-end-column="27" />
           <folding>
             <element signature="e#34#59#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/presenters/templates/Setting/default.latte">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="6" selection-start-line="6" selection-end-line="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/presenters/CasePresenter.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="546">
+          <caret line="466" column="40" selection-start-line="466" selection-start-column="40" selection-end-line="466" selection-end-column="40" />
+          <folding>
+            <element signature="e#34#47#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/model/CaseModel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="768">
+          <caret line="79" selection-start-line="79" selection-end-line="79" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/presenters/templates/@layout.latte">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="89" column="0" lean-forward="false" selection-start-line="89" selection-start-column="0" selection-end-line="89" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="1342">
+          <caret line="101" column="65" selection-start-line="101" selection-start-column="65" selection-end-line="101" selection-end-column="65" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#center#0;n#div#1;n#div#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/presenters/templates/Sign/in.latte">
+    <entry file="file://$PROJECT_DIR$/app/model/ProjectModel.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="16" lean-forward="false" selection-start-line="7" selection-start-column="16" selection-end-line="7" selection-end-column="16" />
-          <folding />
+        <state relative-caret-position="457">
+          <caret line="63" column="59" selection-start-line="63" selection-start-column="59" selection-end-line="63" selection-end-column="59" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/presenters/UserPresenter.php">
+    <entry file="file://$PROJECT_DIR$/app/presenters/templates/Dashboard/default.latte">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="154" column="37" lean-forward="false" selection-start-line="154" selection-start-column="37" selection-end-line="154" selection-end-column="37" />
-          <folding />
+        <state relative-caret-position="483">
+          <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="25" />
+          <folding>
+            <element signature="e#298#318#0#HTML" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/presenters/DashboardPresenter.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="214">
+          <caret line="52" column="101" selection-start-line="52" selection-start-column="101" selection-end-line="52" selection-end-column="101" />
+          <folding>
+            <element signature="e#34#47#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

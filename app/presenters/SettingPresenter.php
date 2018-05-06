@@ -7,7 +7,7 @@ use App\Model\ProjectModel;
 use App\Model\SettingModel;
 use Nette,
     Nette\Application\UI\Form;
-
+use App\Model;
 use Ublaboo\DataGrid\DataGrid;
 use AlesWita;
 
@@ -26,8 +26,10 @@ class SettingPresenter extends BasePresenter
     /** @persistent */
     public $id;
 
-    public function __construct(settingModel $settingModel, projectModel $projectModel)
+    public function __construct(settingModel $settingModel, projectModel $projectModel, Model\EventModel $eventModel)
     {
+        parent::__construct($eventModel);
+
         $this->settingModel = $settingModel;
         $this->projectModel = $projectModel;
 

@@ -53,15 +53,15 @@ class ProjectModel
         }
     }
 
-    public function getCountCaseInProject()
+    public function getCountCaseInProject($id)
     {
-        return $this->database->query('SELECT count(case.id) AS c FROM `project`JOIN `case` on project.id = case.project_id group by project.id')->fetchPairs();
+        return $this->database->query('SELECT count(case.id) AS c FROM `project`JOIN `case` on project.id = case.project_id WHERE project.id IN (SELECT project.id FROM project JOIN project_has_user ON project.id=project_has_user.project_id WHERE user_id=?) group by project.id',$id)->fetchPairs();
 
     }
 
-    public function getProjectNameCaseInProject()
+    public function getProjectNameCaseInProject($id)
     {
-        return $this->database->query('SELECT project.name AS c FROM `project`JOIN `case` on project.id = case.project_id group by project.id')->fetchPairs();
+        return $this->database->query('SELECT project.name  FROM `project`JOIN `case` on project.id = case.project_id WHERE project.id IN (SELECT project.id FROM project JOIN project_has_user ON project.id=project_has_user.project_id WHERE user_id=?) group by project.id',$id)->fetchPairs();
 
     }
     public function getSkipeedTestToProject($id)

@@ -43,7 +43,17 @@ class EventModel
         return $this->database->query('SELECT event.*, user.username FROM event JOIN user on event.user_id=user.id WHERE project_id=? ORDER BY event_time DESC',$project)->fetchAll();
     }
 
+    public function getProject($user_id)
+    {
+        return $this->database->query('SELECT project.id, project.name FROM project JOIN project_has_user ON project.id=project_has_user.project_id WHERE user_id=?',$user_id);
+    }
 
+    public function isProjectActive($id){
+        if (!empty($this->database->query("SELECT * FROM project WHERE id=? AND DATEDIFF(start_date,CURRENT_DATE)<=0 AND DATEDIFF(end_date,CURRENT_DATE)>=0",$id)->fetch())) {
 
-
+            return 1;
+        } else {
+            return 0;
+        }
+    }
 }
