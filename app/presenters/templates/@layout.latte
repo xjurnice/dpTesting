@@ -12,6 +12,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="shortcut icon" href="{$basePath}/images/favicon.ico" type="image/x-icon">
         <link rel="icon" href="{$basePath}/images/favicon.ico" type="image/x-icon">
+        <link rel="stylesheet" href="{$basePath}/css/w3.css">
         <link rel="stylesheet" href="{$basePath}/bower_components/bootstrap/dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="{$basePath}/bower_components/flipclock/compiled/flipclock.css">
         <link rel="stylesheet" type="text/css"
@@ -25,6 +26,7 @@
         <link rel="stylesheet" type="text/css" href="{$basePath}/bower_components/happy/dist/happy.css">
         <link rel="stylesheet" type="text/css"
               href="{$basePath}/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css">
+
 
 
         <!-- Use this css for ajax spinners -->
@@ -70,13 +72,14 @@
 {if $user->loggedIn}
 {var $role = $user->getIdentity()->role_id}
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-2 d-none d-md-block bg-light">
-            <div id="sidebar">
 
-                <a n:href="Dashboard:default"><h1 class="sign-logo  "> Test<i class="fas fa-lemon fa-1x"></i>ne</h1></a>
-            </div>
+
+
+    <div class="w3-sidebar w3-bar-block w3-collapse w3-card" style="width:300px; padding: 1em; background-color: #ECEDEE" id="mySidebar">
+                <button class="w3-bar-item w3-button w3-large w3-hide-large" onclick="w3_close()">Zavřít &times;</button>
+
+                <a n:href="Dashboard:default"><img src="{$basePath}/images/logo.png" class="img-fluid" alt="TestOne - testovací nástroj"> </a>
+
 
 
             <div class="card-body">
@@ -94,7 +97,7 @@
                 {/switch}
                 <form n:name=selectProjectForm class=form-inline>
                     <div class="form-group">
-                        <label for="staticEmail2" class="sr-only">Email</label>
+
                         <select n:name=id class="form-control"></select>
                     </div>
 
@@ -117,8 +120,11 @@
             </div>
 
         </div>
-        <div class="col-md-9 ml-sm-auto col-lg-10 px-3">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light shadow">
+
+    <div class="w3-main" style="margin-left:300px">
+        <div class="col-md-auto ml-sm-auto col-lg-auto px-3">
+            <div class="navbar navbar-expand navbar-light bg-light shadow">
+                <button class="w3-button w3-teal w3-xlarge w3-hide-large" style="margin-right:1em " onclick="w3_open()">&#9776;</button>
                 <a href="javascript:history.back()"><i class="fa fa-backward"></i> ZPĚT</a>
 
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -150,20 +156,23 @@
                     </li>
 
                 </div>
-            </nav>
+            </div>
             <br>
             {if $project==0}
                 <center>
                     <div class="fail shadow text-white align-self-center" style="padding: 1em; font-size: 1.2em; font-weight: bold"><i class="fa fa-exclamation-circle"></i> Je
                         třeba vybrat nějaký projekt!
                     </div>
+
                 </center>
             {/if}
             <div n:foreach="$flashes as $flash" n:class="flash, $flash->type"><i
                         class="fa fa-check-circle"></i> {$flash->message}</div>
             <div class="col pt-3 px-3">
-
+                {if $project<>0}
                 {include content}
+                {/if}
+
             </div>
         </div>
     </div>
@@ -215,6 +224,13 @@
 
 
         <script>
+
+            function w3_open() {
+                document.getElementById("mySidebar").style.display = "block";
+            }
+            function w3_close() {
+                document.getElementById("mySidebar").style.display = "none";
+            }
             $(function () {
                 $.nette.init();
             });

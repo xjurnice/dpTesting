@@ -1,9 +1,9 @@
 <?php
-// source: C:\xampp\htdocs\dp-testing\app\presenters/templates/Sign/up.latte
+// source: C:\xampp\htdocs\dp-testing\app\presenters/templates/Sign/out.latte
 
 use Latte\Runtime as LR;
 
-class Templatea4d570c57a extends Latte\Runtime\Template
+class Templatef721511665 extends Latte\Runtime\Template
 {
 	public $blocks = [
 		'content' => 'blockContent',
@@ -36,25 +36,22 @@ class Templatea4d570c57a extends Latte\Runtime\Template
 		extract($_args);
 ?>
 
-
-
 <div class="empty-block"></div>
 <div class="container">
 
-    <div class="row">
+    <div class="row align-content-center">
         <div class="form-signin">
             <a href="<?php echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("Dashboard:default")) ?>"><img src="<?php
-		echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 10 */ ?>/images/logo-sm.png" class="img-fluid" alt="TestOne - testovací nástroj"> </a>
-            <p><a href="<?php echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("up")) ?>">Testovací nástroj</a></p>
-<?php
-		/* line 12 */ $_tmp = $this->global->uiControl->getComponent("signUpForm");
-		if ($_tmp instanceof Nette\Application\UI\IRenderable) $_tmp->redrawControl(null, false);
-		$_tmp->render();
-?>
+		echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 8 */ ?>/images/logo-sm.png" class="img-fluid"
+                                               alt="TestOne - testovací nástroj"> </a>
+
+            <p><a href="<?php echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("in")) ?>"><i class="fa fa-arrow-left"></i>
+
+                    Zpět na přihlašovací obrazovku...</a></p>
 
         </div>
 
-<?php
+    </div><?php
 	}
 
 }

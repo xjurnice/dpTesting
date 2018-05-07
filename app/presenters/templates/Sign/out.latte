@@ -1,20 +1,22 @@
 {block content}
 
-    <div class="empty-block"></div>
-    <div class="container">
+<div class="empty-block"></div>
+<div class="container">
 
-        <div class="row align-content-center">
-            <div class="form-signin">
-                <h1 n:block=title class="display-2 sign-logo"> Test<i class="fas fa-lemon fa-1x"></i>ne</h1>
+    <div class="row align-content-center">
+        <div class="form-signin">
+            <a n:href="Dashboard:default"><img src="{$basePath}/images/logo-sm.png" class="img-fluid"
+                                               alt="TestOne - testovací nástroj"> </a>
 
+            {* OR
+            {import '../components/form.latte'}
+            {include form signInForm}
+            *}
 
-                {* OR
-                {import '../components/form.latte'}
-                {include form signInForm}
-                *}
+            <p><a n:href="in"><i class="fa fa-arrow-left"></i>
 
-                <p><a n:href="in">Zpět na přihlašovací obrazovku...</a></p>
-
-            </div>
+                    Zpět na přihlašovací obrazovku...</a></p>
 
         </div>
+
+    </div>
