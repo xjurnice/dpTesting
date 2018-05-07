@@ -68,9 +68,10 @@ class RequestPresenter extends BasePresenter
 
         $grid->setDataSource($fluent);
 
-
+        $a = null;
         $grid->addColumnLink('link', 'Název', 'detail', 'name', ['id' => 'id'])->setFilterText(['name', 'id']);
 
+        if ($this->getUser()->getIdentity()->role_id==4){
         $grid->addColumnStatus('status', 'Status')
             ->setCaret(false)
             ->addOption(0, 'Zadaný')
@@ -80,11 +81,41 @@ class RequestPresenter extends BasePresenter
             ->addOption(1, 'Splněný')
             ->setIcon('check')
             ->setClass('btn-success')
-            ->endOption();
+            ->endOption()->onChange[] = [$this, 'statusChange'];} else {
+
+            $grid->addColumnText('status', 'Status')
+                ->setRenderer(function ($item) {
+                    switch ($item->status) {
+                        case 0:
+                            return "Zadaný";
+                            break;
+                        case 1:
+                            return "Splněný";
+                            break;
+
+
+                    }
+                })->addAttributes(['class' => 'text-center font-weight-bold']);
+        }
         $grid->addColumnDateTime('create_time', 'Vytvořeno')
             ->setFormat('d.m.Y H:i:s')->setSortable();
 
+
     }
+
+
+    public function statusChange($id, $new_status)
+    {
+        if (in_array($new_status, [0,1])) {
+            $this->requestModel->getRequest($id)->update(['status' => $new_status]);
+        }
+
+
+        $this->flashMessage("Status požadavku byl změněn");
+        $this->redirect("this");
+
+    }
+
 
     protected function createComponentAddRequestForm()
     {
