@@ -36,6 +36,12 @@ class PlanModel
     }
 
 
+    public function getTestersInProject($project)
+    {
+        $role = 3; //testers
+        return $this->database->query('SELECT id, username from user JOIN project_has_user ON user.id=project_has_user.user_id WHERE project_id=? 
+AND role_id=?',$project,$role)->fetchPairs('id', 'username');
+    }
 
     public function editPlan($values)
     {

@@ -47,6 +47,13 @@ class RequestPresenter extends BasePresenter
         parent::handleModal('addRequest');
     }
 
+    public function handleEdit($id)
+    {
+$this->id = $id;
+        $this->data = $this->requestModel->getRequest($id);
+        parent::handleModal('editRequest');
+    }
+
 
     public function renderDetail($id)
     {
@@ -100,7 +107,8 @@ class RequestPresenter extends BasePresenter
         $grid->addColumnDateTime('create_time', 'Vytvořeno')
             ->setFormat('d.m.Y H:i:s')->setSortable();
 
-
+        $grid->addAction('edit', '', 'edit!', ['id'])
+            ->setIcon('edit')->setClass('ajax');
     }
 
 
@@ -138,6 +146,32 @@ class RequestPresenter extends BasePresenter
         $values['status'] = 0; // 0 means just created
         $this->requestModel->addRequest($values);
         $this->flashMessage('Záznam byl úspěšně vložen.');
+
+        $this->redirect('Request:default');
+    }
+
+    protected function createComponentEditRequestForm()
+    {
+        $form = new Form;
+        $form->setRenderer(new AlesWita\FormRenderer\BootstrapV4Renderer);
+        $form->addProtection();
+
+        $form->addText('name', 'Název:')->setRequired('Je nutné uvést název')->setDefaultValue($this->data['name']);
+        $form->addTextArea('description', 'Popis:', 40, 10)->setDefaultValue($this->data['description']);
+$form->addHidden('id')->setDefaultValue($this->data['id']);
+
+        $form->addSubmit('add', 'Vložit')->getControlPrototype()->setClass('btn btn-primary btn-lg btn-block');
+        $form->onSuccess[] = array($this, 'editFormSucceeded');
+        return $form;
+    }
+
+
+
+    public function editFormSucceeded(Form $form, $values)
+    {
+
+        $this->requestModel->editRequest($values);
+        $this->flashMessage('Záznam byl úspěšně upraven.');
 
         $this->redirect('Request:default');
     }

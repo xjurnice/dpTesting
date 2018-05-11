@@ -205,7 +205,7 @@ class CasePresenter extends BasePresenter
 
 
                 }
-            })->addAttributes(['class' => 'text-center font-weight-bold']);
+            })->addAttributes(['class' => 'text-center font-weight-bold'])->setSortable();
 
         $grid->addAction('delete', '', 'delete!')
             ->setIcon('trash')->setConfirm('Opravdu chcete smazat testovací případ "%s?"', 'name');

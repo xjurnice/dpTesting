@@ -75,7 +75,7 @@ class SignPresenter extends BasePresenter
 
             $this->userModel->setToken($token,$id);
             $mail = new Message;
-            $mail->setFrom('info@TestOne.cz');
+            $mail->setFrom('info@testone.cz');
             $mail->addTo($values['mail']);
             $mail->setSubject('Žádost o změnu hesla na TestOne');
             $mail->setBody("Dobrý den,\nprávě jste požádal/a o změnu hesla na Test0ne. Pro změnu použíjte následující odkaz URL.\n  http://localhost/dp-testing/www/sign/newpass?token=".$token);
@@ -143,7 +143,9 @@ class SignPresenter extends BasePresenter
 	protected function createComponentSignUpForm()
 	{
 		return $this->signUpFactory->create(function () {
-			$this->redirect('Dashboard:');
+            $this->flashMessage('Nyní je možné se přihlásit');
+
+            $this->redirect('Sign:in');
 		});
 	}
 

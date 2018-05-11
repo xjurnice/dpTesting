@@ -99,6 +99,8 @@ form .required label {
 form .error {
     color: #D00;
     font-weight: bold;
+    list-style-type:none;
+
 }
 
 .btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {

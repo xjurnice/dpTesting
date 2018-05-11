@@ -147,7 +147,7 @@ class SetPresenter extends BasePresenter
         $form->addText('name', 'Název sady')->setDefaultValue($this->data['name'])->setRequired('Prosím zadejte název sady');
 
 
-        $form->addSelect('parent_id', 'Nadrazena sada', $this->setModel->notThisId($this->id, $this->getSession('sekcePromenna')->project)->fetchPairs('id', 'name'))
+        $form->addSelect('parent_id', 'Nadřazená sada', $this->setModel->notThisId($this->id, $this->getSession('sekcePromenna')->project)->fetchPairs('id', 'name'))
             ->setPrompt('Zadna', null)->setDefaultValue($this->data['parent_id']);
 
 

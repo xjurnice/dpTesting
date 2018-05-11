@@ -95,7 +95,6 @@ class PlanPresenter extends BasePresenter
     }
 
 
-
     public function createComponentCaseGrid($name)
     {
 
@@ -191,13 +190,13 @@ class PlanPresenter extends BasePresenter
 
 
                 }
-            })->addAttributes(['class' => 'text-center font-weight-bold']);
+            })->addAttributes(['class' => 'text-center font-weight-bold'])->setSortable();
 
         $grid->addAction('delete', '', 'deletePlan!')
             ->setIcon('trash')->setConfirm('Opravdu chcete smazat testovací plán "%s?"', 'name');
 
-        $grid->allowRowsAction('delete', function($item) {
-            return $this->user->getIdentity()->role_id== 2;
+        $grid->allowRowsAction('delete', function ($item) {
+            return $this->user->getIdentity()->role_id == 2;
         });
 
 
@@ -234,14 +233,23 @@ class PlanPresenter extends BasePresenter
         $form->setRenderer(new AlesWita\FormRenderer\BootstrapV4Renderer);
         $form->addProtection();
 
-        $form->addText('name', 'Název:')->setRequired('Je nutné uvést název');
-        $form->addTextArea('description', 'Popis', 70, 5);
-        $form->addHidden("project_id")->setDefaultValue($this->getSession('sekcePromenna')->project);
-        $form->addSelect('assign_user_id', 'Určeno pro', $this->planModel->getUsers()->where('role_id', 3)->fetchPairs('id', 'username'));
-        $form->addText('planed_time', 'Plánovaný čas spuštění')->setType('date')->setRequired('Prosím zadejte datum k plánovanému spuštění');
 
-        $form->addSubmit('add', 'Vložit')->getControlPrototype()->setClass('btn btn-primary btn-lg btn-block');
-        $form->onSuccess[] = array($this, 'insertFormSucceeded');
+        if ($this->planModel->getTestersInProject($this->getSession('sekcePromenna')->project)==null) {
+            echo '    <div class="fail shadow text-white align-self-center" style="padding: 1em; font-size: 1.2em; font-weight: bold">
+    <i class="fa fa-exclamation-circle"></i> Je třeba nejprve přiřadit nějakého testera k projektu!
+                                   </div> ';
+        } else {
+            $form->addText('name', 'Název:')->setRequired('Je nutné uvést název');
+            $form->addTextArea('description', 'Popis', 70, 5);
+            $form->addHidden("project_id")->setDefaultValue($this->getSession('sekcePromenna')->project);
+            $form->addSelect('assign_user_id', 'Určeno pro', $this->planModel->getTestersInProject($this->getSession('sekcePromenna')->project));
+
+            $form->addText('planed_time', 'Plánovaný čas spuštění')->setType('date')->setRequired('Prosím zadejte datum k plánovanému spuštění');
+
+            $form->addSubmit('add', 'Vložit')->getControlPrototype()->setClass('btn btn-primary btn-lg btn-block');
+            $form->onSuccess[] = array($this, 'insertFormSucceeded');
+
+        }
         return $form;
     }
 
@@ -260,7 +268,7 @@ class PlanPresenter extends BasePresenter
         $form = new Form;
         $form->setRenderer(new AlesWita\FormRenderer\BootstrapV4Renderer);
         $form->addProtection();
-        $form->addHidden('id',$this->id);
+        $form->addHidden('id', $this->id);
         $form->addText('name', 'Název:')->setRequired('Je nutné uvést název')->setDefaultValue($this->data['name']);
         $form->addTextArea('description', 'Popis', 70, 5)->setDefaultValue($this->data['description']);;
         $form->addSelect('assign_user_id', 'Určeno pro', $this->planModel->getUsers()->where('role_id', 3)->fetchPairs('id', 'username'))->setDefaultValue($this->data['assign_user']);;

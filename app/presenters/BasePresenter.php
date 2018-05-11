@@ -87,6 +87,8 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
         $this->template->modal = $modalId;
         $this->redrawControl('modal');
     }
+
+
     protected function beforeRender() {
         $this->template->project = $this->getSession('sekcePromenna')->project;
         $this->template->projectActive = $this->eventModel->isProjectActive($this->getSession('sekcePromenna')->project);

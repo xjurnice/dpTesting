@@ -40,6 +40,12 @@ class RequestModel
         return $this->database->table('request')->insert($values);
     }
 
+    public function editRequest($values)
+    {
+        return $this->database->table('request')->where('id',$values['id'])->update($values);
+    }
+
+
 
 
 

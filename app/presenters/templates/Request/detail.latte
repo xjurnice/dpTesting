@@ -5,7 +5,12 @@
     <h2><i class="fa fa-play-circle"> </i> {$request->name}</h2>
 
 
-
+    <a n:href="edit! $request->id"
+            class="ajax">
+        <button type="button" class="btn btn-warning btn-sm"><i
+                    class="fa fa-edit "></i>
+        </button>
+    </a>
     <table class="table table-striped w-75 align-self-center">
 
         <tbody>
@@ -36,3 +41,13 @@
 
 
 {/block}
+{define modal-editRequest-title}
+    Editace požadavku
+{/define}
+{define modal-editRequest-body}
+
+    {control editRequestForm}
+
+{/define}
+{define modal-editRequest-footer}
+{/define}

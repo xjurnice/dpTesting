@@ -62,10 +62,10 @@ class SignInFormFactory
 		$form = $this->factory->create();
         $form->onRender[] = [$this, 'makeBootstrap4'];
 		$form->addText('username')
-			->setRequired('Please enter your username.')->setHtmlAttribute('placeholder', 'uživatelské jméno');
+			->setRequired('Prosím zadejte své uživatelské jméno.')->setHtmlAttribute('placeholder', 'uživatelské jméno');
 
 		$form->addPassword('password')
-			->setRequired('Please enter your password.')->setHtmlAttribute('placeholder', 'heslo');
+			->setRequired('Prosím zadejte své heslo.')->setHtmlAttribute('placeholder', 'heslo');
 
 		$form->addCheckbox('remember', 'Pamatovat si přihlášení');
 
@@ -73,10 +73,10 @@ class SignInFormFactory
 
 		$form->onSuccess[] = function (Form $form, $values) use ($onSuccess) {
 			try {
-				$this->user->setExpiration($values->remember ? '14 days' : '90 minutes');
+				$this->user->setExpiration($values->remember ? '14 days' : '120 minutes');
 				$this->user->login($values->username, $values->password);
 			} catch (Nette\Security\AuthenticationException $e) {
-				$form->addError('The username or password you entered is incorrect.');
+				$form->addError('Uživatelské jméno nebo heslo není správně zadáno.');
 				return;
 			}
 			$onSuccess();
