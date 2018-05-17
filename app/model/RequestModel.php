@@ -27,12 +27,12 @@ class RequestModel
 
     public function getRequests($id)
     {
-        return $this->database->table('request')->where('project_id',$id);
+        return $this->database->table('request')->where('project_id', $id);
     }
 
     public function getRequest($id)
     {
-        return $this->database->table('request')->where('id',$id)->fetch();
+        return $this->database->table('request')->where('id', $id)->fetch();
     }
 
     public function addRequest($values)
@@ -42,11 +42,8 @@ class RequestModel
 
     public function editRequest($values)
     {
-        return $this->database->table('request')->where('id',$values['id'])->update($values);
+        return $this->database->table('request')->where('id', $values['id'])->update($values);
     }
-
-
-
 
 
 }

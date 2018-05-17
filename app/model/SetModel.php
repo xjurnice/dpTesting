@@ -26,20 +26,22 @@ class SetModel
 
     public function getSets($id)
     {
-        return $this->database->table('set')->where('project_id',$id);
-    }
-    public function findById($id)
-    {
-        return $this->database->table('set')->where('id',$id)->fetch();
+        return $this->database->table('set')->where('project_id', $id);
     }
 
-    public function notThisId($id,$project)
+    public function findById($id)
     {
-        return $this->database->table('set')->where('id <> ? ',$id)->where('project_id',$project);
+        return $this->database->table('set')->where('id', $id)->fetch();
     }
+
+    public function notThisId($id, $project)
+    {
+        return $this->database->table('set')->where('id <> ? ', $id)->where('project_id', $project);
+    }
+
     public function updateSet($values)
     {
-        return $this->database->table('set')->where('id',$values['id'])->update($values);
+        return $this->database->table('set')->where('id', $values['id'])->update($values);
     }
 
     public function addSet($values)
@@ -50,7 +52,7 @@ class SetModel
     public function getTreeSet($id)
     {
         $result = null;
-        while($id!=null) {
+        while ($id != null) {
             $result = $this->database->table('set')->where('id', $id)->fetch();
             $id = $this->database->table('set')->select('id')->where('parent_id', $id)->fetch();
         }

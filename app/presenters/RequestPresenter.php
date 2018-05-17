@@ -49,7 +49,7 @@ class RequestPresenter extends BasePresenter
 
     public function handleEdit($id)
     {
-$this->id = $id;
+        $this->id = $id;
         $this->data = $this->requestModel->getRequest($id);
         parent::handleModal('editRequest');
     }
@@ -78,17 +78,18 @@ $this->id = $id;
         $a = null;
         $grid->addColumnLink('link', 'Název', 'detail', 'name', ['id' => 'id'])->setFilterText(['name', 'id']);
 
-        if ($this->getUser()->getIdentity()->role_id==4){
-        $grid->addColumnStatus('status', 'Status')
-            ->setCaret(false)
-            ->addOption(0, 'Zadaný')
-            ->setIcon('check')
-            ->setClass('btn-info')
-            ->endOption()
-            ->addOption(1, 'Splněný')
-            ->setIcon('check')
-            ->setClass('btn-success')
-            ->endOption()->onChange[] = [$this, 'statusChange'];} else {
+        if ($this->getUser()->getIdentity()->role_id == 4) {
+            $grid->addColumnStatus('status', 'Status')
+                ->setCaret(false)
+                ->addOption(0, 'Zadaný')
+                ->setIcon('check')
+                ->setClass('btn-info')
+                ->endOption()
+                ->addOption(1, 'Splněný')
+                ->setIcon('check')
+                ->setClass('btn-success')
+                ->endOption()->onChange[] = [$this, 'statusChange'];
+        } else {
 
             $grid->addColumnText('status', 'Status')
                 ->setRenderer(function ($item) {
@@ -114,7 +115,7 @@ $this->id = $id;
 
     public function statusChange($id, $new_status)
     {
-        if (in_array($new_status, [0,1])) {
+        if (in_array($new_status, [0, 1])) {
             $this->requestModel->getRequest($id)->update(['status' => $new_status]);
         }
 
@@ -158,13 +159,12 @@ $this->id = $id;
 
         $form->addText('name', 'Název:')->setRequired('Je nutné uvést název')->setDefaultValue($this->data['name']);
         $form->addTextArea('description', 'Popis:', 40, 10)->setDefaultValue($this->data['description']);
-$form->addHidden('id')->setDefaultValue($this->data['id']);
+        $form->addHidden('id')->setDefaultValue($this->data['id']);
 
         $form->addSubmit('add', 'Vložit')->getControlPrototype()->setClass('btn btn-primary btn-lg btn-block');
         $form->onSuccess[] = array($this, 'editFormSucceeded');
         return $form;
     }
-
 
 
     public function editFormSucceeded(Form $form, $values)

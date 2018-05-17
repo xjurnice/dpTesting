@@ -52,96 +52,96 @@
         <tr>
 
 
-                <th scope="row">Poznámka</th>
-                <td> {$exe->note}</td>
+            <th scope="row">Poznámka</th>
+            <td> {$exe->note}</td>
 
         </tr>
         </tbody>
     </table>
 
-{if  $steps==null}
+    {if  $steps==null}
 
- {else}
-    <div class="col-6 col-md-4 col-xl-4">
-        <div class="card box shadow" style="position: relative;padding: 1em;  width:400px">
-            <div class="h5 chartjs-title align-self-center">Úspěšnost kroků</div>
-            <canvas id="myChart"></canvas>
-        </div>
-    </div>
-    <h2>Kroky s popisem defektu</h2>
-    <table class="table table-striped">
-
-        <thead>
-        </thead>
-        <tbody>
-        <tr>
-
-            <div class="row">
-                <div class="col-lg-2 col-sm-1 col-md-1 col-xl-1">
-                    <b>Krok</b>
-                </div>
-                <div class="col-lg-4 col-sm-6 col-md-5 col-xl-4">
-                    <b>Akce</b>
-                </div>
-                <div class="col-lg-4 col-sm-6 col-md-5 col-xl-4">
-                    <b>Očekávaný výstup</b>
-                </div>
-                <div class="col-lg-2 col-sm-1 col-md-1 col-xl-3">
-
-                    <b>Popis defektu</b>
-                </div>
-
+    {else}
+        <div class="col-6 col-md-4 col-xl-4">
+            <div class="card box shadow" style="position: relative;padding: 1em;  width:400px">
+                <div class="h5 chartjs-title align-self-center">Úspěšnost kroků</div>
+                <canvas id="myChart"></canvas>
             </div>
-        </tr>
-        {foreach $steps as $step}
+        </div>
+        <h2>Kroky s popisem defektu</h2>
+        <table class="table table-striped">
+
+            <thead>
+            </thead>
+            <tbody>
             <tr>
-                <td class="td_steps">
-                    <div class="row">
-                        <div class="col-lg-2 col-sm-1 col-md-1 col-xl-1">
-                            <dt class="step_id primary">{$iterator->counter}. krok</dt>
-                        </div>
-                        <div class="col-lg-4 col-sm-6 col-md-5 col-xl-4">
-                            <div class="card shadow">
-                                <div class="card-body">
 
-                                    <p class="card-text">    {$step->action}</p>
+                <div class="row">
+                    <div class="col-lg-2 col-sm-1 col-md-1 col-xl-1">
+                        <b>Krok</b>
+                    </div>
+                    <div class="col-lg-4 col-sm-6 col-md-5 col-xl-4">
+                        <b>Akce</b>
+                    </div>
+                    <div class="col-lg-4 col-sm-6 col-md-5 col-xl-4">
+                        <b>Očekávaný výstup</b>
+                    </div>
+                    <div class="col-lg-2 col-sm-1 col-md-1 col-xl-3">
 
-                                </div>
+                        <b>Popis defektu</b>
+                    </div>
+
+                </div>
+            </tr>
+            {foreach $steps as $step}
+                <tr>
+                    <td class="td_steps">
+                        <div class="row">
+                            <div class="col-lg-2 col-sm-1 col-md-1 col-xl-1">
+                                <dt class="step_id primary">{$iterator->counter}. krok</dt>
                             </div>
-                        </div>
-                        <div class="col-lg-4 col-sm-6 col-md-5 col-xl-4">
-                            <div class="card shadow">
-                                <div class="card-body">
-
-                                    <p class="card-text">    {$step->result}</p>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-2 col-sm-1 col-md-1 col-xl-3">
-                            {if $step->description==null}
-                            {else}
-                                <div class="card bg-danger text-white shadow">
+                            <div class="col-lg-4 col-sm-6 col-md-5 col-xl-4">
+                                <div class="card shadow">
                                     <div class="card-body">
 
-                                        <p class="card-text">    {$step->description}</p>
+                                        <p class="card-text">    {$step->action}</p>
 
                                     </div>
                                 </div>
-                            {/if}
+                            </div>
+                            <div class="col-lg-4 col-sm-6 col-md-5 col-xl-4">
+                                <div class="card shadow">
+                                    <div class="card-body">
+
+                                        <p class="card-text">    {$step->result}</p>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-sm-1 col-md-1 col-xl-3">
+                                {if $step->description==null}
+                                {else}
+                                    <div class="card bg-danger text-white shadow">
+                                        <div class="card-body">
+
+                                            <p class="card-text">    {$step->description}</p>
+
+                                        </div>
+                                    </div>
+                                {/if}
+                            </div>
+
+
                         </div>
 
 
-                    </div>
+                    </td>
+                </tr>
 
-
-                </td>
-            </tr>
-
-        {/foreach}
-        </tbody>
-    </table>
-{/if}
+            {/foreach}
+            </tbody>
+        </table>
+    {/if}
 {/block}
 
 {block scripts}

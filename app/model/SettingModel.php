@@ -36,15 +36,13 @@ class SettingModel
 
     public function updateCategory($values)
     {
-        return $this->database->table('case_category')->where('id',$values['id'])->update($values);
+        return $this->database->table('case_category')->where('id', $values['id'])->update($values);
     }
 
     public function getCategoryID($id)
     {
-        return $this->database->table('case_category')->where('id',$id)->fetch();
+        return $this->database->table('case_category')->where('id', $id)->fetch();
     }
-
-
 
 
 }

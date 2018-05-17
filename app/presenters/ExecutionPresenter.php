@@ -98,6 +98,7 @@ class ExecutionPresenter extends BasePresenter
 
 
     }
+
     public function renderRun($case_id, $plan_id)
     {
         $this->plan_id = $plan_id;
@@ -112,6 +113,7 @@ class ExecutionPresenter extends BasePresenter
         $this->id = $id;
 
     }
+
     public function renderDetail($id)
     {
         $this->template->exe = $this->executionModel->getExecutionByID($id);
@@ -124,7 +126,7 @@ class ExecutionPresenter extends BasePresenter
         $skip = $this->executionModel->getExecutionSkip($id);
         $this->template->labels = ["Úspěšný", "Neúspěšný", "Vynechaný"];
         $this->template->series = [$succes, $fail, $skip];
-       $this->template->steps = $this->executionModel->getDefects($id);
+        $this->template->steps = $this->executionModel->getDefects($id);
 
     }
 
@@ -165,7 +167,7 @@ class ExecutionPresenter extends BasePresenter
         $id = $values["case_id"];
         $project = $this->getSession('sekcePromenna')->project;
         $plan_id = $values["test_plan_id"];
-        $this->executionModel->addExecution($values,$project);
+        $this->executionModel->addExecution($values, $project);
 
         if ($plan_id <> 0) {
 
@@ -175,8 +177,8 @@ class ExecutionPresenter extends BasePresenter
                 $this->redirect("Execution:run", $case['id'], $this->plan_id);
             } else {
                 $this->flashMessage("Test plán je dokončen");
-                $s['status']=1;
-                $this->planModel->setTestPlanFinished($this->plan_id,$s); // 1 means finished
+                $s['status'] = 1;
+                $this->planModel->setTestPlanFinished($this->plan_id, $s); // 1 means finished
                 $this->redirect("Plan:detail", $this->plan_id);
 
 
@@ -239,7 +241,7 @@ class ExecutionPresenter extends BasePresenter
             ->setFilterSelect($category);
 
         $users = [];
-        $users = ['' => 'Všechno']  + $this->caseModel->getUsers($this->getSession('sekcePromenna')->project)->fetchPairs('id', 'username');
+        $users = ['' => 'Všechno'] + $this->caseModel->getUsers($this->getSession('sekcePromenna')->project)->fetchPairs('id', 'username');
         $grid->addColumnText('run_by', 'Vykonáno')
             ->setReplacement($this->caseModel->getUsers($this->getSession('sekcePromenna')->project)->fetchPairs('id', 'username'))
             ->setFilterSelect($users);

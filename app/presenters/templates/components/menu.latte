@@ -3,41 +3,41 @@
         href="{plink Dashboard:default}">
     <i class="fa fa-home"></i> Dashboard</a>
 {if $role==2 OR $role==3 }
-<a n:class="$presenter->isLinkCurrent('Case:*') ? 'list-group-item list-group-item-action active' : 'list-group-item list-group-item-action'"
-        href="{plink Case:default}">
-    <i class="fa fa-file"></i>  Testovací případy</a>
-<a n:class="$presenter->isLinkCurrent('Set:*') ? 'list-group-item list-group-item-action active' : 'list-group-item list-group-item-action'"
-        href="{plink Set:default}">
-    <i class="fa fa-box"></i> Testovací sady</a>
+    <a n:class="$presenter->isLinkCurrent('Case:*') ? 'list-group-item list-group-item-action active' : 'list-group-item list-group-item-action'"
+            href="{plink Case:default}">
+        <i class="fa fa-file"></i> Testovací případy</a>
+    <a n:class="$presenter->isLinkCurrent('Set:*') ? 'list-group-item list-group-item-action active' : 'list-group-item list-group-item-action'"
+            href="{plink Set:default}">
+        <i class="fa fa-box"></i> Testovací sady</a>
 
 
-<a n:class="$presenter->isLinkCurrent('Execution:default') ? 'list-group-item list-group-item-action active' : 'list-group-item list-group-item-action'"
-        href="{plink Execution:default}">
-    <i class="fa fa-play-circle"></i> Přehled dokončených testů</a>
-<a n:class="$presenter->isLinkCurrent('Plan:*') ? 'list-group-item list-group-item-action active' : 'list-group-item list-group-item-action'"
-        href="{plink Plan:default}">
-    <i class="fa fa-map"></i> Test plány</a>
+    <a n:class="$presenter->isLinkCurrent('Execution:default') ? 'list-group-item list-group-item-action active' : 'list-group-item list-group-item-action'"
+            href="{plink Execution:default}">
+        <i class="fa fa-play-circle"></i> Přehled dokončených testů</a>
+    <a n:class="$presenter->isLinkCurrent('Plan:*') ? 'list-group-item list-group-item-action active' : 'list-group-item list-group-item-action'"
+            href="{plink Plan:default}">
+        <i class="fa fa-map"></i> Test plány</a>
 
 {/if}
 {if $role==4 OR $role==2 OR $role==3}
-<a n:class="$presenter->isLinkCurrent('Request:*') ? 'list-group-item list-group-item-action active' : 'list-group-item list-group-item-action'"
-        href="{plink Request:default}">
-    <i class="fa fa-clipboard"></i> Požadavky</a>
+    <a n:class="$presenter->isLinkCurrent('Request:*') ? 'list-group-item list-group-item-action active' : 'list-group-item list-group-item-action'"
+            href="{plink Request:default}">
+        <i class="fa fa-clipboard"></i> Požadavky</a>
 {/if}
 {if $role==4}
-<a n:class="$presenter->isLinkCurrent('Case:approval') ? 'list-group-item list-group-item-action active' : 'list-group-item list-group-item-action'"
-        href="{plink Case:approval}">
-    <i class="fa fa-check-circle"></i>  Schvalován test. případů</a>
+    <a n:class="$presenter->isLinkCurrent('Case:approval') ? 'list-group-item list-group-item-action active' : 'list-group-item list-group-item-action'"
+            href="{plink Case:approval}">
+        <i class="fa fa-check-circle"></i> Schvalován test. případů</a>
 
 {/if}
 {if $role==2}
     <a n:class="$presenter->isLinkCurrent('User:management') ? 'list-group-item list-group-item-action active' : 'list-group-item list-group-item-action'"
             href="{plink User:management}">
-        <i class="fa fa-users"></i>  Správa uživatelů</a>
+        <i class="fa fa-users"></i> Správa uživatelů</a>
 
-<a n:class="$presenter->isLinkCurrent('Setting:*') ? 'list-group-item list-group-item-action active' : 'list-group-item list-group-item-action'"
-        href="{plink Setting:default}">
-    <i class="fa fa-cogs"></i>  Nastavení</a>
+    <a n:class="$presenter->isLinkCurrent('Setting:*') ? 'list-group-item list-group-item-action active' : 'list-group-item list-group-item-action'"
+            href="{plink Setting:default}">
+        <i class="fa fa-cogs"></i> Nastavení</a>
 {/if}
 
 

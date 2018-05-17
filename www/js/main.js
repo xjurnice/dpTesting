@@ -1,6 +1,6 @@
 $.nette.ext('bs-modal', {
 
-    init: function() {
+    init: function () {
         // if the modal has some content, show it when page is loaded
         var $modal = $('#modal');
         if ($modal.find('.modal-content').html().trim().length !== 0) {
@@ -26,5 +26,6 @@ $.nette.ext('bs-modal', {
 });
 
 
-
-    $(".flash").first().hide().fadeIn(200).delay(2000).fadeOut(1000, function () { $(this).remove()});
+$(".flash").first().hide().fadeIn(200).delay(2000).fadeOut(1000, function () {
+    $(this).remove()
+});

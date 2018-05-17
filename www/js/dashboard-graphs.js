@@ -1,4 +1,3 @@
-
 function random_rgba() {
 
     var r = Math.floor((Math.random() * 256));

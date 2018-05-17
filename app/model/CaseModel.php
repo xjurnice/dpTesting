@@ -75,7 +75,7 @@ class CaseModel
 
     public function getProject($user_id)
     {
-        return $this->database->query('SELECT project.id, project.name FROM project JOIN project_has_user ON project.id=project_has_user.project_id WHERE user_id=?',$user_id);
+        return $this->database->query('SELECT project.id, project.name FROM project JOIN project_has_user ON project.id=project_has_user.project_id WHERE user_id=?', $user_id);
     }
 
 
@@ -88,7 +88,7 @@ class CaseModel
 
     public function getAllSteps($id)
     {
-        return $this->database->query("SELECT * FROM step WHERE case_id=?",$id)->fetchAll();
+        return $this->database->query("SELECT * FROM step WHERE case_id=?", $id)->fetchAll();
 
     }
 
@@ -115,8 +115,6 @@ class CaseModel
     }
 
 
-
-
     public function updateStep($values)
     {
         return $this->database->table('step')->where('id', $values['id'])->update($values);
@@ -125,7 +123,7 @@ class CaseModel
 
     public function deleteStep($id)
     {
-        $this->database->table('execution_step')->where('step_id',$id)->delete();
+        $this->database->table('execution_step')->where('step_id', $id)->delete();
         return $this->database->table('step')->where('id', $id)->delete();
 
     }
@@ -149,7 +147,7 @@ class CaseModel
 
     public function getUsers($id)
     {
-        return $this->database->query('SELECT username, user.id FROM user JOIN project_has_user on user.id=project_has_user.user_id WHERE project_id=?',$id);
+        return $this->database->query('SELECT username, user.id FROM user JOIN project_has_user on user.id=project_has_user.user_id WHERE project_id=?', $id);
     }
 
 
@@ -178,12 +176,14 @@ class CaseModel
 
     public function deleteCase($id)
     {
-        $event_type =[2,3,4];
-        $this->database->table('event')->where('event_type_id IN (?) AND object_id=?', $event_type,$id)->delete();
+        $event_type = [2, 3, 4];
+        $this->database->table('event')->where('event_type_id IN (?) AND object_id=?', $event_type, $id)->delete();
         $this->database->table('test_plan_has_case')->where('case_id', $id)->delete();
+        $this->database->table('execution_step')->where('case_id', $id)->delete();
         $this->database->table('execution')->where('case_id', $id)->delete();
         $this->database->table('step')->where('case_id', $id)->delete();
         $this->database->table('case')->where('id', $id)->delete();
+
     }
 
     public function getSets($id)
@@ -200,18 +200,19 @@ class CaseModel
 
             $event_type = 4;
 
-            $this->database->query('INSERT into event (user_id,object_id,event_type_id,project_id) VALUES (?,?,?,?)',$user,$i,$event_type,$project);
+            $this->database->query('INSERT into event (user_id,object_id,event_type_id,project_id) VALUES (?,?,?,?)', $user, $i, $event_type, $project);
 
         }
 
     }
 
-    public function caseUpdateEvent($user,$i,$project){
+    public function caseUpdateEvent($user, $i, $project)
+    {
 
 
         $event_type = 4;
 
-        $this->database->query('INSERT into event (user_id,object_id,event_type_id,project_id) VALUES (?,?,?,?)',$user,$i,$event_type,$project);
+        $this->database->query('INSERT into event (user_id,object_id,event_type_id,project_id) VALUES (?,?,?,?)', $user, $i, $event_type, $project);
     }
 
 }

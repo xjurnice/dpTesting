@@ -11,8 +11,6 @@ use Ublaboo\DataGrid\DataGrid;
 use AlesWita;
 
 
-
-
 class ProjectPresenter extends BasePresenter
 {
 
@@ -30,8 +28,6 @@ class ProjectPresenter extends BasePresenter
     public function renderEdit()
     {
     }
-
-
 
 
     protected function createComponentInsertForm()
@@ -57,9 +53,6 @@ class ProjectPresenter extends BasePresenter
 
         $this->redirect('Dashboard:default');
     }
-
-
-
 
 
 }

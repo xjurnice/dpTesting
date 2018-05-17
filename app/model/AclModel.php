@@ -6,7 +6,8 @@
  * and open the template in the upravitor.
  */
 
-class AclModel {
+class AclModel
+{
 
     private $acl = null;
 
@@ -15,7 +16,8 @@ class AclModel {
     const ROLE_TESTER = '3';
     const ROLE_CUSTOMER = '4';
 
-    public function __construct() {
+    public function __construct()
+    {
 
         $this->acl = new Nette\Security\Permission;
 
@@ -50,31 +52,29 @@ class AclModel {
 
 
         $this->acl->allow(self::ROLE_TESTER, "user", array("profile", "edit"));
-        $this->acl->allow(self::ROLE_TESTER, "case", array("add", "default","detail","edit"));
-        $this->acl->allow(self::ROLE_TESTER, "execution", array("default","detail","run"));
-        $this->acl->allow(self::ROLE_TESTER, "plan", array("default","detail"));
-        $this->acl->allow(self::ROLE_TESTER, "set", array("add","default","detail","edit"));
+        $this->acl->allow(self::ROLE_TESTER, "case", array("add", "default", "detail", "edit"));
+        $this->acl->allow(self::ROLE_TESTER, "execution", array("default", "detail", "run"));
+        $this->acl->allow(self::ROLE_TESTER, "plan", array("default", "detail"));
+        $this->acl->allow(self::ROLE_TESTER, "set", array("add", "default", "detail", "edit"));
         $this->acl->allow(self::ROLE_TESTER, "request", array("detail", "default"));
 
 
         $this->acl->allow(self::ROLE_MANAGER, "dashboard", array("all", "default"));
-        $this->acl->allow(self::ROLE_MANAGER, "case", array("add", "approval","default","detail","edit"));
-        $this->acl->allow(self::ROLE_MANAGER, "execution", array("default","detail","run"));
-        $this->acl->allow(self::ROLE_MANAGER, "plan", array("default","detail"));
+        $this->acl->allow(self::ROLE_MANAGER, "case", array("add", "approval", "default", "detail", "edit"));
+        $this->acl->allow(self::ROLE_MANAGER, "execution", array("default", "detail", "run"));
+        $this->acl->allow(self::ROLE_MANAGER, "plan", array("default", "detail"));
         $this->acl->allow(self::ROLE_MANAGER, "project", array("add"));
-        $this->acl->allow(self::ROLE_MANAGER, "request", array("default","detail"));
-        $this->acl->allow(self::ROLE_MANAGER, "set", array("add","default","detail","edit"));
+        $this->acl->allow(self::ROLE_MANAGER, "request", array("default", "detail"));
+        $this->acl->allow(self::ROLE_MANAGER, "set", array("add", "default", "detail", "edit"));
         $this->acl->allow(self::ROLE_MANAGER, "sign", array("out"));
-        $this->acl->allow(self::ROLE_MANAGER, "user", array("profile","management","edit"));
+        $this->acl->allow(self::ROLE_MANAGER, "user", array("profile", "management", "edit"));
         $this->acl->allow(self::ROLE_MANAGER, "setting", array("default"));
-
-
-
 
 
     }
 
-    public function isAllowed($role, $presenter, $action) {
+    public function isAllowed($role, $presenter, $action)
+    {
 
         return $this->acl->isAllowed($role, $presenter, $action);
     }

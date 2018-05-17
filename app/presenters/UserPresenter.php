@@ -88,6 +88,7 @@ class UserPresenter extends BasePresenter
 
 
     }
+
     public function createComponentDeleteAssignToProjectGrid($name)
     {
 
@@ -108,6 +109,7 @@ class UserPresenter extends BasePresenter
 
 
     }
+
     public function addSelectedProject(array $ids)
     {
 
@@ -135,6 +137,7 @@ class UserPresenter extends BasePresenter
         $this->redirect('this');
 
     }
+
     public function createComponentUsersGrid($name)
     {
 
@@ -175,13 +178,12 @@ class UserPresenter extends BasePresenter
                 foreach ($projects as $project) {
                     $projectString = $projectString . ' ' . $project . ', ';
                 }
-                return $projectString ;
+                return $projectString;
             })->addAttributes(['class' => 'text-center font-weight-bold']);
 
 
         $grid->addAction('assign', 'Přiřadit další projekt', 'assign!', ['id'])->setIcon('plus-circle')->setClass('btn btn-xs btn-success ajax');
         $grid->addAction('delete', 'Odebrat přiřazené projekty', 'delete!', ['id'])->setIcon('minus-circle')->setClass('btn btn-xs btn-danger ajax');
-
 
 
     }

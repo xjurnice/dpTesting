@@ -17,19 +17,19 @@
         </tr>
         <tr>
             <th scope="row">Uživatelská role</th>
-            <td>  <b> {switch $userdata->role_id}
-                    {case 1}
-                    <span class="text-info">registrovanný uživatel</span>
-                {case 2}
-                    <span class="text-info">projektový manažer</span>
-                {case 3}
-                    <span class="text-info">tester</span>
-                {case 4}
-                    <span class="text-info">zákazník</span>
-                    {default}
-                    Neznámý
-                {/switch}
-                </b> </td>
+            <td><b> {switch $userdata->role_id}
+                        {case 1}
+                        <span class="text-info">registrovanný uživatel</span>
+                    {case 2}
+                        <span class="text-info">projektový manažer</span>
+                    {case 3}
+                        <span class="text-info">tester</span>
+                    {case 4}
+                        <span class="text-info">zákazník</span>
+                        {default}
+                        Neznámý
+                    {/switch}
+                </b></td>
         </tr>
         <tr>
             <th scope="row">Jméno</th>
@@ -45,7 +45,7 @@
         <tr class="bg-info text-white">
             <th>Statistiky účtu</th>
             <td></td>
-{if $role==2 OR $role==3}
+            {if $role==2 OR $role==3}
         </tr>
         <tr>
             <th scope="row">Počet vytvořených testovacích případů</th>
@@ -59,7 +59,7 @@
             </td>
         </tr>
 
-      {/if}
+        {/if}
 
         <tr>
             <th scope="row">Přiřazen k projektům</th>

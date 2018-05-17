@@ -1,35 +1,36 @@
-
-
 {block content}
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item active"><a class="text-success" n:href="Set:default"><i class="fa fa-home fa-1x"></i> </a></li>
+            <li class="breadcrumb-item active"><a class="text-success" n:href="Set:default"><i
+                            class="fa fa-home fa-1x"></i> </a></li>
             {if !($parentSet)}
             {else}
-            <li class="breadcrumb-item active" aria-current="page">...</li>
-                <li class="breadcrumb-item"><a n:href="Set:detail $parentSet->id, $parentSet->parent_id">{$parentSet->name}</a></li>
+                <li class="breadcrumb-item active" aria-current="page">...</li>
+                <li class="breadcrumb-item">
+                    <a n:href="Set:detail $parentSet->id, $parentSet->parent_id">{$parentSet->name}</a></li>
             {/if}
 
             <li class="breadcrumb-item active" aria-current="page">{$set->name}</li>
 
     </nav>
 
-    <h2 >{$set->name}</h2>  <a n:href="edit! $set->id"
+    <h2>{$set->name}</h2>  <a n:href="edit! $set->id"
         class="ajax">
     <button type="button" class="btn btn-warning btn-sm"><i
                 class="fa fa-edit "></i>
     </button>
 </a>
-<hr>
+    <hr>
     {foreach $childrenSets as $chset}
-    <span class="text-info"><a class="text-info" n:href="Set:detail $chset->id,$chset->parent_id"> <i class="fa fa-level-down-alt"></i> {$chset->name} </a></span>
+        <span class="text-info"><a class="text-info" n:href="Set:detail $chset->id,$chset->parent_id"> <i
+                        class="fa fa-level-down-alt"></i> {$chset->name} </a></span>
 
     {/foreach}
 
 
 
 
-{control setDetailGrid}
+    {control setDetailGrid}
 
 {/block}
 

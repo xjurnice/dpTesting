@@ -1,5 +1,5 @@
 {block content}
-{var $role = $user->getIdentity()->role_id}
+    {var $role = $user->getIdentity()->role_id}
     <h2>{$case->name}</h2>
     <h3 class="lead"><b>Status:
             {switch $case->status}
@@ -13,11 +13,11 @@
                 Neznámý
             {/switch}</b></h3>
     {if $role==2 OR $role==3}
-    <a n:href="Execution:run $case->id" ><span class=" btn btn-success"><i
-                    class="fa fa-play-circle"></i> Spustit test</span></a>
-    <a n:href="Case:edit $case->id" class="btn btn-warning btn-sm"><i
-                class="fa fa-edit"></i></a>
-{/if}
+        <a n:href="Execution:run $case->id" ><span class=" btn btn-success"><i
+                        class="fa fa-play-circle"></i> Spustit test</span></a>
+        <a n:href="Case:edit $case->id" class="btn btn-warning btn-sm"><i
+                    class="fa fa-edit"></i></a>
+    {/if}
     <br><br>
     <table id="table1" class="table table-striped w-75 align-self-center">
 
@@ -160,25 +160,28 @@
                         </div>
                         <div class="col-lg-2 col-sm-1 col-md-1 col-xl-1">
                             {if $role==2 OR $role==3}
-                            <a n:href="editStep!  id_step=>$step->id"
-                                    class="ajax"><span
-                                        class=" btn btn-warning btn-sm"><i class="fa fa-edit"></i></span></a>
-                            <a n:href="deleteStep! id_step=>$step->id"><span class=" btn btn-danger btn-sm"><i
-                                            class="fa fa-trash "></i></span></a>
+                                <a n:href="editStep!  id_step=>$step->id"
+                                        class="ajax"><span
+                                            class=" btn btn-warning btn-sm"><i class="fa fa-edit"></i></span></a>
+                                <a n:href="deleteStep! id_step=>$step->id"><span class=" btn btn-danger btn-sm"><i
+                                                class="fa fa-trash "></i></span></a>
 
                             {/if}
                         </div>
                         <div class="col-lg-2 col-sm-1 col-md-1 col-xl-1">
 
                             {if $step->note<>null}<br><br>
-                                <a n:href="addNote! id_step=>$step->id" class="ajax"><span class=" btn btn-light btn-sm"><i
+                                <a n:href="addNote! id_step=>$step->id" class="ajax"><span
+                                            class=" btn btn-light btn-sm"><i
                                                 class="fa fa-pencil-alt"></i> Editovat poznámku</span></a>
 
-                                <button type="button" class="btn btn-sm btn-primary shadow " data-toggle="popover" title="Poznámka"
+                                <button type="button" class="btn btn-sm btn-primary shadow " data-toggle="popover"
+                                        title="Poznámka"
                                         data-content="{$step->note}"><i
                                             class="fa fa-info fa-1x "></i></button>
-                                {else}
-                                <a n:href="addNote! id_step=>$step->id" class="ajax"><span class=" btn btn-light btn-sm"><i
+                            {else}
+                                <a n:href="addNote! id_step=>$step->id" class="ajax"><span
+                                            class=" btn btn-light btn-sm"><i
                                                 class="fa fa-plus-circle "></i> Přidat poznámku</span></a>
                             {/if}
                         </div>
@@ -193,41 +196,41 @@
     </table>
     <div class="empty-block"></div>
     {if $role==2 OR $role==3}
-    <a n:href="addStep!" class="ajax"><span class=" btn btn-success"><i
-                    class="fa fa-plus-circle"></i> Přidat krok</span></a>
-    <div class="empty-block"></div>
+        <a n:href="addStep!" class="ajax"><span class=" btn btn-success"><i
+                        class="fa fa-plus-circle"></i> Přidat krok</span></a>
+        <div class="empty-block"></div>
 
-    <h2>Výskyt se v testplánech</h2>
+        <h2>Výskyt se v testplánech</h2>
 
-    <table class="table table-striped w-50 align-self-center">
+        <table class="table table-striped w-50 align-self-center">
 
-        <tbody>
-        {foreach $plans as $plan}
-            <tr>
-                <td>
-                    <b> <a n:href="Plan:detail $plan->id">{$plan->name} </a></b>
-                </td>
-                <td>
-                    Status: <b>{switch $plan->status}
-                        {case 0}
-                            <span class="text-info"> Upravený</span>
-                        {case 1}
-                            <span class="text-success">Dokončený</span>
-                        {default}
-                            Vytvořený
-                        {/switch}</b>
-                <td>  {$case->create_time|date:'d.m.Y H:i:s'}
-                </td>
-                </td>
-            </tr>
+            <tbody>
+            {foreach $plans as $plan}
+                <tr>
+                    <td>
+                        <b> <a n:href="Plan:detail $plan->id">{$plan->name} </a></b>
+                    </td>
+                    <td>
+                        Status: <b>{switch $plan->status}
+                            {case 0}
+                                <span class="text-info"> Upravený</span>
+                            {case 1}
+                                <span class="text-success">Dokončený</span>
+                            {default}
+                                Vytvořený
+                            {/switch}</b>
+                    <td>  {$case->create_time|date:'d.m.Y H:i:s'}
+                    </td>
+                    </td>
+                </tr>
 
-        {/foreach}
-        </tbody>
-    </table>
-    <h2>Záznamy spuštění testu</h2>
+            {/foreach}
+            </tbody>
+        </table>
+        <h2>Záznamy spuštění testu</h2>
 
-    {control exeGrid}
-{/if}
+        {control exeGrid}
+    {/if}
 
 {/block}
 

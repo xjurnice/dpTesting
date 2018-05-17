@@ -11,7 +11,6 @@ use App\Model\PlanModel;
 use AlesWita;
 
 
-
 class EventPresenter extends BasePresenter
 {
 
@@ -40,41 +39,43 @@ class EventPresenter extends BasePresenter
     {
         $this->template->plan_id = $id;
         $this->template->plan = $this->planModel->getPlan($id);
-        if ($this->planModel->getFirstCase($id)<>null) {
+        if ($this->planModel->getFirstCase($id) <> null) {
             $this->template->first = $this->planModel->getFirstCase($id);
         }
 
-        if ($this->planModel->getNextCase($id)<>null) {
+        if ($this->planModel->getNextCase($id) <> null) {
             $this->template->next = $this->planModel->getNextCase($id);
         }
 
-        $succes = $this->planModel->getCountExecution($id)->where('status',1)->count();
-        $fail = $this->planModel->getCountExecution($id)->where('status',2)->count();
-        $skip = $this->planModel->getCountExecution($id)->where('status',3)->count();
-        $this->template->labels = ["Úspěšný","Neúspěšný","Vynechaný"];
-        $this->template->series = [$succes,$fail,$skip];
+        $succes = $this->planModel->getCountExecution($id)->where('status', 1)->count();
+        $fail = $this->planModel->getCountExecution($id)->where('status', 2)->count();
+        $skip = $this->planModel->getCountExecution($id)->where('status', 3)->count();
+        $this->template->labels = ["Úspěšný", "Neúspěšný", "Vynechaný"];
+        $this->template->series = [$succes, $fail, $skip];
         $times = $this->planModel->getTimeOfExecution($id);
         $this->template->labelsTime = [$times];
-        $this->template->seriesTime = [25,37,45,66,90,1,3,6,4];
+        $this->template->seriesTime = [25, 37, 45, 66, 90, 1, 3, 6, 4];
 
 
     }
 
 
-
-    public function handleDeletePlan($id){
+    public function handleDeletePlan($id)
+    {
 
 
         $this->planModel->deletePlan($id);
         $this->flashMessage('Plán byl úspěšně smazán.');
     }
 
-    public function handleAddPlan(){
+    public function handleAddPlan()
+    {
 
         parent::handleModal('add');
     }
 
-    public function handleAddCase(){
+    public function handleAddCase()
+    {
 
         parent::handleModal('addcase');
     }
@@ -88,27 +89,25 @@ class EventPresenter extends BasePresenter
         $grid->setRememberState(FALSE);
 
 
-        $fluent = $this->planModel->getCasesNotInPlanYet($this->getSession('sekcePromenna')->project,$this->id);
+        $fluent = $this->planModel->getCasesNotInPlanYet($this->getSession('sekcePromenna')->project, $this->id);
 
 
         $grid->setDataSource($fluent);
 
 
-        $grid->addColumnLink('link', 'Testovací případ', 'Case:detail', 'name',  ['id' => 'id'])->setFilterText(['name', 'id']);
-$set = [];
-$set = ['' => 'Všechno'] + $this->caseModel->getSets($this->getSession('sekcePromenna')->project)->fetchPairs('id','name');
+        $grid->addColumnLink('link', 'Testovací případ', 'Case:detail', 'name', ['id' => 'id'])->setFilterText(['name', 'id']);
+        $set = [];
+        $set = ['' => 'Všechno'] + $this->caseModel->getSets($this->getSession('sekcePromenna')->project)->fetchPairs('id', 'name');
 
 
         $grid->addColumnText('set_id', 'Sada')
-            ->setReplacement($this->caseModel->getSets($this->getSession('sekcePromenna')->project)->fetchPairs('id','name'))
+            ->setReplacement($this->caseModel->getSets($this->getSession('sekcePromenna')->project)->fetchPairs('id', 'name'))
             ->setFilterSelect($set);
 
         $grid->addGroupAction('Přidat')->setClass('btn')->onSelect[] = [$this, 'addSelectedCase'];
 
         $grid->addColumnDateTime('create_time', 'Vytvořeno')
             ->setFormat('d.m.Y H:i:s')->setSortable();
-
-
 
 
     }
@@ -133,9 +132,6 @@ $set = ['' => 'Všechno'] + $this->caseModel->getSets($this->getSession('sekcePr
         $grid->addGroupAction('Odebrat')->onSelect[] = [$this, 'deleteSelectedCase'];
 
 
-
-
-
     }
 
     public function createComponentPlanGrid($name)
@@ -152,7 +148,7 @@ $set = ['' => 'Všechno'] + $this->caseModel->getSets($this->getSession('sekcePr
         $grid->setDataSource($fluent);
 
 
-        $grid->addColumnLink('link', 'Název', 'Plan:detail', 'name',  ['id' => 'id'])->setFilterText(['name', 'id']);
+        $grid->addColumnLink('link', 'Název', 'Plan:detail', 'name', ['id' => 'id'])->setFilterText(['name', 'id']);
 
         $grid->addColumnDateTime('create_time', 'Vytvořeno')
             ->setFormat('d.m.Y H:i:s')->setSortable();
@@ -172,31 +168,30 @@ $set = ['' => 'Všechno'] + $this->caseModel->getSets($this->getSession('sekcePr
             ->setIcon('trash')->setConfirm('Opravdu chcete smazat testovací případ "%s?"', 'name');
 
 
-
     }
 
     public function deleteSelectedCase(array $ids)
     {
 
-            $this->planModel->deleteCases($ids,$this->id);
+        $this->planModel->deleteCases($ids, $this->id);
         $this->flashMessage('Záznam byl úspěšně odebrán.');
-            $this['assignCaseGrid']->reload();
+        $this['assignCaseGrid']->reload();
         $this->redirect('this');
 
 
-
     }
+
     public function addSelectedCase(array $ids)
     {
 
-        $this->planModel->addCases($ids,$this->id);
+        $this->planModel->addCases($ids, $this->id);
 
 
-            $this->flashMessage('Záznam byl úspěšně přidán.');
+        $this->flashMessage('Záznam byl úspěšně přidán.');
 
-            $this['assignCaseGrid']->reload();
+        $this['assignCaseGrid']->reload();
 
-            $this->redirect('this');
+        $this->redirect('this');
 
     }
 
@@ -216,7 +211,6 @@ $set = ['' => 'Všechno'] + $this->caseModel->getSets($this->getSession('sekcePr
         $form->onSuccess[] = array($this, 'insertFormSucceeded');
         return $form;
     }
-
 
 
     public function insertFormSucceeded(Form $form, $values)

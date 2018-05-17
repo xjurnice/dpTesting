@@ -10,7 +10,8 @@
     </p>
     <div class="collapse" id="collapseExample">
         <div class="card card-body">
-            Pro ovládání funkcí je možné využít kláves (F1 - začít průchod testu znovu, F2 - zastavení běžící časomíry, F3 - spuštění časomíry).
+            Pro ovládání funkcí je možné využít kláves (F1 - začít průchod testu znovu, F2 - zastavení běžící časomíry,
+            F3 - spuštění časomíry).
         </div>
     </div>
 
@@ -32,7 +33,8 @@
                 <div class="col-lg-4 col-sm-6 col-md-5 col-xl-5">
                     <b>Očekávaný výstup</b>
                 </div>
-            </div><br>
+            </div>
+            <br>
         </tr>
 
 
@@ -64,32 +66,44 @@
                             </div>
                         </div>
                     </a>
-                    <span id="defect" class="def hidden"> <a n:href="defect! $step->id" class="btn btn-light text-danger shadow ajax"><i class="fa fa-bug"></i> Popsat defekt</a></span>
+                    <span id="defect" class="def hidden"> <a n:href="defect! $step->id"
+                                class="btn btn-light text-danger shadow ajax"><i
+                                    class="fa fa-bug"></i> Popsat defekt</a></span>
 
                 </td>
             </tr>
         {/foreach}
-        <tr> <td class="td_steps" style="height: 1px; padding:0;"><a class="steps"></a></td></tr>
+        <tr>
+            <td class="td_steps" style="height: 1px; padding:0;"><a class="steps">
+                    {if $steps==null}
+                        <span class="info text-white" style="padding: 1em">Test nemá žádné kroky. Tlačítko pro odeslání testu se zobrazí až přechodu k dalšímu kroku.</span>
+                    {/if}
+                </a></td>
+        </tr>
         </tbody>
     </table>
 
 
-       {control runExecutionForm}
-        <div class="row">
-        </div>
+    {control runExecutionForm}
+    <div class="row">
+    </div>
 
-        <div class="col-2"> <button id="reset" class="btn btn-warning btn-lg" onClick="window.location.reload()">Reset</button></div>
+    <div class="col-2">
+        <button id="reset" class="btn btn-warning btn-lg" onClick="window.location.reload()">Reset</button>
+    </div>
     </div>
 
 
-    <div class="empty-block"></div><div class="empty-block"></div><div class="empty-block"></div>
+    <div class="empty-block"></div>
+    <div class="empty-block"></div>
+    <div class="empty-block"></div>
     <div class="row footer">
         <div class="col-7 col-sm-4  col-md-5 col-xl-7 align-content-md-start">
             <button id="next" class="btn btn-success">Úspěšný <i class="fa fa-arrow-down"></i></button>
             <button id="fail" class="btn btn-danger">Neúspěšný <i class="fa fa-arrow-right"></i></button>
             <button id="previous" class="btn btn-light">Předchozí <i class="fa fa-arrow-up"></i></button>
             <button id="skip" class="btn btn-warning">Přeskočený <i class="fa fa-arrow-left"></i></button>
-            <button id="start_again" class="btn btn-dark">Začít od 1. kroku [F1] </button>
+            <button id="start_again" class="btn btn-dark">Začít od 1. kroku [F1]</button>
 
         </div>
         <div class="col-2 col-sm-2 col-md-3 col-xl-2" style="text-align: right">
@@ -99,7 +113,7 @@
 
 
         </div>
-        <div class="col-3 col-sm-6 col-md-4 col-xl-3" >
+        <div class="col-3 col-sm-6 col-md-4 col-xl-3">
             <div class="clock"></div>
 
 
@@ -122,7 +136,7 @@
 {/define}
 {define modal-defect-body}
 
-{control defectForm}
+    {control defectForm}
 
 {/define}
 {define modal-defect-footer}

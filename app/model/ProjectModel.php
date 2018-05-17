@@ -44,8 +44,9 @@ class ProjectModel
         return $this->database->table('project')->where('id', $values['id'])->update($values);
     }
 
-    public function isProjectActive($id){
-        if (!empty($this->database->query("SELECT * FROM project WHERE id=? AND DATEDIFF(start_date,CURRENT_DATE)<=0 AND DATEDIFF(end_date,CURRENT_DATE)>=0",$id)->fetch())) {
+    public function isProjectActive($id)
+    {
+        if (!empty($this->database->query("SELECT * FROM project WHERE id=? AND DATEDIFF(start_date,CURRENT_DATE)<=0 AND DATEDIFF(end_date,CURRENT_DATE)>=0", $id)->fetch())) {
 
             return 1;
         } else {
@@ -55,15 +56,16 @@ class ProjectModel
 
     public function getCountCaseInProject($id)
     {
-        return $this->database->query('SELECT count(case.id) AS c FROM `project`JOIN `case` on project.id = case.project_id WHERE project.id IN (SELECT project.id FROM project JOIN project_has_user ON project.id=project_has_user.project_id WHERE user_id=?) group by project.id',$id)->fetchPairs();
+        return $this->database->query('SELECT count(case.id) AS c FROM `project`JOIN `case` on project.id = case.project_id WHERE project.id IN (SELECT project.id FROM project JOIN project_has_user ON project.id=project_has_user.project_id WHERE user_id=?) group by project.id', $id)->fetchPairs();
 
     }
 
     public function getProjectNameCaseInProject($id)
     {
-        return $this->database->query('SELECT project.name  FROM `project`JOIN `case` on project.id = case.project_id WHERE project.id IN (SELECT project.id FROM project JOIN project_has_user ON project.id=project_has_user.project_id WHERE user_id=?) group by project.id',$id)->fetchPairs();
+        return $this->database->query('SELECT project.name  FROM `project`JOIN `case` on project.id = case.project_id WHERE project.id IN (SELECT project.id FROM project JOIN project_has_user ON project.id=project_has_user.project_id WHERE user_id=?) group by project.id', $id)->fetchPairs();
 
     }
+
     public function getSkipeedTestToProject($id)
     {
         $skip = 3;
@@ -103,11 +105,13 @@ class ProjectModel
         return $this->database->query('SELECT DISTINCT(user.username) FROM (`user` JOIN `execution` on user.id = execution.run_by) LEFT JOIN `case` ON execution.case_id=case.id WHERE case.project_id=? ORDER BY user.id', $id)->fetchPairs();
 
     }
+
     public function getSumTimeTesterByExe($id)
     {
         return $this->database->query('SELECT SUM(spend_time)/60 FROM (`user` JOIN `execution` on user.id = execution.run_by) LEFT JOIN `case` ON execution.case_id=case.id WHERE case.project_id=? GROUP BY run_by ORDER BY user.id', $id)->fetchPairs();
 
     }
+
     public function getSumTimByProject($id)
     {
         return $this->database->query('SELECT SUM(spend_time)/60 AS s FROM  `execution` JOIN `case` ON execution.case_id=case.id WHERE case.project_id=?', $id)->fetch();
@@ -116,7 +120,7 @@ class ProjectModel
 
     public function getTestPlanForUser($project, $user)
     {
-        return $this->database->table('test_plan')->where('project_id=? AND assign_user_id=?', $project,$user)->order('planed_time DESC')->limit('10')->fetchAll();
+        return $this->database->table('test_plan')->where('project_id=? AND assign_user_id=?', $project, $user)->order('planed_time DESC')->limit('10')->fetchAll();
 
     }
 

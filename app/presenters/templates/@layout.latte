@@ -118,7 +118,7 @@
                 {if $role==2}
                     <a n:class="$presenter->isLinkCurrent('User:management') ? 'list-group-item list-group-item-action active' : 'list-group-item list-group-item-action'"
                             href="{plink User:management}">
-                        <i class="fa fa-users"></i>  Správa uživatelů</a>
+                        <i class="fa fa-users"></i> Správa uživatelů</a>
                 {/if}
             {else}
                 {include components/menu.latte}
@@ -169,7 +169,7 @@
             <br>
             {if $project==0}
 
-                {if $presenter->isLinkCurrent('User:management')}
+                {if $presenter->isLinkCurrent('User:management') OR $presenter->isLinkCurrent('User:profile') OR $presenter->isLinkCurrent('User:edit')}
 
                     {include content}
 

@@ -6,34 +6,34 @@
     <br>
 
     <h3>Nastavení projektu</h3>
-{control editProjectForm}
+    {control editProjectForm}
 
 
-<br>
+    <br>
     <hr>
     <h3>Kategorie test. případů</h3>
     <center>
-    <table id="table1" class="table table-striped w-50 align-self-center">
+        <table id="table1" class="table table-striped w-50 align-self-center">
 
-        <tbody>
-        <tr>
-            {foreach $categoryes as $category}
-        <tr>
+            <tbody>
+            <tr>
+                {foreach $categoryes as $category}
+            <tr>
 
-            <td>  {$category->name}
-            </td>
-            <td><a n:href="edit! $category->id"
-                        class="ajax">
-                    <button type="button" class="btn btn-warning btn-sm"><i
-                                class="fa fa-edit "></i>
-                    </button>
-                </a></td>
-        </tr>
-        {/foreach}
+                <td>  {$category->name}
+                </td>
+                <td><a n:href="edit! $category->id"
+                            class="ajax">
+                        <button type="button" class="btn btn-warning btn-sm"><i
+                                    class="fa fa-edit "></i>
+                        </button>
+                    </a></td>
+            </tr>
+            {/foreach}
 
 
-        </tbody>
-    </table>
+            </tbody>
+        </table>
         <a n:href="add!"
                 class="ajax">
             <button type="button" class="btn btn-success"><i

@@ -19,9 +19,10 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 
     private $acl = null;
 
-    public function renderLayout(){
+    public function renderLayout()
+    {
 
-       $this->template->neco = 'a';
+        $this->template->neco = 'a';
     }
 
     public function __construct(EventModel $eventModel)
@@ -30,7 +31,9 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
         $this->eventModel = $eventModel;
 
     }
-    public function startup() {
+
+    public function startup()
+    {
         parent::startup();
 
 
@@ -40,7 +43,7 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
                 $this->flashMessage("Musíte se přihlásit!");
                 $this->redirect("Sign:in");
             }
-        }else {
+        } else {
             $this->acl = new \AclModel();
             $roles = $this->getUser()->getRoles();
             $role = array_shift($roles);
@@ -89,7 +92,8 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
     }
 
 
-    protected function beforeRender() {
+    protected function beforeRender()
+    {
         $this->template->project = $this->getSession('sekcePromenna')->project;
         $this->template->projectActive = $this->eventModel->isProjectActive($this->getSession('sekcePromenna')->project);
 

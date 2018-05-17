@@ -53,8 +53,6 @@ class SettingPresenter extends BasePresenter
     }
 
 
-
-
     public function handleEdit($id)
     {
         $this->id = $id;
@@ -103,12 +101,12 @@ class SettingPresenter extends BasePresenter
     protected function createComponentEditProjectForm()
     {
         $form = new Form;
-        $data = $this->projectModel->getProject()->where('id',$this->getSession('sekcePromenna')->project)->fetch();
-        $start= new \DateTime($data['start_date']);
-        $start= $start->format('d.m.Y');
+        $data = $this->projectModel->getProject()->where('id', $this->getSession('sekcePromenna')->project)->fetch();
+        $start = new \DateTime($data['start_date']);
+        $start = $start->format('d.m.Y');
 
-        $end= new \DateTime($data['end_date']);
-        $end= $end->format('d.m.Y');
+        $end = new \DateTime($data['end_date']);
+        $end = $end->format('d.m.Y');
 
         $form->setRenderer(new AlesWita\FormRenderer\BootstrapV4Renderer);
         $form->addProtection();
@@ -144,7 +142,6 @@ class SettingPresenter extends BasePresenter
 
         $this->redirect('Setting:default');
     }
-
 
 
 }

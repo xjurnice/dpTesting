@@ -51,7 +51,6 @@ class SetPresenter extends BasePresenter
     }
 
 
-
     public function handleEdit($id)
 
     {
@@ -59,6 +58,7 @@ class SetPresenter extends BasePresenter
         $this->data = $this->setModel->findById($id);
         parent::handleModal('edit');
     }
+
     public function createComponentSetDetailGrid($name)
     {
 
@@ -84,23 +84,21 @@ class SetPresenter extends BasePresenter
             ->setFormat('d.m.Y H:i:s')->setSortable()->setFilterDateRange();
         $grid->addColumnText('status', 'Status')
             ->setRenderer(function ($item) {
-            switch ($item->status) {
-                case 0:
-                    return "K přepracování";
-                    break;
-                case 1:
-                    return "Navržený";
-                    break;
+                switch ($item->status) {
+                    case 0:
+                        return "K přepracování";
+                        break;
+                    case 1:
+                        return "Navržený";
+                        break;
 
-                case 2:
-                    return "Schválený";
-                    break;
+                    case 2:
+                        return "Schválený";
+                        break;
 
 
-            }
+                }
             })->addAttributes(['class' => 'text-center font-weight-bold']);
-
-
 
 
     }

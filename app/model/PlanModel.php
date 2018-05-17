@@ -40,12 +40,12 @@ class PlanModel
     {
         $role = 3; //testers
         return $this->database->query('SELECT id, username from user JOIN project_has_user ON user.id=project_has_user.user_id WHERE project_id=? 
-AND role_id=?',$project,$role)->fetchPairs('id', 'username');
+AND role_id=?', $project, $role)->fetchPairs('id', 'username');
     }
 
     public function editPlan($values)
     {
-        return $this->database->table('test_plan')->where('id=?',$values['id'])->update($values);
+        return $this->database->table('test_plan')->where('id=?', $values['id'])->update($values);
     }
 
 
@@ -99,18 +99,19 @@ AND role_id=?',$project,$role)->fetchPairs('id', 'username');
 LEFT JOIN (SELECT execution.id, execution.case_id as ids FROM execution JOIN `test_plan_has_case` ON execution.test_plan_id=test_plan_has_case.test_plan_id WHERE execution.test_plan_id=?)
  AS a ON case_id=a.ids
 WHERE test_plan_has_case.test_plan_id=? 
-ORDER BY sequence",$id, $id)->fetchAll();
+ORDER BY sequence", $id, $id)->fetchAll();
     }
+
     public function getAssignCasesCount($id)
     {
         return $this->database->query("SELECT * FROM `case` JOIN test_plan_has_case ON case.id=test_plan_has_case.case_id WHERE test_plan_has_case.test_plan_id=? 
 ORDER BY sequence", $id)->getRowCount();
     }
+
     public function getProcessCaseCount($id)
     {
-        return $this->database->table('execution')->where('test_plan_id',$id)->count();
+        return $this->database->table('execution')->where('test_plan_id', $id)->count();
     }
-
 
 
     public function getCasesNotInPlanYet($id, $test_plan_id)

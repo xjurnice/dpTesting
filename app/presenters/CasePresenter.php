@@ -367,9 +367,9 @@ class CasePresenter extends BasePresenter
             })->addAttributes(['class' => 'text-center font-weight-bold']);
         $grid->addColumnLink('link', 'Uživatelem', 'User:profile', 'username', ['id' => 'ide'])->setSortable();
 
-        $grid->addAction('detail', '', 'Execution:detail')
-            ->setIcon('lemon')
-            ->setTitle('Detail');
+        $grid->addAction('detail', 'Detail', 'Execution:Detail')
+            ->setIcon('')
+            ->setTitle('Detail')->setClass('btn btn-info text-white');
 
     }
 
@@ -486,10 +486,9 @@ class CasePresenter extends BasePresenter
         $multiplier->addCreateButton('Přidat 3 kroky', 3);
         $multiplier->addCreateButton('Přidat 5 kroků', 5);
 
-        $multiplier->addRemoveButton('Odebrat krok'); $copies = 0;
+        $multiplier->addRemoveButton('Odebrat krok');
+        $copies = 0;
         $maxCopies = 100;
-
-     
 
 
         $form->addSubmit('add', 'Vložit')->getControlPrototype()->setClass('btn btn-primary btn-lg btn-block');

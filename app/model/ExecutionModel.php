@@ -53,33 +53,34 @@ class ExecutionModel
 
     public function getExecutionByID($id)
     {
-        return $this->database->table('execution')->where('id',$id)->fetch();
+        return $this->database->table('execution')->where('id', $id)->fetch();
     }
+
     public function getExecutionAuthor($id)
     {
-        return $this->database->query('SELECT username, user.id FROM user JOIN execution ON user.id=execution.run_by WHERE execution.id=?',$id)->fetch();
+        return $this->database->query('SELECT username, user.id FROM user JOIN execution ON user.id=execution.run_by WHERE execution.id=?', $id)->fetch();
     }
 
     public function getExecutionPlan($id)
     {
-        return $this->database->query('SELECT name, test_plan.id FROM test_plan JOIN execution ON test_plan.id=execution.test_plan_id WHERE execution.id=?',$id)->fetch();
+        return $this->database->query('SELECT name, test_plan.id FROM test_plan JOIN execution ON test_plan.id=execution.test_plan_id WHERE execution.id=?', $id)->fetch();
     }
 
 
     public function getExecutionPass($id)
     {
-        return $this->database->table('execution')->select('number_pass')->where('id',$id)->fetchField('number_pass');
+        return $this->database->table('execution')->select('number_pass')->where('id', $id)->fetchField('number_pass');
     }
 
     public function getExecutionFail($id)
     {
-        return $this->database->table('execution')->select('number_defect')->where('id',$id)->fetchField('number_defect');
+        return $this->database->table('execution')->select('number_defect')->where('id', $id)->fetchField('number_defect');
 
     }
 
     public function getExecutionSkip($id)
     {
-        return $this->database->table('execution')->select('number_skip')->where('id',$id)->fetchField('number_skip');
+        return $this->database->table('execution')->select('number_skip')->where('id', $id)->fetchField('number_skip');
     }
 
     public function getAllExecutions($id)

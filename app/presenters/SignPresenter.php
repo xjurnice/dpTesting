@@ -15,15 +15,14 @@ use AlesWita;
 
 class SignPresenter extends BasePresenter
 {
-	/** @var Forms\SignInFormFactory */
-	private $signInFactory;
+    /** @var Forms\SignInFormFactory */
+    private $signInFactory;
 
-	/** @var Forms\SignUpFormFactory */
-	private $signUpFactory;
+    /** @var Forms\SignUpFormFactory */
+    private $signUpFactory;
 
     /** @var UserModel */
     private $userModel;
-
 
 
     /** @var Nette\Mail\IMailer @inject */
@@ -31,17 +30,18 @@ class SignPresenter extends BasePresenter
 
     public $token;
 
-	public function __construct(Forms\SignInFormFactory $signInFactory, Forms\SignUpFormFactory $signUpFactory, UserModel $userModel, EventModel $eventModel)
+    public function __construct(Forms\SignInFormFactory $signInFactory, Forms\SignUpFormFactory $signUpFactory, UserModel $userModel, EventModel $eventModel)
     {
         parent::__construct($eventModel);
         $this->userModel = $userModel;
 
-		$this->signInFactory = $signInFactory;
-		$this->signUpFactory = $signUpFactory;
-	}
+        $this->signInFactory = $signInFactory;
+        $this->signUpFactory = $signUpFactory;
+    }
 
 
-    protected function createComponentForgottenPasswordForm() {
+    protected function createComponentForgottenPasswordForm()
+    {
         $form = new Form;
         $form->setRenderer(new AlesWita\FormRenderer\BootstrapV4Renderer);
 
@@ -67,18 +67,19 @@ class SignPresenter extends BasePresenter
         }
     }
 
-        public function verifyEmailSuccess(Form $form, $values) {
+    public function verifyEmailSuccess(Form $form, $values)
+    {
         // ...
         if ($this->userModel->getEmails($values['mail'])) {
             $token = Utils\Random::generate(32);
             $id = $this->userModel->getId($values['mail']);
 
-            $this->userModel->setToken($token,$id);
+            $this->userModel->setToken($token, $id);
             $mail = new Message;
             $mail->setFrom('info@testone.cz');
             $mail->addTo($values['mail']);
             $mail->setSubject('Žádost o změnu hesla na TestOne');
-            $mail->setBody("Dobrý den,\nprávě jste požádal/a o změnu hesla na Test0ne. Pro změnu použíjte následující odkaz URL.\n  http://localhost/dp-testing/www/sign/newpass?token=".$token);
+            $mail->setBody("Dobrý den,\nprávě jste požádal/a o změnu hesla na Test0ne. Pro změnu použíjte následující odkaz URL.\n  http://localhost/dp-testing/www/sign/newpass?token=" . $token);
 
 
             $this->mailer->send($mail);
@@ -111,7 +112,8 @@ class SignPresenter extends BasePresenter
         return $form;
     }
 
-    public function editPassSuccess(Form $form, $values) {
+    public function editPassSuccess(Form $form, $values)
+    {
         $values = $form->getValues();
 
 
@@ -122,43 +124,44 @@ class SignPresenter extends BasePresenter
         $this->redirect('Sign:in');
 
     }
-	/**
-	 * Sign-in form factory.
-	 * @return Form
-	 */
-	protected function createComponentSignInForm()
-	{
 
-		return $this->signInFactory->create(function () {
+    /**
+     * Sign-in form factory.
+     * @return Form
+     */
+    protected function createComponentSignInForm()
+    {
 
-					$this->redirect('Dashboard:');
-		});
-	}
+        return $this->signInFactory->create(function () {
+
+            $this->redirect('Dashboard:');
+        });
+    }
 
 
-	/**
-	 * Sign-up form factory.
-	 * @return Form
-	 */
-	protected function createComponentSignUpForm()
-	{
-		return $this->signUpFactory->create(function () {
+    /**
+     * Sign-up form factory.
+     * @return Form
+     */
+    protected function createComponentSignUpForm()
+    {
+        return $this->signUpFactory->create(function () {
             $this->flashMessage('Nyní je možné se přihlásit');
 
             $this->redirect('Sign:in');
-		});
-	}
+        });
+    }
 
 
-	public function actionOut()
-	{
+    public function actionOut()
+    {
         $session = $this->getSession();
         $sessionSection = $session->getSection('sekcePromenna');
         $sessionSection->project = 0;
-		$this->getUser()->logout();
+        $this->getUser()->logout();
         $this->flashMessage('Byl jsi odhlášen');
 
-	}
+    }
 
 
 }

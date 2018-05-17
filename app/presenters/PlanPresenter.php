@@ -234,7 +234,7 @@ class PlanPresenter extends BasePresenter
         $form->addProtection();
 
 
-        if ($this->planModel->getTestersInProject($this->getSession('sekcePromenna')->project)==null) {
+        if ($this->planModel->getTestersInProject($this->getSession('sekcePromenna')->project) == null) {
             echo '    <div class="fail shadow text-white align-self-center" style="padding: 1em; font-size: 1.2em; font-weight: bold">
     <i class="fa fa-exclamation-circle"></i> Je třeba nejprve přiřadit nějakého testera k projektu!
                                    </div> ';
